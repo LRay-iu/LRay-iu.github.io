@@ -74,7 +74,7 @@
       
       
       
-        <p>这是一份肖臻老师的课程笔记，主要讲解了区块链的概念，基本没有什么代码片段，小白也可以当作科普类笔记，但是内容较为干枯</p>
+        <p>这是一份肖臻老师的课程笔记，主要讲解了区块链的概念，基本没有什么代码片段，因此也可以当作科普类笔记，但是内容较为干枯</p>
 <span id="more"></span>
 
 
@@ -89,6 +89,10 @@
 </blockquote>
 <h2 id="工具包"><a href="#工具包" class="headerlink" title="工具包"></a>工具包</h2><p>课程链接：【北京大学肖臻老师《区块链技术与应用》公开课】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Vt411X7JF">https://www.bilibili.com/video/BV1Vt411X7JF</a></p>
 <p>区块链demo：<a target="_blank" rel="noopener" href="https://andersbrownworth.com/blockchain">https://andersbrownworth.com/blockchain</a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这份网课是为了毕设做准备的，因此特此花费了一些时间用以学习区块链的本质</p>
+<p>在这份笔记中，你会了解比特币挖矿的真相，以及矿潮没落的原因</p>
+<p>但是比较无语的是，这份课程录制的时候我还在上初中，因此有部分内容可能以及随着时间发生了一些变化，需要辩证看待部分内容的正确性</p>
+<p>如果您发现笔记之中不正确的地方，欢迎您为我指正错误，联系方式见<strong>关于</strong>里的邮箱，感激不尽！</p>
 <h2 id="密码学原理"><a href="#密码学原理" class="headerlink" title="密码学原理"></a>密码学原理</h2><h3 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h3><p>加密货币实际是不加密的，线上公开透明；以最著名的加密货币比特币为例，它使用的是哈希和数字签名，密码学中的<strong>哈希</strong>被称为<strong>cryptographic hash function</strong>，它有一个特性叫<strong>collision resistance</strong>，也有地方说成<strong>collision free</strong>，但实际上哈希碰撞是不可避免的,这个特性当个玩笑话即可，马马虎虎可以这么认为，但不能当作真理。</p>
 <p><strong>collision resistance</strong>，指的是对于H(x),我们没有办法做到人为高效地找到一个H(x’)，使得H(x)&#x3D;&#x3D;H(x’)，通俗易懂一点来说，就是做不到篡改但是不被发现，只要x有一丁点变化，那么最终的哈希值就会与先前有所不同。在Golang的项目依赖管理go.mod和go.sum中有着类似的机制，go.mod存放了项目所需要的依赖，而go.sum则存放了依赖所对应的哈希值，一旦我们在拉取代码并使用go get下载对应依赖时，下载的依赖被人篡改，那么新依赖计算出来的哈希值就会与go.sum中的原依赖哈希值不符，进而引发警告。</p>
 <p><strong>哈希碰撞</strong>，指的是对于x≠y,但是存在H(x)&#x3D;&#x3D;H(y),使得不同输入会在哈希表被映射到同一个位置。由于哈希的输出空间只有2^256，且输出空间理论上是可以无限大的，因此哈希碰撞不可避免。但是目前来说，对于x，我们并没有高效的方式能够求得y满足哈希碰撞，暴力求解理论上可以完成，但是对于2^256种哈希值，这种方法非常困难。</p>
@@ -97,7 +101,7 @@
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">password = hashlib.md5(password.encode()).hexdigest()</span><br></pre></td></tr></table></figure>
 
 <p>哈希函数还有一个性质，叫<strong>hiding</strong>，简单来说，哈希函数是单向的，x–&gt;H(x)这个过程是不可逆的，除了蛮力，无法高效地破解,但这有一个前提，哈希的输入范围要足够大且分布要足够均匀，否则也会因为输出范围太过狭隘导致被暴力破解，这一点可以参考《模仿游戏》中阿兰·图灵最后破解德军恩格玛电报的原因。</p>
-<p>当collision resistance和hiding结合使用时就可以实现<strong>digital commitment</strong>，有时候也叫<strong>digital equivalent of LRay-iu sealed envelope</strong>。</p>
+<p>当collision resistance和hiding结合使用时就可以实现<strong>digital commitment</strong>，有时候也叫<strong>digital equivalent of sealed envelope</strong>。</p>
 <blockquote>
 <p>什么是digital commitment？假设现实世界出现了一名法师奇异博士，他在使用了时间宝石之后，能够准确预言未来发生的事情。请问作为旁观者，我们该如何证明他的能力呢？最简单粗暴的办法就是，让他先预言，再等预言的时间到了，看看预言的事情是否发生。这听上去非常合理，但是事实上，一旦预言被公布出来，那么未来就可能会<strong>因为预言被公布这件事</strong>而发生改变。例如，奇异博士预言了古一会死亡，本来按照时间线，古一可能的的确确是会死亡，但是由于奇异博士的预言，导致众人因为保护古一，而使其没有阵亡，或者说因为众人保护古一的过程中出现了意外导致古一阵亡。这无论是哪种情况，都没办法佐证奇异博士的预言能力。因此，我们得出结论，<strong>预言是不可公开的</strong>。我们正确的做法是让奇异博士将预言的内容封死在绝对安全的保险箱中，确保没有人知道预言，待预言的时间到了，再打开确认有没有发送预言中出现的事情。</p>
 </blockquote>
@@ -150,11 +154,13 @@
 <p>以下是肖臻老师PPT所做的演示，是将两种区块链结构合二为一，做的显然更加细致</p>
 <p><img src="/2024/01/23/xiaozhen_blockchain_note/9c36b711da645ebc72e4fb5b73b7572.png"></p>
 <p>这张图片展示了区块链节点中的以部分，每一个区块下存放着一个merkle tree，而树的地步是交易明细，在我们查询交易的时候，为了验证某个交易是否存在，轻节点会先向全节点发送请求，全节点会返回红色部分的哈希值以及交易的路径，轻节点只需要使用底部需要查验的交易哈希值，一步一步推出父节点中的绿色哈希值，知道推出根节点中的哈希值，与块头中的根哈希值进行比对。</p>
+<p><em>红色的哈希值我们是无法验证的，因为轻节点的这一次查询，只能查询路径中的部分，黑色部分都是无法查询的,我们无法判断红色哈希值的正确性</em></p>
 </blockquote>
 <p>这种查询方式也被成为 proof of membership&#x2F;proof of inclusion,复杂度是θ(log(n))；如果是 proof of non-membership呢？那就是将整个merkle tree都发送给轻节点了，复杂度是θ(n)</p>
 <h2 id="ETH以太坊"><a href="#ETH以太坊" class="headerlink" title="ETH以太坊"></a>ETH以太坊</h2><h4 id="机制区别"><a href="#机制区别" class="headerlink" title="机制区别"></a>机制区别</h4><blockquote>
 <p>比特币是proof of work（<strong>工作证明机制</strong>）,以太坊是proof of stake（<strong>权益证明机制</strong>）；</p>
-<p><em>&#x2F;&#x2F;值得一提的是，比特币和以太坊在2022年已经完成合并，因此先前部分笔记需要进行修改。 &#x2F;&#x2F;  其实有一部分相当于白学了#无能狂怒 #龙怒</em></p>
+<p><em>&#x2F;&#x2F;值得一提的是，比特币和以太坊在2022年已经完成合并，因此先前部分笔记需要进行修改。</em></p>
+<p><em>&#x2F;&#x2F; 其实有一部分相当于白学了#无能狂怒 #龙怒</em></p>
 </blockquote>
 <p><strong>传统比特币</strong>（现已与以太坊合并），在前面交易中收到的货币，必须要在之后一次性花出去</p>
 <p>例如：LRay-iu转给B10个比特币，B要在将来一次性全部交易出去，多余的则成为了tranactions fee</p>
@@ -230,7 +236,7 @@
       
     </div>
     <footer class="article-footer">
-      <!-- <a data-url="http://example.com/2024/01/23/xiaozhen_blockchain_note/" data-id="clvfatn1z000334ur34ewc72n" class="article-share-link">
+      <!-- <a data-url="http://example.com/2024/01/23/xiaozhen_blockchain_note/" data-id="clvfbv9zy000bz8ur4akj9de8" class="article-share-link">
         分享
       </a> -->
       
@@ -244,11 +250,11 @@
   
 <nav class="article-nav">
   
-  <a href="/2024/03/09/Vue3_note/" class="article-nav-link">
+  <a href="/2024/03/09/Patrick%20Collins_blockchain_note/" class="article-nav-link">
     <strong class="article-nav-caption">前一篇</strong>
     <div class="article-nav-title">
       
-      Vue 3.0 笔记
+      Patrick Collins-区块链 笔记
       
     </div>
   </a>
