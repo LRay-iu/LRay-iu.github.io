@@ -1001,7 +1001,7 @@ img {
 .archives ul,
 .article-entry ol,
 .archives ol {
-  padding-left: 2em;
+  padding-left: 0;
 }
 .article-entry ul,
 .archives ul {
@@ -1058,7 +1058,7 @@ img {
 .archives blockquote {
   position: relative;
   display: block;
-  padding: 0 1.5rem 0 3.5rem;
+  padding: 0 3rem 0 45px;
   width: 100%;
   overflow: auto;
   color: #5c6b72;
@@ -1412,9 +1412,8 @@ img {
   padding: 3rem 0 0;
 }
 .page-type-title {
-  padding-top: 1rem;
-  margin-left: 4rem;
-  margin-top: 2rem;
+  margin-left: 2vw;
+  margin-top: 1vh;
 }
 .page-nav {
   margin: 3rem auto;
@@ -1469,7 +1468,7 @@ img {
   line-height: 1.7;
 }
 .article-meta {
-  margin-left: 4rem;
+  margin-left: 2vw;
 }
 .article-meta::before,
 .article-meta::after {
@@ -1496,8 +1495,8 @@ img {
   margin-left: 0;
 }
 .article-entry {
-  margin-left: 4rem;
-  margin-top: 3rem;
+  padding: 0 1vw;
+  margin-top: 1rem;
   color: #1e3e3f;
 }
 .article-entry::before,
@@ -1548,9 +1547,8 @@ img {
 }
 .article-header h1,
 .article-header h2 {
-  padding-top: 1rem;
-  margin-left: 4rem;
-  margin-top: 2rem;
+  margin-left: 2vw;
+  margin-top: 1vh;
 }
 .article-header .article-title a {
   text-decoration: none;
@@ -1558,7 +1556,7 @@ img {
 }
 .article-footer {
   margin-top: 3rem;
-  margin-left: 4rem;
+  margin-left: 2vw;
 }
 .article-footer::before,
 .article-footer::after {
@@ -1604,8 +1602,8 @@ img {
 }
 .article-nav {
   position: relative;
-  padding-top: 3rem;
-  margin-top: 5rem;
+  padding: 2vh 0;
+  margin: 3vh 0 0 0;
   border-top: 0.1rem #e6e6e6 solid;
 }
 .article-nav::before,
@@ -1830,12 +1828,12 @@ a.toc-link {
 .article-albums-photos .article-albums-item .article-albums-caption {
   display: block;
   width: 100%;
-  padding: 1rem 0;
+  padding: 0;
   text-align: center;
 }
 @media (min-width: 576px) {
   .article-albums-item img {
-    height: 32rem;
+    height: 32px;
   }
   .article-albums-item .article-albums-caption {
     position: absolute;
@@ -2149,7 +2147,7 @@ a.toc-link {
   }
 }
 .card-quote {
-  padding: 0 4rem;
+  padding: 0 1vw;
   display: grid;
   grid-gap: 1.5rem;
   margin-bottom: 1.5rem;
@@ -2250,6 +2248,7 @@ a.toc-link {
   margin-top: 1.5rem;
 }
 .archives-wrap {
+  padding: 0 2vw;
   position: relative;
 }
 .archive-year-wrap {
@@ -2298,7 +2297,7 @@ a.toc-link {
   margin-top: 1.5rem;
 }
 .archive-article-inner {
-  padding: 0 4rem;
+  padding: 0;
 }
 .archive-article-inner .article-tag-list {
   padding: 0;
