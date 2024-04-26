@@ -236,7 +236,7 @@
   });
 })(jQuery);
 
-// 添加代码
+// // 添加代码
 $(document).ready(function ($) {
   $(".anchor").click(function (event) {
     event.preventDefault();
