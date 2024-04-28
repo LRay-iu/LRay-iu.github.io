@@ -71,7 +71,41 @@
     
 
     <div class="article-entry" itemprop="articleBody">
+      <!--  -->
       
+
+
+  <script>
+    // 检查屏幕宽度
+    function checkScreenWidth() {
+      var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  
+      // 如果屏幕宽度大于等于 500px，则启用这段代码
+      if (screenWidth >= 520) {
+        var elements = document.querySelectorAll('.article-albums-caption');
+        elements.forEach(function(element) {
+          element.style.display = 'inline'; // 或者 'block', 'flex'，具体取决于你的布局需求
+        });
+      }
+      if (screenWidth < 520) {
+        var elements = document.querySelectorAll('.article-albums-caption');
+        elements.forEach(function(element) {
+          element.style.display = 'none'; // 或者 'block', 'flex'，具体取决于你的布局需求
+        });
+      }
+    }
+  
+    // 页面加载完毕时执行一次检查
+    window.onload = function() {
+      checkScreenWidth();
+    };
+  
+    // 当窗口大小改变时再次执行检查
+    window.onresize = function() {
+      checkScreenWidth();
+    };
+  </script>
+  
       
       
         <p>有关区块链和WEB3全栈开发的课程笔记，来源是Patrick Collins 讲解的区块链课程，使用了Solidity，Javascript进行了智能合约的编写，部署和交互。这是比较流行的写法，当然合约不止Solidity一种编写方法，在引入库的之后，Javascript、Python、Golang都可以做到。</p>

@@ -71,11 +71,45 @@
     
 
     <div class="article-entry" itemprop="articleBody">
+      <!--  -->
+      
+
+
+  <script>
+    // 检查屏幕宽度
+    function checkScreenWidth() {
+      var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  
+      // 如果屏幕宽度大于等于 500px，则启用这段代码
+      if (screenWidth >= 520) {
+        var elements = document.querySelectorAll('.article-albums-caption');
+        elements.forEach(function(element) {
+          element.style.display = 'inline'; // 或者 'block', 'flex'，具体取决于你的布局需求
+        });
+      }
+      if (screenWidth < 520) {
+        var elements = document.querySelectorAll('.article-albums-caption');
+        elements.forEach(function(element) {
+          element.style.display = 'none'; // 或者 'block', 'flex'，具体取决于你的布局需求
+        });
+      }
+    }
+  
+    // 页面加载完毕时执行一次检查
+    window.onload = function() {
+      checkScreenWidth();
+    };
+  
+    // 当窗口大小改变时再次执行检查
+    window.onresize = function() {
+      checkScreenWidth();
+    };
+  </script>
+  
       
       
-      
-        <p>“初具雏形了！就将它命名为 ——“水门车险”！”</p>
-<p>   该文档为水门车险的前端部分，记录了水门车险在前端这个模块的开发过程，组件库方面选择了ElementPLUS，这个组件库在官网有着非常详细的文档</p>
+        <p>“初 . . . 初具雏形了！那就将它命名为 ——“水门车险”！”</p>
+<p>   该文档为水门车险的前端部分，记录了水门车险在前端这个模块的开发过程，组件库方面选择了ElementPLUS，这个组件库在官网有着非常详细的文档，非常适合前端不熟悉的人用其制作精美的页面</p>
 <span id="more"></span>
 
 
@@ -100,6 +134,11 @@
 <img src="/2024/04/25/minatosys_FrontEnd_note/image-20240423222551537.png" alt="image-20240423222551537" style="zoom:67%;">
 
 <p>go  ~  go  ~  go！</p>
+<h3 id="Element-Plus组件"><a href="#Element-Plus组件" class="headerlink" title="Element Plus组件"></a>Element Plus组件</h3><h4 id="安装和部署"><a href="#安装和部署" class="headerlink" title="安装和部署"></a>安装和部署</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"># 选择一个你喜欢的包管理器</span><br><span class="line"></span><br><span class="line"># NPM</span><br><span class="line">$ npm install element-plus --save</span><br><span class="line"></span><br><span class="line"># Yarn</span><br><span class="line">$ yarn add element-plus</span><br><span class="line"></span><br><span class="line"># pnpm</span><br><span class="line">$ pnpm install element-plus</span><br><span class="line"></span><br><span class="line"># “自动导入”插件</span><br><span class="line">$ npm install -D unplugin-vue-components unplugin-auto-import</span><br><span class="line"></span><br><span class="line"># 安装setup语法糖插件</span><br><span class="line">$ npm i vite-plugin-vue-setup-extend -D</span><br><span class="line"></span><br><span class="line"># 安装icon图标库</span><br><span class="line">$ npm install @element-plus/icons-vue</span><br><span class="line"></span><br><span class="line"># 安装Metamask插件</span><br><span class="line">$ npm i @metamask/detect-provider</span><br><span class="line"></span><br><span class="line"># 安装axios</span><br><span class="line">$ npm i axios</span><br><span class="line"></span><br><span class="line"># 安装pinia</span><br><span class="line">$ npm i pinia</span><br></pre></td></tr></table></figure>
+
+<p>使用Element-plus的方法请参考官方文档，写得非常详细，我觉得完全没必要多此一举再写一遍：<a target="_blank" rel="noopener" href="https://element-plus.org/zh-CN">https://element-plus.org/zh-CN</a></p>
+<h2 id="页面设计"><a href="#页面设计" class="headerlink" title="页面设计"></a>页面设计</h2><p>水门车险设计了两种角色，用户和管理员。将原有的第三方中介的身份交给了区块链上自动运行的智能合约</p>
+<p><em>实际上来说，管理员和车险公司人员应该是两个角色，车险公司人员实质上也是在用车险产品与用户进行交互，但是，时间实在是不够设计那么多角色了</em></p>
 
       
     </div>
