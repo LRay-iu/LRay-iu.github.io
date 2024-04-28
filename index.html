@@ -40,13 +40,17 @@
     </div>
     
     <div class="video-media">
-      <video playsinline="" autoplay="" loop="" muted="" data-autoplay="" poster="/images/ocean/ocean.png"
+      <!-- <video playsinline="" autoplay="" loop="" muted="" data-autoplay="" poster="/images/ocean/ocean.png"
         x5-video-player-type="h5">
         <source src="/images/ocean/ocean.mp4" type="video/mp4">
         <source src="/images/ocean/ocean.ogv" type="video/ogg">
         <source src="/images/ocean/ocean.webm" type="video/webm">
         <p>Your user agent does not support the HTML5 Video element.</p>
-      </video>
+      </video> -->
+      <div class="video-media">
+        <img src="/images/ocean/R-C.jpg" style="object-fit:cover">
+        <div class="video-overlay"></div>
+      </div>
       <!-- <div class="video-overlay"></div> -->
     </div>
     <div class="video-inner text-center text-white">
@@ -64,6 +68,44 @@
 .video-frame{
   object-fit: fill;
   margin-bottom: -1px;
+}
+h1 a{
+  text-shadow: 1px 0px 5px #000000, 1px 2px 8px #000000, 2px 1px 11px #000000;
+}
+
+.typing {
+    color: white;
+    /* font-size: 2em; */
+    /* width: 21em; */
+    height: 1.5em;
+    border-right: 1px solid transparent;
+    animation: typing 2s steps(7, end), blink-caret .75s step-end infinite;
+    font-family: Consolas, Monaco;
+    word-break: break-all;
+    overflow: hidden;
+}
+/* 打印效果 */
+@keyframes typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 156px;
+    }
+}
+
+/* 光标 */
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: currentColor;
+    }
 }
 </style>
 <div id="landingpage">
@@ -106,8 +148,10 @@
     
 
     <div class="article-entry" itemprop="articleBody">
-      <!--  -->
       
+
+
+      <!-- 
 
 
   <script>
@@ -140,9 +184,10 @@
       checkScreenWidth();
     };
   </script>
-  
+   -->
       
         
+
       
       
         <p>“初 . . . 初具雏形了！那就将它命名为 ——“水门车险”！”</p>
@@ -157,7 +202,7 @@
       
     </div>
     <footer class="article-footer">
-      <!-- <a data-url="https://lray-iu.gitee.io/2024/04/25/minatosys_FrontEnd_note/" data-id="clvfig1fu0007csurfmgk7w8b" class="article-share-link">
+      <!-- <a data-url="https://lray-iu.gitee.io/2024/04/25/minatosys_FrontEnd_note/" data-id="clvj5u4k3000ai8ur3ebgegun" class="article-share-link">
         分享
       </a> -->
       
@@ -172,204 +217,7 @@
   
 
 </article>
-    
-    <article id="post-Patrick Collins_blockchain_note" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
 
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-  
-  <h2 class="article-title" itemprop="name">
-    <a href="/2024/03/09/Patrick%20Collins_blockchain_note/">Patrick Collins-区块链 笔记</a>
-  </h2>
-  
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2024/03/09/Patrick%20Collins_blockchain_note/" class="article-date">
-  <time datetime="2024-03-09T06:11:40.000Z" itemprop="datePublished">2024-03-09</time>
-</a>
-      
-<div class="article-category">
-  <a class="article-category-link" href="/categories/Web3/">Web3</a>
-</div>
-
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      <!--  -->
-      
-
-
-  <script>
-    // 检查屏幕宽度
-    function checkScreenWidth() {
-      var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-  
-      // 如果屏幕宽度大于等于 500px，则启用这段代码
-      if (screenWidth >= 520) {
-        var elements = document.querySelectorAll('.article-albums-caption');
-        elements.forEach(function(element) {
-          element.style.display = 'inline'; // 或者 'block', 'flex'，具体取决于你的布局需求
-        });
-      }
-      if (screenWidth < 520) {
-        var elements = document.querySelectorAll('.article-albums-caption');
-        elements.forEach(function(element) {
-          element.style.display = 'none'; // 或者 'block', 'flex'，具体取决于你的布局需求
-        });
-      }
-    }
-  
-    // 页面加载完毕时执行一次检查
-    window.onload = function() {
-      checkScreenWidth();
-    };
-  
-    // 当窗口大小改变时再次执行检查
-    window.onresize = function() {
-      checkScreenWidth();
-    };
-  </script>
-  
-      
-        
-      
-      
-        <p>有关区块链和WEB3全栈开发的课程笔记，来源是Patrick Collins 讲解的区块链课程，使用了Solidity，Javascript进行了智能合约的编写，部署和交互。这是比较流行的写法，当然合约不止Solidity一种编写方法，在引入库的之后，Javascript、Python、Golang都可以做到。</p>
-        
-          <p>
-            <a class="article-more-link" href="/2024/03/09/Patrick%20Collins_blockchain_note/">
-              阅读全文...
-            </a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <!-- <a data-url="https://lray-iu.gitee.io/2024/03/09/Patrick%20Collins_blockchain_note/" data-id="clvfig1fr0005csur5ct33kwu" class="article-share-link">
-        分享
-      </a> -->
-      
-<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" rel="tag">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/" rel="tag">智能合约</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
-    <article id="post-Gin_note" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-  
-  <h2 class="article-title" itemprop="name">
-    <a href="/2024/03/09/Gin_note/">Gin 笔记</a>
-  </h2>
-  
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2024/03/09/Gin_note/" class="article-date">
-  <time datetime="2024-03-09T06:11:40.000Z" itemprop="datePublished">2024-03-09</time>
-</a>
-      
-<div class="article-category">
-  <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
-</div>
-
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      <!--  -->
-      
-
-
-  <script>
-    // 检查屏幕宽度
-    function checkScreenWidth() {
-      var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-  
-      // 如果屏幕宽度大于等于 500px，则启用这段代码
-      if (screenWidth >= 520) {
-        var elements = document.querySelectorAll('.article-albums-caption');
-        elements.forEach(function(element) {
-          element.style.display = 'inline'; // 或者 'block', 'flex'，具体取决于你的布局需求
-        });
-      }
-      if (screenWidth < 520) {
-        var elements = document.querySelectorAll('.article-albums-caption');
-        elements.forEach(function(element) {
-          element.style.display = 'none'; // 或者 'block', 'flex'，具体取决于你的布局需求
-        });
-      }
-    }
-  
-    // 页面加载完毕时执行一次检查
-    window.onload = function() {
-      checkScreenWidth();
-    };
-  
-    // 当窗口大小改变时再次执行检查
-    window.onresize = function() {
-      checkScreenWidth();
-    };
-  </script>
-  
-      
-        
-      
-      
-        <p>Gin是Golang常用的一种轻量型框架，可以快速部署且可以自定义项目结构，可塑性和操作性很强，搭配各种库可以实现非常不错的效果，精简的同时性能也丝毫不落下风，可以说是兼顾了性能和轻便程度，学习和开发难度较低于Springboot那种航空母舰型框架，但是想要使用的得心应手还需要对后端和Golang原生有一定的熟悉程度。</p>
-        
-          <p>
-            <a class="article-more-link" href="/2024/03/09/Gin_note/">
-              阅读全文...
-            </a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <!-- <a data-url="https://lray-iu.gitee.io/2024/03/09/Gin_note/" data-id="clvfig1fx000acsur8zim8uii" class="article-share-link">
-        分享
-      </a> -->
-      
-<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gin/" rel="tag">Gin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
     
     <article id="post-Vue3_note" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
@@ -404,8 +252,10 @@
     
 
     <div class="article-entry" itemprop="articleBody">
-      <!--  -->
       
+
+
+      <!-- 
 
 
   <script>
@@ -438,9 +288,10 @@
       checkScreenWidth();
     };
   </script>
-  
+   -->
       
         
+
       
       
         <p>Vue3.0的入门笔记，特色的compositionAPI写法，可读性和可维护性得到了大幅的提升，再加上各种组件库的支持，文档齐全，非常便于使用。</p>
@@ -454,7 +305,7 @@
       
     </div>
     <footer class="article-footer">
-      <!-- <a data-url="https://lray-iu.gitee.io/2024/03/09/Vue3_note/" data-id="clvfig1fz000ccsur4rgw7vc0" class="article-share-link">
+      <!-- <a data-url="https://lray-iu.gitee.io/2024/03/09/Vue3_note/" data-id="clvj5u4jx0005i8ur16k4c5ds" class="article-share-link">
         分享
       </a> -->
       
@@ -469,6 +320,213 @@
   
 
 </article>
+
+    
+    <article id="post-Gin_note" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+  
+  <h2 class="article-title" itemprop="name">
+    <a href="/2024/03/09/Gin_note/">Gin 笔记</a>
+  </h2>
+  
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2024/03/09/Gin_note/" class="article-date">
+  <time datetime="2024-03-09T06:11:40.000Z" itemprop="datePublished">2024-03-09</time>
+</a>
+      
+<div class="article-category">
+  <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+</div>
+
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      <!-- 
+
+
+  <script>
+    // 检查屏幕宽度
+    function checkScreenWidth() {
+      var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  
+      // 如果屏幕宽度大于等于 500px，则启用这段代码
+      if (screenWidth >= 520) {
+        var elements = document.querySelectorAll('.article-albums-caption');
+        elements.forEach(function(element) {
+          element.style.display = 'inline'; // 或者 'block', 'flex'，具体取决于你的布局需求
+        });
+      }
+      if (screenWidth < 520) {
+        var elements = document.querySelectorAll('.article-albums-caption');
+        elements.forEach(function(element) {
+          element.style.display = 'none'; // 或者 'block', 'flex'，具体取决于你的布局需求
+        });
+      }
+    }
+  
+    // 页面加载完毕时执行一次检查
+    window.onload = function() {
+      checkScreenWidth();
+    };
+  
+    // 当窗口大小改变时再次执行检查
+    window.onresize = function() {
+      checkScreenWidth();
+    };
+  </script>
+   -->
+      
+        
+
+      
+      
+        <p>Gin是Golang常用的一种轻量型框架，可以快速部署且可以自定义项目结构，可塑性和操作性很强，搭配各种库可以实现非常不错的效果，精简的同时性能也丝毫不落下风，可以说是兼顾了性能和轻便程度，学习和开发难度较低于Springboot那种航空母舰型框架，但是想要使用的得心应手还需要对后端和Golang原生有一定的熟悉程度。</p>
+        
+          <p>
+            <a class="article-more-link" href="/2024/03/09/Gin_note/">
+              阅读全文...
+            </a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <!-- <a data-url="https://lray-iu.gitee.io/2024/03/09/Gin_note/" data-id="clvj5u4k00007i8ur6mrj2ag1" class="article-share-link">
+        分享
+      </a> -->
+      
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gin/" rel="tag">Gin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+    
+    <article id="post-Patrick Collins_blockchain_note" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+  
+  <h2 class="article-title" itemprop="name">
+    <a href="/2024/03/09/Patrick%20Collins_blockchain_note/">Patrick Collins-区块链 笔记</a>
+  </h2>
+  
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2024/03/09/Patrick%20Collins_blockchain_note/" class="article-date">
+  <time datetime="2024-03-09T06:11:40.000Z" itemprop="datePublished">2024-03-09</time>
+</a>
+      
+<div class="article-category">
+  <a class="article-category-link" href="/categories/Web3/">Web3</a>
+</div>
+
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      <!-- 
+
+
+  <script>
+    // 检查屏幕宽度
+    function checkScreenWidth() {
+      var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  
+      // 如果屏幕宽度大于等于 500px，则启用这段代码
+      if (screenWidth >= 520) {
+        var elements = document.querySelectorAll('.article-albums-caption');
+        elements.forEach(function(element) {
+          element.style.display = 'inline'; // 或者 'block', 'flex'，具体取决于你的布局需求
+        });
+      }
+      if (screenWidth < 520) {
+        var elements = document.querySelectorAll('.article-albums-caption');
+        elements.forEach(function(element) {
+          element.style.display = 'none'; // 或者 'block', 'flex'，具体取决于你的布局需求
+        });
+      }
+    }
+  
+    // 页面加载完毕时执行一次检查
+    window.onload = function() {
+      checkScreenWidth();
+    };
+  
+    // 当窗口大小改变时再次执行检查
+    window.onresize = function() {
+      checkScreenWidth();
+    };
+  </script>
+   -->
+      
+        
+
+      
+      
+        <p>有关区块链和WEB3全栈开发的课程笔记，来源是Patrick Collins 讲解的区块链课程，使用了Solidity，Javascript进行了智能合约的编写，部署和交互。这是比较流行的写法，当然合约不止Solidity一种编写方法，在引入库的之后，Javascript、Python、Golang都可以做到。</p>
+        
+          <p>
+            <a class="article-more-link" href="/2024/03/09/Patrick%20Collins_blockchain_note/">
+              阅读全文...
+            </a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <!-- <a data-url="https://lray-iu.gitee.io/2024/03/09/Patrick%20Collins_blockchain_note/" data-id="clvj5u4k5000ci8urerwwai0s" class="article-share-link">
+        分享
+      </a> -->
+      
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" rel="tag">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/" rel="tag">智能合约</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
     
     <article id="post-xiaozhen_blockchain_note" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
@@ -503,8 +561,10 @@
     
 
     <div class="article-entry" itemprop="articleBody">
-      <!--  -->
       
+
+
+      <!-- 
 
 
   <script>
@@ -537,9 +597,10 @@
       checkScreenWidth();
     };
   </script>
-  
+   -->
       
         
+
       
       
         <p>这是一份肖臻老师的课程笔记，主要讲解了区块链的概念，基本没有什么代码片段，因此也可以当作科普类笔记，但是内容较为干枯</p>
@@ -553,7 +614,7 @@
       
     </div>
     <footer class="article-footer">
-      <!-- <a data-url="https://lray-iu.gitee.io/2024/01/23/xiaozhen_blockchain_note/" data-id="clvfig1fy000bcsurba4deryu" class="article-share-link">
+      <!-- <a data-url="https://lray-iu.gitee.io/2024/01/23/xiaozhen_blockchain_note/" data-id="clvj5u4k4000bi8ur8zwa5l3x" class="article-share-link">
         分享
       </a> -->
       
@@ -568,6 +629,7 @@
   
 
 </article>
+
     
   </article>
   

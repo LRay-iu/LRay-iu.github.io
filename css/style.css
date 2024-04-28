@@ -735,7 +735,7 @@ body {
 }
 h1 {
   font-size: 2em;
-  margin: 0.67em 0;
+  margin: 1vh 0;
 }
 hr {
   box-sizing: content-box /* 1 */;
@@ -1298,7 +1298,7 @@ img {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(178,191,204,0.6);
+  background-color: rgba(178,191,204,0.2);
 }
 .video-inner {
   position: absolute;
@@ -1414,6 +1414,7 @@ img {
 .page-type-title {
   margin-left: 2vw;
   margin-top: 1vh;
+  text-align: center;
 }
 .page-nav {
   margin: 3rem auto;
@@ -1468,7 +1469,7 @@ img {
   line-height: 1.7;
 }
 .article-meta {
-  margin-left: 2vw;
+  margin-left: 0.5vw;
 }
 .article-meta::before,
 .article-meta::after {
@@ -1495,8 +1496,8 @@ img {
   margin-left: 0;
 }
 .article-entry {
-  padding: 0 1vw;
-  margin-top: 1rem;
+  padding: 0;
+  margin-top: 0;
   color: #1e3e3f;
 }
 .article-entry::before,
@@ -1547,8 +1548,9 @@ img {
 }
 .article-header h1,
 .article-header h2 {
-  margin-left: 2vw;
+  margin-left: 0;
   margin-top: 1vh;
+  text-align: center;
 }
 .article-header .article-title a {
   text-decoration: none;
@@ -1556,7 +1558,6 @@ img {
 }
 .article-footer {
   margin-top: 3rem;
-  margin-left: 2vw;
 }
 .article-footer::before,
 .article-footer::after {
@@ -1809,14 +1810,10 @@ a.toc-link {
   display: table;
   clear: both;
 }
-.article-albums-photos::after {
-  content: '';
-  flex-grow: 999999999;
-}
 .article-albums-photos .article-albums-item {
   position: relative;
   flex-grow: 1;
-  margin: 0.5rem;
+  margin: 0.2rem;
   overflow: hidden;
 }
 .article-albums-photos .article-albums-item img {
@@ -1828,12 +1825,12 @@ a.toc-link {
 .article-albums-photos .article-albums-item .article-albums-caption {
   display: block;
   width: 100%;
-  padding: 0;
+  padding: 1rem 0;
   text-align: center;
 }
 @media (min-width: 576px) {
   .article-albums-item img {
-    height: 32px;
+    height: 32rem;
   }
   .article-albums-item .article-albums-caption {
     position: absolute;
@@ -2254,14 +2251,14 @@ a.toc-link {
 .archive-year-wrap {
   position: relative;
   padding-top: 1rem;
-  padding-left: 3rem;
+  padding-left: 0;
 }
 .archive-year-wrap::after {
   content: '';
   position: absolute;
   bottom: 1rem;
   right: 0;
-  left: 9rem;
+  left: 60px;
   height: 0.1rem;
   background-color: #adb5bd;
 }
