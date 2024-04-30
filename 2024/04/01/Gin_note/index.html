@@ -53,8 +53,8 @@
 
     
     <div class="article-meta">
-      <a href="/2024/03/09/Gin_note/" class="article-date">
-  <time datetime="2024-03-09T06:11:40.000Z" itemprop="datePublished">2024-03-09</time>
+      <a href="/2024/04/01/Gin_note/" class="article-date">
+  <time datetime="2024-04-01T06:11:40.000Z" itemprop="datePublished">2024-04-01</time>
 </a>
       
 <div class="article-category">
@@ -176,7 +176,7 @@
 
 <p>这是一个简单的接受数据的方法</p>
 <p>这里使用 Apifox（免费的，好使 👍）向它发送请求</p>
-<img src="/2024/03/09/Gin_note/image-20240329131341634.png" alt="image-20240329131341634" style="zoom: 67%;">
+<img src="/2024/04/01/Gin_note/image-20240329131341634.png" alt="image-20240329131341634" style="zoom: 67%;">
 
 <p>ok 完成，效果显著</p>
 <h2 id="将请求获取的数据绑定到结构体"><a href="#将请求获取的数据绑定到结构体" class="headerlink" title="将请求获取的数据绑定到结构体"></a>将请求获取的数据绑定到结构体</h2><p>上述方法不适合读取 json 数据报文</p>
@@ -201,10 +201,10 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义路由</span></span><br><span class="line">user.GET(<span class="string">&quot;/info/:cid&quot;</span>, controller.UserController&#123;&#125;.GetUserInfo)</span><br><span class="line"><span class="comment">//执行方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u UserController)</span></span> GetUserInfo(c *gin.Context) &#123;</span><br><span class="line">	<span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		<span class="keyword">if</span> err := <span class="built_in">recover</span>(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">			fmt.Println(<span class="string">&quot;捕获异常&quot;</span>, err)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;()</span><br><span class="line">	cid := c.Param(<span class="string">&quot;cid&quot;</span>)</span><br><span class="line">	id, err := strconv.Atoi(cid)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(err)</span><br><span class="line">	&#125;</span><br><span class="line">	user, _ := model.GetUserTest(id)</span><br><span class="line">	ReturnSuccess(c, <span class="number">0</span>, <span class="string">&quot;success&quot;</span>, user, <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//定义数据库模型</span></span><br><span class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</span><br><span class="line">	Id   <span class="type">int</span></span><br><span class="line">	Name <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> DB = config.Db</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(User)</span></span> TableName() <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">&quot;user&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GetUserTest</span><span class="params">(id <span class="type">int</span>)</span></span> (User, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">var</span> user User</span><br><span class="line">	err := DB.Where(<span class="string">&quot;id=?&quot;</span>, id).First(&amp;user).Error</span><br><span class="line">	<span class="keyword">return</span> user, err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>且测试前，数据库需要建立好测试表</p>
-<img src="/2024/03/09/Gin_note/image-20240330175545744.png" alt="image-20240330175545744" style="zoom: 80%;">
+<img src="/2024/04/01/Gin_note/image-20240330175545744.png" alt="image-20240330175545744" style="zoom: 80%;">
 
 <p>最终结果：</p>
-<img src="/2024/03/09/Gin_note/image-20240330175639344.png" alt="image-20240330175639344" style="zoom: 80%;">
+<img src="/2024/04/01/Gin_note/image-20240330175639344.png" alt="image-20240330175639344" style="zoom: 80%;">
 
 <p>ok 完成，这下项目基本结构就搭建好了</p>
 <h3 id="基础-crud"><a href="#基础-crud" class="headerlink" title="基础 crud"></a>基础 crud</h3><p>这个讲道理没啥好说的，官方文档写的蛮清晰的</p>
@@ -238,7 +238,7 @@
       
     </div>
     <footer class="article-footer">
-      <!-- <a data-url="https://lray-iu.gitee.io/2024/03/09/Gin_note/" data-id="clvm0nfve00039gur6880hxnb" class="article-share-link">
+      <!-- <a data-url="https://lray-iu.gitee.io/2024/04/01/Gin_note/" data-id="clvm0udn1000fokurf550c2ic" class="article-share-link">
         分享
       </a> -->
       
@@ -252,7 +252,7 @@
   
 <nav class="article-nav">
   
-  <a href="/2024/03/09/Patrick%20Collins_blockchain_note/" class="article-nav-link">
+  <a href="/2024/04/25/Patrick%20Collins_blockchain_note/" class="article-nav-link">
     <strong class="article-nav-caption">前一篇</strong>
     <div class="article-nav-title">
       
@@ -262,7 +262,7 @@
   </a>
   
   
-  <a href="/2024/03/09/Vue3_note/" class="article-nav-link">
+  <a href="/2024/03/17/Vue3_note/" class="article-nav-link">
     <strong class="article-nav-caption">后一篇</strong>
     <div class="article-nav-title">Vue 3.0 笔记</div>
   </a>
