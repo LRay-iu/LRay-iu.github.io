@@ -53,8 +53,8 @@
 
     
     <div class="article-meta">
-      <a href="/2024/04/25/minatosys_FrontEnd_note/" class="article-date">
-  <time datetime="2024-04-25T15:47:00.000Z" itemprop="datePublished">2024-04-25</time>
+      <a href="/2024/05/06/minatosys_FrontEnd_note/" class="article-date">
+  <time datetime="2024-05-06T08:08:00.000Z" itemprop="datePublished">2024-05-06</time>
 </a>
       
 <div class="article-category">
@@ -118,7 +118,7 @@
 <li>Created by Typora</li>
 <li>Author: LRay-iu</li>
 <li>createTime: 2024-04-25 14:00</li>
-<li>updateTime: 2024-04-25 23:47</li>
+<li>updateTime: 2024-05-06 16:08</li>
 </ul>
 </blockquote>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这个文档记录了<strong>水门车险前端模块</strong>开发过程中的部分功能实现方法。</p>
@@ -130,7 +130,7 @@
 <ul>
 <li>架构设计</li>
 </ul>
-<img src="/2024/04/25/minatosys_FrontEnd_note/image-20240423222551537.png" alt="image-20240423222551537" style="zoom:67%;">
+<img src="/2024/05/06/minatosys_FrontEnd_note/image-20240423222551537.png" alt="image-20240423222551537" style="zoom:67%;">
 
 <p>go ~ go ~ go！</p>
 <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>需要安装<code>node.js</code></p>
@@ -140,20 +140,20 @@
 
 <p>使用 Element-plus 的方法请参考官方文档，写得非常详细，我觉得完全没必要多此一举再写一遍：<a target="_blank" rel="noopener" href="https://element-plus.org/zh-CN">https://element-plus.org/zh-CN</a></p>
 <p>同时，您还需要准备一个<code>Metamask</code>钱包，用以对接接受支付和接受赔偿金的环节</p>
-<img src="/2024/04/25/minatosys_FrontEnd_note/image-20240429092312447.png" alt="image-20240429092312447" style="zoom: 67%;">
+<img src="/2024/05/06/minatosys_FrontEnd_note/image-20240429092312447.png" alt="image-20240429092312447" style="zoom: 67%;">
 
 <h2 id="页面设计"><a href="#页面设计" class="headerlink" title="页面设计"></a>页面设计</h2><p><code>src</code>下的目录大概像这样，其中经常复用的如侧边栏、顶栏、页脚被写进了<code>components</code>文件夹</p>
 <p><em>&#x2F;&#x2F;很多页面的 UI 都是”<strong>借鉴</strong>“了各大网页的，包括了<code>Mozilla</code>、中国平安等等等等</em></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">|-- App.vue</span><br><span class="line">|-- components</span><br><span class="line">|   |-- ClaimSide.vue</span><br><span class="line">|   |-- InsuranceSide.vue</span><br><span class="line">|   |-- PageBotton.vue</span><br><span class="line">|   `-- PageTop.vue</span><br><span class="line">|-- interface</span><br><span class="line">|   |-- claimForm.ts</span><br><span class="line">|   `-- loginResult.ts</span><br><span class="line">|-- main.ts</span><br><span class="line">|-- pages</span><br><span class="line">|   |-- HomePage.vue</span><br><span class="line">|   |-- Login.vue</span><br><span class="line">|   |-- Register.vue</span><br><span class="line">|   |-- admin_Claim.vue</span><br><span class="line">|   |-- admin_Claim_Detail.vue</span><br><span class="line">|   |-- user_Claim.vue</span><br><span class="line">|   |-- user_ClaimQuery.vue</span><br><span class="line">|   |-- user_InsuranceBought.vue</span><br><span class="line">|   `-- user_InsuranceQuery.vue</span><br><span class="line">|-- router</span><br><span class="line">|   `-- index.ts</span><br><span class="line">|-- scripts</span><br><span class="line">|   |-- Codecheck.ts</span><br><span class="line">|   |-- Minatosys.ts</span><br><span class="line">|   |-- chineseCities.ts</span><br><span class="line">|   |-- claim_helper.ts</span><br><span class="line">|   |-- constants.ts</span><br><span class="line">|   `-- ethers-5.7.esm.min.js</span><br><span class="line">|-- store</span><br><span class="line">|   `-- loginStore.ts</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<img src="/2024/04/25/minatosys_FrontEnd_note/image-20240429095339280.png" alt="image-20240429095339280" style="zoom:80%;">
+<img src="/2024/05/06/minatosys_FrontEnd_note/image-20240429095339280.png" alt="image-20240429095339280" style="zoom:80%;">
 
-<img src="/2024/04/25/minatosys_FrontEnd_note/image-20240429100428388.png" alt="image-20240429100428388" style="zoom:80%;">
+<img src="/2024/05/06/minatosys_FrontEnd_note/image-20240429100428388.png" alt="image-20240429100428388" style="zoom:80%;">
 
-<img src="/2024/04/25/minatosys_FrontEnd_note/image-20240429100543929.png" alt="image-20240429100543929" style="zoom:80%;">
+<img src="/2024/05/06/minatosys_FrontEnd_note/image-20240429100543929.png" alt="image-20240429100543929" style="zoom:80%;">
 
-<p><img src="/2024/04/25/minatosys_FrontEnd_note/image-20240429100702637.png" alt="image-20240429100702637"></p>
-<img src="/2024/04/25/minatosys_FrontEnd_note/image-20240429100754037.png" alt="image-20240429100754037" style="zoom:80%;">
+<p><img src="/2024/05/06/minatosys_FrontEnd_note/image-20240429100702637.png" alt="image-20240429100702637"></p>
+<img src="/2024/05/06/minatosys_FrontEnd_note/image-20240429100754037.png" alt="image-20240429100754037" style="zoom:80%;">
 
 <h2 id="理赔申报"><a href="#理赔申报" class="headerlink" title="理赔申报"></a>理赔申报</h2><p>用户需要填写表单并且上传文件</p>
 <p>上传文件使用的是<code>ElementPlus</code>中的<code>el-upload</code>，这里上传的文件会直接以 POST 的方法传到 <a target="_blank" rel="noopener" href="http://localhost:8080/update%EF%BC%8C%E5%90%8E%E7%AB%AF%E9%9C%80%E8%A6%81%E5%AF%B9%E8%BF%99%E4%B8%AA%E6%96%87%E4%BB%B6%E8%BF%9B%E8%A1%8C%E6%8E%A5%E6%94%B6">http://localhost:8080/update，后端需要对这个文件进行接收</a></p>
@@ -213,17 +213,17 @@
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">open</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="title class_">ElMessageBox</span>.<span class="title function_">prompt</span>(<span class="string">&#x27;请输入赔偿金额（元）&#x27;</span>, <span class="string">&#x27;确认&#x27;</span>, &#123;</span><br><span class="line">        <span class="attr">confirmButtonText</span>: <span class="string">&#x27;交易执行&#x27;</span>,</span><br><span class="line">        <span class="attr">cancelButtonText</span>: <span class="string">&#x27;取消&#x27;</span>,</span><br><span class="line">        <span class="attr">inputErrorMessage</span>: <span class="string">&#x27;Invalid Email&#x27;</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">        .<span class="title function_">then</span>(<span class="function">(<span class="params">&#123; value &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> updatePromise = <span class="title function_">updateCompensation</span>(<span class="built_in">parseFloat</span>(value), tableData.<span class="property">value</span>.<span class="property">claimid</span>);</span><br><span class="line">            <span class="keyword">const</span> compenstationPromise = <span class="title function_">compensation</span>(tableData.<span class="property">value</span>.<span class="property">publicKey</span>, <span class="title class_">BigInt</span>(value), tableData.<span class="property">value</span>.<span class="property">claimid</span>);</span><br><span class="line">            <span class="title class_">ElMessage</span>(&#123;</span><br><span class="line">                <span class="attr">type</span>: <span class="string">&#x27;success&#x27;</span>,</span><br><span class="line">                <span class="attr">message</span>: <span class="string">`正在建立交易，请稍后`</span>,</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">all</span>([updatePromise, compenstationPromise]);</span><br><span class="line">        &#125;)</span><br><span class="line">        .<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                router.<span class="title function_">push</span>(<span class="string">&quot;/3-4&quot;</span>);</span><br><span class="line">            &#125;, <span class="number">3000</span>);</span><br><span class="line">        &#125;)</span><br><span class="line">        .<span class="title function_">catch</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="title class_">ElMessage</span>(&#123;</span><br><span class="line">                <span class="attr">type</span>: <span class="string">&#x27;error&#x27;</span>,</span><br><span class="line">                <span class="attr">message</span>: <span class="string">&#x27;交易取消&#x27;</span>,</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这样就大功告成了，效果如下：</p>
-<img src="/2024/04/25/minatosys_FrontEnd_note/image-20240506160242481.png" alt="image-20240506160242481" style="zoom:80%;">
+<img src="/2024/05/06/minatosys_FrontEnd_note/image-20240506160655596.png" alt="image-20240506160655596" style="zoom:80%;">
 
-<img src="/2024/04/25/minatosys_FrontEnd_note/image-20240506160320674.png" alt="image-20240506160320674" style="zoom:80%;">
+<img src="/2024/05/06/minatosys_FrontEnd_note/image-20240506160609536.png" alt="image-20240506160609536" style="zoom:80%;">
 
 <p>静等片刻得到如下回复(当然你也可以再掏一笔燃气费用于加速交易)</p>
-<img src="/2024/04/25/minatosys_FrontEnd_note/image-20240506160424465.png" alt="image-20240506160424465" style="zoom:80%;">
+<img src="/2024/05/06/minatosys_FrontEnd_note/image-20240506160424465.png" alt="image-20240506160424465" style="zoom:80%;">
 
       
     </div>
     <footer class="article-footer">
-      <!-- <a data-url="https://lray-iu.gitee.io/2024/04/25/minatosys_FrontEnd_note/" data-id="clvuoi4wr0012qkurckxt9uus" class="article-share-link">
+      <!-- <a data-url="https://lray-iu.gitee.io/2024/05/06/minatosys_FrontEnd_note/" data-id="clvuoq7nu000b5gur8bnw8pjl" class="article-share-link">
         分享
       </a> -->
       
@@ -236,6 +236,15 @@
   
   
 <nav class="article-nav">
+  
+  <a href="/2024/05/06/minatosys_Blockchain_note/" class="article-nav-link">
+    <strong class="article-nav-caption">前一篇</strong>
+    <div class="article-nav-title">
+      
+      水门车险的开发记录（区块链）
+      
+    </div>
+  </a>
   
   
   <a href="/2024/04/25/Patrick%20Collins_blockchain_note/" class="article-nav-link">

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="水门车险开发过程记录">
+  
+  <title>
+    水门车险的开发记录（区块链） |
+    
+    LRay的空间
+  </title>
+  <!-- Icon -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <main class="content" >
+    <section class="outer" style="min-height: 90vh;">
+  <article id="post-minatosys_Blockchain_note" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+  
+  <h1 class="article-title" itemprop="name">
+    水门车险的开发记录（区块链）
+  </h1>
+  
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2024/05/06/minatosys_Blockchain_note/" class="article-date">
+  <time datetime="2024-05-06T08:10:00.000Z" itemprop="datePublished">2024-05-06</time>
+</a>
+      
+<div class="article-category">
+  <a class="article-category-link" href="/categories/Web3/">Web3</a>
+</div>
+
+    </div>
+    
+
+    
+    
+<div class="tocbot" style="font-size: medium;"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      <!-- 
+
+ -->
+      
+
+
+  <script>
+    // 检查屏幕宽度
+    function checkScreenWidth() {
+      var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  
+      // 如果屏幕宽度大于等于 500px，则启用这段代码
+      if (screenWidth >= 520) {
+        var elements = document.querySelectorAll('.article-albums-caption');
+        elements.forEach(function(element) {
+          element.style.display = 'inline'; // 或者 'block', 'flex'，具体取决于你的布局需求
+        });
+      }
+      if (screenWidth < 520) {
+        var elements = document.querySelectorAll('.article-albums-caption');
+        elements.forEach(function(element) {
+          element.style.display = 'none'; // 或者 'block', 'flex'，具体取决于你的布局需求
+        });
+      }
+    }
+  
+    // 页面加载完毕时执行一次检查
+    window.onload = function() {
+      checkScreenWidth();
+    };
+  
+    // 当窗口大小改变时再次执行检查
+    window.onresize = function() {
+      checkScreenWidth();
+    };
+  </script>
+  
+      
+      
+        <p>该文档为水门车险的区块链部分，记录了水门车险在区块链这个模块的开发以及部署过程，语言方面使用了Solidity。语法接近js，上手较为容易。合约的部署则介绍了两种方式，Remix以及Hardhat。</p>
+<span id="more"></span>
+
+
+
+<blockquote>
+<ul>
+<li>Created by Typora</li>
+<li>Author: LRay-iu</li>
+<li>createTime: 2024-03-09 14:12</li>
+<li>updateTime: 2024-05-06 16:10</li>
+</ul>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这个文档记录了<strong>水门车险区块链模块</strong>的开发过程。</p>
+<p>内容是基于区块链技术开发的一个车险系统，关于区块链的的概念详见其他markdown；</p>
+<p>这个系统并没有往实际使用的方向开发，纯粹是应付毕业设计所准备的，因此可能存在很多不合理的设计或者是奇奇怪怪的bugs，总之，一切努力只为能够通过毕设考核。</p>
+<p>整个项目暂定分成三个模块，前端、后端、区块链。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">D:.</span><br><span class="line">├─gin-minato</span><br><span class="line">├─hardhat-minato</span><br><span class="line">└─vue-minato</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>架构设计</li>
+</ul>
+<img src="/2024/05/06/minatosys_Blockchain_note/image-20240423222551537.png" alt="image-20240423222551537" style="zoom:67%;">
+
+<p>go ~ go ~ go！</p>
+<h2 id="工具包"><a href="#工具包" class="headerlink" title="工具包"></a>工具包</h2><p>Element Plus组件开发文档：<a target="_blank" rel="noopener" href="https://element-plus.org/zh-CN">https://element-plus.org/zh-CN</a></p>
+<h2 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h2><h3 id="合约"><a href="#合约" class="headerlink" title="合约"></a>合约</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">// SPDX-License-Identifier: MIT</span><br><span class="line">pragma solidity 0.8.7;</span><br><span class="line"></span><br><span class="line">import &quot;@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol&quot;;</span><br><span class="line">import &quot;./PriceConverter.sol&quot;;</span><br><span class="line"></span><br><span class="line">// EVM, Ethereum Virtual Machine</span><br><span class="line">error NotOwner();</span><br><span class="line"></span><br><span class="line">contract Minatosys &#123;</span><br><span class="line">    using PriceConverter for uint256;</span><br><span class="line">    uint256 constant minimumUsd = 0;</span><br><span class="line">    address public immutable i_owner;</span><br><span class="line">    AggregatorV3Interface public priceFeed;</span><br><span class="line"></span><br><span class="line">    constructor(address priceFeedAddress) &#123;//构造，合约部署时需要向它传入以下参数</span><br><span class="line">        i_owner = msg.sender;</span><br><span class="line">        priceFeed = AggregatorV3Interface(priceFeedAddress);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function fund() public payable &#123;//资金注入方法</span><br><span class="line">        require(</span><br><span class="line">            msg.value.getConversionRate(priceFeed) &gt; 0,//判断金额是否大于0，否则会回滚交易</span><br><span class="line">            &quot;Didn&#x27;t send enough&quot;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function withdraw() public onlyOwner &#123;</span><br><span class="line">        (bool callSuccess, ) = payable(msg.sender).call&#123;//提取资金，非合约部署账户不能调用这个方法</span><br><span class="line">            value: address(this).balance</span><br><span class="line">        &#125;(&quot;&quot;);</span><br><span class="line">        require(callSuccess, &quot;call failed&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 管理员转账</span><br><span class="line">    function withdrawToAddress(</span><br><span class="line">        address payable _to,</span><br><span class="line">        uint256 _amount</span><br><span class="line">    ) public onlyOwner &#123;//提取资金，非合约部署账户不能调用这个方法</span><br><span class="line">        // 检查目标地址是否有效</span><br><span class="line">        require(_to != address(0), &quot;Invalid address&quot;);</span><br><span class="line">        // 检查合约余额是否足够支付转账金额</span><br><span class="line">        require(address(this).balance &gt;= _amount, &quot;Insufficient balance&quot;);</span><br><span class="line">        // 使用 call 方法向目标地址发送以太币</span><br><span class="line">        // 设置发送者为合约的所有者</span><br><span class="line">        (bool callSuccess, ) = _to.call&#123;value: _amount&#125;(&quot;&quot;);</span><br><span class="line">        // 检查调用是否成功</span><br><span class="line">        require(callSuccess, &quot;Call failed&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 莫名其妙地收到钱就执行下面两个方法</span><br><span class="line">    receive() external payable &#123;</span><br><span class="line">        fund();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fallback() external payable &#123;</span><br><span class="line">        fund();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 自定义修饰符，带上这个标签的方法将只对合约发布者开放使用权限</span><br><span class="line">    modifier onlyOwner() &#123;</span><br><span class="line">        require(</span><br><span class="line">            msg.sender == address(0) || msg.sender == i_owner,</span><br><span class="line">            &quot;Sender is not owner&quot;</span><br><span class="line">        );</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>库：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">//SPDX-License-Identifier: MIT</span><br><span class="line">pragma solidity 0.8.7;</span><br><span class="line">import &quot;@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol&quot;;</span><br><span class="line"></span><br><span class="line">library PriceConverter &#123;</span><br><span class="line">    function getPrice(</span><br><span class="line">        AggregatorV3Interface priceFeed</span><br><span class="line">    ) internal view returns (uint256) &#123;</span><br><span class="line">        //得到汇率(USD/ETH)</span><br><span class="line">        //ABIw</span><br><span class="line">        //Address 0x694AA1769357215DE4FAC081bf1f309aDC325306</span><br><span class="line">        // AggregatorV3Interface priceFeed = AggregatorV3Interface(</span><br><span class="line">        //     0x694AA1769357215DE4FAC081bf1f309aDC325306</span><br><span class="line">        // );</span><br><span class="line">        (, int256 answer, , , ) = priceFeed.latestRoundData();</span><br><span class="line"></span><br><span class="line">        return uint256(answer * 1e10);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function getVersion() internal view returns (uint256) &#123;</span><br><span class="line">        //获取了链外数据源的版本信息，并将其作为uint256类型返回</span><br><span class="line">        AggregatorV3Interface priceFeed = AggregatorV3Interface(</span><br><span class="line">            0x694AA1769357215DE4FAC081bf1f309aDC325306</span><br><span class="line">        );</span><br><span class="line">        return priceFeed.version();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function getConversionRate(</span><br><span class="line">        uint256 ethAmount,</span><br><span class="line">        AggregatorV3Interface priceFeed</span><br><span class="line">    ) internal view returns (uint256) &#123;</span><br><span class="line">        uint256 ethPrice = getPrice(priceFeed);</span><br><span class="line">        uint256 ethAmountInUsd = (ethPrice * ethAmount) / 1e18;</span><br><span class="line">        return ethAmountInUsd;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>具体写法以及solidity的语法可以参考《Patrick Collins-区块链学习笔记》</p>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><h4 id="Remix"><a href="#Remix" class="headerlink" title="Remix"></a>Remix</h4><p>有两种部署方法，这边强力推荐使用<strong>Remix</strong>，真的很方便，合约输进去可以直接部署，非常适合需求不高的合约部署，唯一缺点就是网速似乎不太理想，经常链接钱包和测试网连接不上。</p>
+<p>如果使用Remix的话，基本上到此就结束了😂输入喂价地址之后，直接deploy就行，喂价地址可以从Chainlink那里获取，此处可以试着使用Sepolia的喂价地址：<code>0x694AA1769357215DE4FAC081bf1f309aDC325306(这个不保真，可能会更新换代，还是建议自己去官网获取)</code></p>
+<p><em>值得一提的是，Patrick Collins是他们的开发者大使，被请来录制的课程并且被Chainlink_cn翻译成中文放在B站上供大家学习，内容还是很新鲜且经常更新的，值得初学者去观看。另外，他们在Github上还有一个社区，可以供大家提问，虽然我问了但是没有得到解答，不过问题不大，有总比没有强😭</em></p>
+<img src="/2024/05/06/minatosys_Blockchain_note/image-20240423231604679.png" alt="image-20240423231604679" style="zoom:80%;">
+
+<p>本项目使用了第二种方式，如下：</p>
+<h4 id="Hardhat"><a href="#Hardhat" class="headerlink" title="Hardhat"></a>Hardhat</h4><p>Hardhat是一个轻量级的合约部署框架，优点是可以安装自己需要的插件，这对于高级开发来说是非常使用的，包括prettier这样的代码格式化插件等等；并且可以自行编写脚本，包括部署脚本以及测试脚本等等等等</p>
+<p>但是Hardhat貌似？更新起来，文档有时会跟不上，这会导致对于新手来说，可能看文档并不会有很好的体验，【差点把我折磨疯了】，</p>
+<p>即便是2年内录制的课程，实际操作时也会有所不同。因此，如果你是一名想用区块链来完成毕业设计之类的项目，强力推荐Remix。</p>
+<p>Hardhat部署所需的插件以及搭建过程这里不做赘述，详情请见《Patrick Collins-区块链 笔记》，这里只简单说明部署过程以及合约内容</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">  |-- artifacts			#编译结果保存，包括ABI等等</span><br><span class="line">  |-- cache				#Hardhat框架生成的缓存文件</span><br><span class="line">  |-- contracts			#合约以及喂价合约等等</span><br><span class="line">  |-- deploy			#部署合约的脚本</span><br><span class="line">  |-- deployments		#已经部署的合约的相关数据，比如部署时产生的地址、交易哈希等信息</span><br><span class="line">  |-- ignition			#Hardhat框架的一些配置文件或模板文件</span><br><span class="line">  |-- node_modules		#依赖</span><br><span class="line">  |-- test				#测试文件夹，包含一些测试脚本</span><br><span class="line">  |-- utils				#辅助开发的工具函数或辅助脚本文件，比如verify.js等等</span><br><span class="line">  |-- package.json		#依赖管理</span><br><span class="line">  |-- hardhat.config.js	#框架配置文件</span><br><span class="line">  |-- helper-hardhat-config.js	#辅助框架配置文件</span><br><span class="line">  |-- yarn.lock</span><br><span class="line">  \-- README.md</span><br><span class="line"></span><br><span class="line">9 directories, 5 files</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>框架配置信息<code>hardhat.config.js</code>，包括编译器版本，账户私钥等等信息</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">&quot;@nomicfoundation/hardhat-toolbox&quot;</span>);</span><br><span class="line"><span class="built_in">require</span>(<span class="string">&quot;hardhat-deploy&quot;</span>);</span><br><span class="line"><span class="built_in">require</span>(<span class="string">&quot;dotenv&quot;</span>).<span class="title function_">config</span>();</span><br><span class="line"><span class="built_in">require</span>(<span class="string">&quot;hardhat-gas-reporter&quot;</span>);</span><br><span class="line"><span class="comment">/** <span class="doctag">@type</span> import(&#x27;hardhat/config&#x27;).HardhatUserConfig */</span></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">SEPOLIA_RPC_URL</span> = process.<span class="property">env</span>.<span class="property">SEPOLIA_RPC_URL</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">PRIVATE_KEY</span> = process.<span class="property">env</span>.<span class="property">PRIVATE_KEY</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">ETHERSCAN_API_KEY</span> = process.<span class="property">env</span>.<span class="property">ETHERSCAN_API_KEY</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">solidity</span>: &#123;</span><br><span class="line">    <span class="attr">compilers</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">version</span>: <span class="string">&quot;0.8.7&quot;</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">version</span>: <span class="string">&quot;0.6.6&quot;</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">defaultNetwork</span>: <span class="string">&quot;hardhat&quot;</span>,</span><br><span class="line">  <span class="attr">networks</span>: &#123;</span><br><span class="line">    <span class="attr">hardhat</span>: &#123;</span><br><span class="line">      <span class="attr">chainId</span>: <span class="number">31337</span>,</span><br><span class="line">      <span class="comment">// gasPrice: 130000000000,</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">sepolia</span>: &#123;</span><br><span class="line">      <span class="attr">url</span>: <span class="variable constant_">SEPOLIA_RPC_URL</span>,</span><br><span class="line">      <span class="attr">accounts</span>: [<span class="variable constant_">PRIVATE_KEY</span>],</span><br><span class="line">      <span class="attr">chainId</span>: <span class="number">11155111</span>,</span><br><span class="line">      <span class="attr">blockConfirmations</span>: <span class="number">6</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">gasReporter</span>: &#123;</span><br><span class="line">    <span class="attr">enabled</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">currency</span>: <span class="string">&quot;USD&quot;</span>,</span><br><span class="line">    <span class="attr">outputFile</span>: <span class="string">&quot;gas-report.txt&quot;</span>,</span><br><span class="line">    <span class="attr">noColors</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="comment">// coinmarketcap: COINMARKETCAP_API_KEY,</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">etherscan</span>: &#123;</span><br><span class="line">    <span class="attr">apiKey</span>: <span class="variable constant_">ETHERSCAN_API_KEY</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">namedAccounts</span>: &#123;</span><br><span class="line">    <span class="attr">deployer</span>: &#123;</span><br><span class="line">      <span class="attr">default</span>: <span class="number">0</span>, <span class="comment">// here this will by default take the first account as deployer</span></span><br><span class="line">      <span class="number">1</span>: <span class="number">0</span>, <span class="comment">// similarly on mainnet it will take the first account as deployer. Note though that depending on how hardhat network are configured, the account 0 on one network can be different than on another</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">mocha</span>: &#123;</span><br><span class="line">    <span class="attr">timeout</span>: <span class="number">500000</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="本地网"><a href="#本地网" class="headerlink" title="本地网"></a>本地网</h5><p>也就是<code>Hardhat</code>自带的本地网络，优点是，测试币很多，可以随意霍霍，交易速度非常快而且不容易出岔子</p>
+<p>但是，本地网络是无法获取喂价合约的，换句话说Chainlink预言机在这方面并不能给予你帮助，因此，在部署之前，我们需要先部署一个虚拟的喂价合约，这里并不完全需要自己去写，在<code>chainlink</code>的<code>github</code>中仔细翻找可以找到<code>node_modules\@chainlink\contracts\src\v0.6\tests\MockV3Aggregator.sol</code>，因此，我们可以在喂价合约中直接引入，效果等同于复制粘贴；</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//SPDX-License-Identifier:MIT</span><br><span class="line">pragma solidity ^0.6.0;</span><br><span class="line"></span><br><span class="line">import &quot;@chainlink/contracts/src/v0.6/tests/MockV3Aggregator.sol&quot;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>之后我们就可以开始着手准备部署合约的脚本了；</p>
+<p>首先，我们需要处理喂价合约以及合约的chainID，也就是用于判断合约被部署在了哪条链上</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//helper-hardhat-config.js</span></span><br><span class="line"><span class="keyword">const</span> networkConfig = &#123;</span><br><span class="line">    <span class="number">31337</span>: &#123;</span><br><span class="line">        <span class="attr">name</span>: <span class="string">&quot;localhost&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// Price Feed Address, values can be obtained at https://docs.chain.link/data-feeds/price-feeds/addresses</span></span><br><span class="line">    <span class="number">11155111</span>: &#123;</span><br><span class="line">        <span class="attr">name</span>: <span class="string">&quot;sepolia&quot;</span>,</span><br><span class="line">        <span class="attr">ethUsdPriceFeed</span>: <span class="string">&quot;0x694AA1769357215DE4FAC081bf1f309aDC325306&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> developmentChains = [<span class="string">&quot;hardhat&quot;</span>, <span class="string">&quot;localhost&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    networkConfig,</span><br><span class="line">    developmentChains,</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>先将我们自己编写的喂价合约发布到<code>Hardhat</code>链上,这样我们部署的合约就可以通过本地链上的喂价合约得到USD&#x2F;ETH的汇率<br>这里脚本做了一个判断，如果<code>chainID</code>为<code>31337</code>，也就是处于开发链上时，会对合约进行部署</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//00-deploy-mocks.js</span></span><br><span class="line"><span class="comment">//这段是部署本地预言机</span></span><br><span class="line"><span class="keyword">const</span> &#123; network &#125; = <span class="built_in">require</span>(<span class="string">&quot;hardhat&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">DECIMALS</span> = <span class="string">&quot;8&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">INITIAL_PRICE</span> = <span class="string">&quot;200000000000&quot;</span>; <span class="comment">// 2000</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="keyword">async</span> (&#123; getNamedAccounts, deployments &#125;) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; deploy, log &#125; = deployments;</span><br><span class="line">  <span class="keyword">const</span> &#123; deployer &#125; = <span class="keyword">await</span> <span class="title function_">getNamedAccounts</span>();</span><br><span class="line">  <span class="keyword">const</span> chainId = network.<span class="property">config</span>.<span class="property">chainId</span>;</span><br><span class="line">  <span class="title function_">log</span>(network.<span class="property">name</span>);</span><br><span class="line">  <span class="keyword">if</span> (chainId == <span class="number">31337</span>) &#123;</span><br><span class="line">    <span class="title function_">log</span>(<span class="string">&quot;Local network detected!Deploying mocks...&quot;</span>);</span><br><span class="line">    <span class="keyword">await</span> <span class="title function_">deploy</span>(<span class="string">&quot;MockV3Aggregator&quot;</span>, &#123;</span><br><span class="line">      <span class="attr">contract</span>: <span class="string">&quot;MockV3Aggregator&quot;</span>,</span><br><span class="line">      <span class="attr">from</span>: deployer,</span><br><span class="line">      <span class="attr">log</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">args</span>: [<span class="variable constant_">DECIMALS</span>, <span class="variable constant_">INITIAL_PRICE</span>],</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="title function_">log</span>(<span class="string">&quot;Mocks deployed!&quot;</span>);</span><br><span class="line">    <span class="title function_">log</span>(<span class="string">&quot;--------------------------------------------------------&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 这段代码指定了当前部署脚本相关的标签。在这里，使用了两个标签：&quot;all&quot; 和 &quot;mocks&quot;。</span></span><br><span class="line"><span class="comment">// &quot;all&quot; 标签： 这个标签可能用于将部署脚本与整个项目的所有部署任务关联起来。</span></span><br><span class="line"><span class="comment">// 当运行 npx hardhat deploy --tags all 时，将运行所有带有 &quot;all&quot; 标签的部署任务。</span></span><br><span class="line"><span class="comment">// &quot;mocks&quot; 标签： 这个标签可能用于将部署脚本与与模拟合约相关的其他部署任务关联起来。</span></span><br><span class="line"><span class="comment">// 当运行 npx hardhat deploy --tags mocks 时，将运行所有带有 &quot;mocks&quot; 标签的部署任务。</span></span><br><span class="line"><span class="comment">//yarn hardhat deploy --tags mocks</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">tags</span> = [<span class="string">&quot;all&quot;</span>, <span class="string">&quot;mocks&quot;</span>];</span><br></pre></td></tr></table></figure>
+
+<p>接着，我们需要部署<strong>水门车险</strong>的合约，这里是第二个脚本</p>
+<p>脚本对预言机的选择上会进行一个判断，如果是在开发链，也就是本地链上，则会使用开发链上部署的喂价合约<code>MockV3Aggregator</code>，反之就会根据chainID，从<code>networkConfig[chainId][&quot;ethUsdPriceFeed&quot;]</code>获取喂价地址；</p>
+<p>另外，如果是在非开发链上，并且以太坊API KEY被正确配置时，会触发对合约的验证。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//01-deploy-fund-me.js</span></span><br><span class="line"><span class="keyword">const</span> &#123;</span><br><span class="line">    networkConfig,</span><br><span class="line">    developmentChains,</span><br><span class="line">&#125; = <span class="built_in">require</span>(<span class="string">&quot;../helper-hardhat-config.js&quot;</span>)</span><br><span class="line"><span class="keyword">const</span> &#123; network &#125; = <span class="built_in">require</span>(<span class="string">&quot;hardhat&quot;</span>)</span><br><span class="line"><span class="keyword">const</span> &#123; verify &#125; = <span class="built_in">require</span>(<span class="string">&quot;../utils/verify.js&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//hre代表hardhat运行环境</span></span><br><span class="line"><span class="comment">// module.exports = async (hre) =&gt; &#123;</span></span><br><span class="line"><span class="comment">//     const &#123;getNameAccounts,deployments&#125; = hre</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"><span class="comment">//node.js的语法糖，写法等同于上方的</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="keyword">async</span> (&#123; getNamedAccounts, deployments &#125;) =&gt; &#123;</span><br><span class="line">    <span class="comment">//将deploy和log从deployments这个对象中提取出来，等同于</span></span><br><span class="line">    <span class="comment">//const deploy = deployments.deploy;</span></span><br><span class="line">    <span class="comment">//const log = deployments.log</span></span><br><span class="line">    <span class="keyword">const</span> &#123; deploy, log &#125; = deployments</span><br><span class="line">    <span class="comment">//getNameAccounts() 返回一个包含 deployer 属性的对象，等同于</span></span><br><span class="line">    <span class="comment">//const getNameAccountsResult = await getNameAccounts();</span></span><br><span class="line">    <span class="comment">//const deployer = getNameAccountsResult.deployer;</span></span><br><span class="line">    <span class="title function_">log</span>(<span class="string">&quot;Deploy Minatosys...&quot;</span>)</span><br><span class="line">    <span class="keyword">const</span> &#123; deployer &#125; = <span class="keyword">await</span> <span class="title function_">getNamedAccounts</span>()</span><br><span class="line">    <span class="keyword">const</span> chainId = network.<span class="property">config</span>.<span class="property">chainId</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//---------------确认预言机地址-----------------</span></span><br><span class="line">    <span class="keyword">if</span> (developmentChains.<span class="title function_">includes</span>(network.<span class="property">name</span>)) &#123;</span><br><span class="line">        <span class="keyword">const</span> ethUsdAggregator = <span class="keyword">await</span> deployments.<span class="title function_">get</span>(<span class="string">&quot;MockV3Aggregator&quot;</span>)</span><br><span class="line">        ethUsdPriceFeedAddress = ethUsdAggregator.<span class="property">address</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// ethUsdPriceFeedAddress的格式：0x694AA1769357215DE4FAC081bf1f309aDC325306</span></span><br><span class="line">        ethUsdPriceFeedAddress = networkConfig[chainId][<span class="string">&quot;ethUsdPriceFeed&quot;</span>]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// log(ethUsdPriceFeedAddress);</span></span><br><span class="line">    <span class="comment">//-----------------deploy-----------------------</span></span><br><span class="line">    <span class="keyword">const</span> args = [ethUsdPriceFeedAddress]</span><br><span class="line">    <span class="keyword">const</span> <span class="title class_">Minatosys</span> = <span class="keyword">await</span> <span class="title function_">deploy</span>(<span class="string">&quot;Minatosys&quot;</span>, &#123;</span><br><span class="line">        <span class="attr">from</span>: deployer,</span><br><span class="line">        <span class="attr">args</span>: args, <span class="comment">//喂价地址</span></span><br><span class="line">        <span class="attr">log</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">waitConfirmation</span>: network.<span class="property">config</span>.<span class="property">blockConfirmations</span> || <span class="number">1</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">//-------------------verify-----------------------</span></span><br><span class="line">    <span class="comment">//当合约部署网络与指定的不符时会进行检查</span></span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">        !developmentChains.<span class="title function_">includes</span>(network.<span class="property">name</span>) &amp;&amp;</span><br><span class="line">        process.<span class="property">env</span>.<span class="property">ETHERSCAN_API_KEY</span></span><br><span class="line">    ) &#123;</span><br><span class="line">        <span class="comment">//verify</span></span><br><span class="line">        <span class="keyword">await</span> <span class="title function_">verify</span>(<span class="title class_">Minatosys</span>.<span class="property">address</span>, args)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">log</span>(<span class="string">&quot;--------------------------------------------------------&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">tags</span> = [<span class="string">&quot;all&quot;</span>, <span class="string">&quot;minatosys&quot;</span>]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>命令行进行本地链部署：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">PS D:\study_test\Minato_Sys\hardhat-Minato&gt; yarn hardhat deploy --network hardhat</span><br><span class="line">yarn run v1.22.21</span><br><span class="line">warning package.json: No license field</span><br><span class="line">$ D:\study_test\Minato_Sys\hardhat-Minato\node_modules\.bin\hardhat deploy --network hardhat</span><br><span class="line">Compiled 1 Solidity file successfully (evm target: london).</span><br><span class="line">hardhat</span><br><span class="line">Local network detected!Deploying mocks...</span><br><span class="line">deploying &quot;MockV3Aggregator&quot; (tx: 0x3d732abdeda8235691578f5eae48ec57c18e6860c18196ab7b211ca8f74dce2b)...: deployed at 0x5FbDB2315678afecb367f032d93F642f64180aa3 with 569759 gas</span><br><span class="line">Mocks deployed!</span><br><span class="line">--------------------------------------------------------</span><br><span class="line">Deploy Minatosys...</span><br><span class="line">deploying &quot;Minatosys&quot; (tx: 0x1756b51c675657ec993c19959606c37e39b7ef407cfa1e84177b93f0e4449881)...: deployed at 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512 with 839016 gas</span><br><span class="line">--------------------------------------------------------</span><br><span class="line">Done in 8.47s.</span><br></pre></td></tr></table></figure>
+
+<h5 id="测试网"><a href="#测试网" class="headerlink" title="测试网"></a>测试网</h5><p>测试网的部署不需要手动配置Mock合约，我们可以直接通过喂价地址获得合约</p>
+<p>但是完成在测试网的部署之后，我们需要编写一个验证脚本，用以检查被部署的合约与我们想部署的合约是否一致，避免发生被篡改的事件。</p>
+<p>这里<code>Hardhat</code>框架有为我们提供验证方法，直接调用即可</p>
+<p><code>verify:verify</code> 是 Hardhat 框架中的一个任务（task），它用于执行智能合约的验证过程。具体来说，这个任务会将智能合约的源代码和部署信息提交给以太坊的验证服务（如 Etherscan 或其他类似的服务）。验证服务将检查合约的源代码是否与已部署的合约匹配，以及是否包含了正确的构造函数参数。</p>
+<p><em>&#x2F;&#x2F;以上说法来自chatgpt，但是验证部分我记得有些不太清楚了，具体<code>Hardhat</code>是怎么完成的，我确认好之后会进行修改；</em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//verify.js</span></span><br><span class="line"><span class="keyword">const</span> &#123; run &#125; = <span class="built_in">require</span>(<span class="string">&quot;hardhat&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">verify</span> = <span class="keyword">async</span> (<span class="params">contractAddress, args</span>) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Verifying Contract...&quot;</span>);</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">await</span> <span class="title function_">run</span>(<span class="string">&quot;verify:verify&quot;</span>, &#123;</span><br><span class="line">      <span class="attr">address</span>: contractAddress,</span><br><span class="line">      <span class="attr">constructorArguments</span>: args,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="keyword">if</span> (e.<span class="property">message</span>.<span class="title function_">toLowerCase</span>().<span class="title function_">includes</span>(<span class="string">&quot;already verified&quot;</span>)) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Already Verified!&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(e);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123; verify &#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>命令行进行测试网部署（以Sepolia为例）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">PS D:\study_test\Minato_Sys\hardhat-Minato&gt; yarn hardhat deploy --network sepolia</span><br><span class="line">yarn run v1.22.21</span><br><span class="line">warning package.json: No license field</span><br><span class="line">$ D:\study_test\Minato_Sys\hardhat-Minato\node_modules\.bin\hardhat deploy --network sepolia</span><br><span class="line">Compiled 1 Solidity file successfully (evm target: london).</span><br><span class="line">sepolia</span><br><span class="line">Deploy Minatosys...</span><br><span class="line">deploying &quot;Minatosys&quot; (tx: 0x5eeadc93ad11de1fc2cec56c48aa77eb2d3775cfa2a8769cc38cd75c783f6246)...: deployed at 0x03cDbE6020084eb013b02B8d8e0A90BE018fb39E with 806890 gas</span><br><span class="line">Verifying Contract...</span><br><span class="line">UnexpectedError: An unexpected error occurred during the verification process.</span><br><span class="line">Please report this issue to the Hardhat team.</span><br><span class="line">Error Details: Connect Timeout Error</span><br><span class="line">    at Etherscan.isVerified (D:\study_test\Minato_Sys\hardhat-Minato\node_modules\@nomicfoundation\hardhat-verify\src\internal\etherscan.ts:126:13)</span><br><span class="line">    at processTicksAndRejections (node:internal/process/task_queues:95:5)</span><br><span class="line">    at SimpleTaskDefinition.action (D:\study_test\Minato_Sys\hardhat-Minato\node_modules\@nomicfoundation\hardhat-verify\src\internal\tasks\etherscan.ts:101:24)</span><br><span class="line">    at Environment._runTaskDefinition (D:\study_test\Minato_Sys\hardhat-Minato\node_modules\hardhat\src\internal\core\runtime-environment.ts:359:14)</span><br><span class="line">    at Environment.run (D:\study_test\Minato_Sys\hardhat-Minato\node_modules\hardhat\src\internal\core\runtime-environment.ts:192:14)</span><br><span class="line">    at SimpleTaskDefinition.action (D:\study_test\Minato_Sys\hardhat-Minato\node_modules\@nomicfoundation\hardhat-verify\src\index.ts:284:9)</span><br><span class="line">    at Environment._runTaskDefinition (D:\study_test\Minato_Sys\hardhat-Minato\node_modules\hardhat\src\internal\core\runtime-environment.ts:359:14)</span><br><span class="line">    at Environment.run (D:\study_test\Minato_Sys\hardhat-Minato\node_modules\hardhat\src\internal\core\runtime-environment.ts:192:14)</span><br><span class="line">    at verify (D:\study_test\Minato_Sys\hardhat-Minato\utils\verify.js:6:5)</span><br><span class="line">    at Object.module.exports [as func] (D:\study_test\Minato_Sys\hardhat-Minato\deploy\01-deploy.js:61:7)</span><br><span class="line">--------------------------------------------------------</span><br><span class="line">Done in 85.66s.</span><br></pre></td></tr></table></figure>
+
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>至此，水门车险的合约部分就被部署完成了，个人还是很推荐使用Remix的部署方式，当然，如果你有意向深入学习使用智能合约，那Hardhat这样的框架也是非常有学习的价值</p>
+<h2 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h2><table>
+<thead>
+<tr>
+<th align="center">配置</th>
+<th align="center">版本号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">node.js</td>
+<td align="center">v18.18.0</td>
+</tr>
+<tr>
+<td align="center">npm</td>
+<td align="center">9.8.1</td>
+</tr>
+</tbody></table>
+<h3 id="Element-Plus组件"><a href="#Element-Plus组件" class="headerlink" title="Element Plus组件"></a>Element Plus组件</h3><h4 id="安装和部署"><a href="#安装和部署" class="headerlink" title="安装和部署"></a>安装和部署</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"># 选择一个你喜欢的包管理器</span><br><span class="line"></span><br><span class="line"># NPM</span><br><span class="line">$ npm install element-plus --save</span><br><span class="line"></span><br><span class="line"># Yarn</span><br><span class="line">$ yarn add element-plus</span><br><span class="line"></span><br><span class="line"># pnpm</span><br><span class="line">$ pnpm install element-plus</span><br><span class="line"></span><br><span class="line"># “自动导入”插件</span><br><span class="line">$ npm install -D unplugin-vue-components unplugin-auto-import</span><br><span class="line"></span><br><span class="line"># 安装setup语法糖插件</span><br><span class="line">$ npm i vite-plugin-vue-setup-extend -D</span><br><span class="line"></span><br><span class="line"># 安装icon图标库</span><br><span class="line">$ npm install @element-plus/icons-vue</span><br><span class="line"></span><br><span class="line"># 安装Metamask插件</span><br><span class="line">$ npm i @metamask/detect-provider</span><br><span class="line"></span><br><span class="line"># 安装axios</span><br><span class="line">$ npm i axios</span><br><span class="line"></span><br><span class="line"># 安装pinia</span><br><span class="line">$ npm i pinia</span><br></pre></td></tr></table></figure>
+
+<p>使用Element-plus请参考官方文档，写得非常详细，我觉得完全没必要多此一举再写一遍：<a target="_blank" rel="noopener" href="https://element-plus.org/zh-CN">https://element-plus.org/zh-CN</a></p>
+<h3 id="前端链接区块链进行交易"><a href="#前端链接区块链进行交易" class="headerlink" title="前端链接区块链进行交易"></a>前端链接区块链进行交易</h3><h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><p>准备一个metamask钱包以及若干个账号，具体操作见《Patrick Collins_blockchain_note.md》</p>
+<p>合约地址</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <!-- <a data-url="https://lray-iu.gitee.io/2024/05/06/minatosys_Blockchain_note/" data-id="clvuoq7nt00095gur667a82rz" class="article-share-link">
+        分享
+      </a> -->
+      
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Solidity/" rel="tag">Solidity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" rel="tag">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/" rel="tag">智能合约</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  
+  <a href="/2024/05/06/minatosys_FrontEnd_note/" class="article-nav-link">
+    <strong class="article-nav-caption">后一篇</strong>
+    <div class="article-nav-title">水门车险的开发记录（前端）</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+
+</section>
+    
+<footer class="footer">
+  <div class="outer" style="display: inline-block;">
+    <ul class="list-inline">
+      <li>LRay的空间&nbsp;  |&nbsp; 2024</li>
+      
+        <li>
+          
+            <a href="https://beian.miit.gov.cn/" target="_blank"></a>
+            
+        </li>
+      
+      <p id="uptime">本站已安全运行：</p>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  // 更新并实时显示站点运行时长
+  function updateUptime() {
+    // 获取网站创建时间，这里假设你有一个变量或者常量存储了网站创建时间
+    var startDate = new Date('2024-04-28');
+    
+    // 计算运行时长
+    var now = new Date();
+    var uptime = now.getTime() - startDate.getTime();
+    var seconds = Math.floor(uptime / 1000);
+    var minutes = Math.floor(seconds / 60);
+    var hours = Math.floor(minutes / 60);
+    var days = Math.floor(hours / 24);
+    
+    // 计算剩余的小时、分钟和秒数
+    hours %= 24;
+    minutes %= 60;
+    seconds %= 60;
+    
+    // 更新页面中的元素内容
+    var uptimeString = days + ' 天, ' + hours + ' 小时, ' + minutes + ' 分钟, ' + seconds + ' 秒';
+    document.getElementById('uptime').textContent = '本站已安全运行：' + uptimeString;
+  }
+  
+  // 每秒更新一次运行时长
+  setInterval(updateUptime, 1000);
+  
+  // 页面加载完成后立即更新一次
+  updateUptime();
+</script>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/avator.svg" alt="LRay的空间"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">相册</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/favorite">收藏</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>
