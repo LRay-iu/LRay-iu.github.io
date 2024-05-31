@@ -1230,7 +1230,7 @@ img {
   padding: 0.5rem 1rem;
 }
 .tag-list > .tag-list-item:before {
-  content: "\f153";
+  content: "\ebd7";
   font-family: feathericon;
   margin-right: 0.5rem;
 }
@@ -2543,34 +2543,31 @@ pre .javascript .function {
   font-family: 'feathericon';
 }
 .navbar .nav.nav-main .nav-item:nth-child(1) .nav-item-link::before {
-  content: '\e900';
+  content: '\f12f';
 }
 .navbar .nav.nav-main .nav-item:nth-child(2) .nav-item-link::before {
-  content: '\e92f';
+  content: '\f12a';
 }
 .navbar .nav.nav-main .nav-item:nth-child(3) .nav-item-link::before {
-  content: '\e90d';
+  content: '\f1a9';
 }
 .navbar .nav.nav-main .nav-item:nth-child(4) .nav-item-link::before {
-  content: '\e9d2';
+  content: '\f170';
 }
 .navbar .nav.nav-main .nav-item:nth-child(5) .nav-item-link::before {
-  content: '\e9bb';
+  content: '\f18c';
 }
 .navbar .nav.nav-main .nav-item:nth-child(6) .nav-item-link::before {
-  content: '\e935';
+  content: '\f153';
 }
 .navbar .nav.nav-main .nav-item:nth-child(7) .nav-item-link::before {
-  content: '\e9cd';
+  content: '\f15c';
 }
 .navbar .nav.nav-main .nav-item:nth-child(8) .nav-item-link::before {
-  content: '\e923';
+  content: '\f174';
 }
 .navbar .nav.nav-main .nav-item:nth-child(9) .nav-item-link::before {
-  content: '\e971';
-}
-.navbar .nav.nav-main .nav-item:nth-child(10) .nav-item-link::before {
-  content: '\e986';
+  content: '\f1bd';
 }
 .navbar-bottom {
   position: absolute;
