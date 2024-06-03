@@ -37,38 +37,23 @@
 <section class="outer" style="min-height:90vh">
     
         <h1 class="page-type-title">类别</h1>
-        <p class="category-count">目前共有<strong>3</strong>个分类，<strong>9</strong>个标签</p> <!-- 显示分类数量 -->
+        <p class="category-count">目前共有3个分类，9个标签</p> <!-- 显示分类数量 -->
         <div class="categories-container">
-          <table>
-            <tbody>
-              
-                <tr>
-                  <td>
-                    <a href="/categories/后端" class="category-link">
-                      *&nbsp;&nbsp;&nbsp;后端
-                    </a>
-                  </td>
-                </tr>
-              
-                <tr>
-                  <td>
-                    <a href="/categories/Web3" class="category-link">
-                      *&nbsp;&nbsp;&nbsp;Web3
-                    </a>
-                  </td>
-                </tr>
-              
-                <tr>
-                  <td>
-                    <a href="/categories/前端" class="category-link">
-                      *&nbsp;&nbsp;&nbsp;前端
-                    </a>
-                  </td>
-                </tr>
-              
-            </tbody>
-          </table>
+          
+            <a href="/categories/后端" class="category-tag">
+              后端
+            </a>
+          
+            <a href="/categories/Web3" class="category-tag">
+              Web3
+            </a>
+          
+            <a href="/categories/前端" class="category-tag">
+              前端
+            </a>
+          
         </div>
+        
       
     <div class="tag-cloud-container">
         <div class="layout-wrap-inner tag-cloud tag-link">
@@ -88,9 +73,27 @@
     .categories-container {
       width: 100%; /* 设置容器宽度 */
       justify-content: center;
-      margin: 20px 0 0 5vw;
     }
-  
+    .categories-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* 标签之间的间距 */
+}
+
+.category-tag {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #ffffff; /* 背景颜色 */
+  border: 0.1px solid rgb(202, 202, 202);
+  color: #6e6e6e; /* 文本颜色 */
+  text-decoration: none; /* 移除下划线 */
+  border-radius: 15px; /* 圆角边框 */
+  transition: background-color 0.3s; /* 背景颜色渐变 */
+}
+
+.category-tag:hover {
+  background-color: #eeeeee; /* 悬停时背景颜色 */
+}
     .category-link {
       text-decoration: none; /* 去除链接的下划线 */
       color: inherit; /* 继承父元素的颜色 */
@@ -249,7 +252,7 @@
 </nav>
 <div class="search-form-wrap">
   <div class="local-search local-search-plugin">
-  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="手机端似乎不支持该功能，我深感抱歉">
   <div id="local-search-result" class="local-search-result"></div>
 </div>
 </div>
