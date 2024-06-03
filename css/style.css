@@ -2563,9 +2563,6 @@ pre .javascript .function {
 .navbar .nav.nav-main .nav-item:nth-child(7) .nav-item-link::before {
   content: '\f15c';
 }
-.navbar .nav.nav-main .nav-item:nth-child(8) .nav-item-link::before {
-  content: '\f1bd';
-}
 .navbar-bottom {
   position: absolute;
   bottom: 0;
