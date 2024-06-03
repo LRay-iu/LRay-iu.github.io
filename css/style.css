@@ -2555,18 +2555,15 @@ pre .javascript .function {
   content: '\f170';
 }
 .navbar .nav.nav-main .nav-item:nth-child(5) .nav-item-link::before {
-  content: '\f18c';
+  content: '\f153';
 }
 .navbar .nav.nav-main .nav-item:nth-child(6) .nav-item-link::before {
-  content: '\f153';
+  content: '\f174';
 }
 .navbar .nav.nav-main .nav-item:nth-child(7) .nav-item-link::before {
   content: '\f15c';
 }
 .navbar .nav.nav-main .nav-item:nth-child(8) .nav-item-link::before {
-  content: '\f174';
-}
-.navbar .nav.nav-main .nav-item:nth-child(9) .nav-item-link::before {
   content: '\f1bd';
 }
 .navbar-bottom {
