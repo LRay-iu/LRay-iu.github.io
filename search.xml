@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>无锡-军嶂古道</title>
+    <url>/2024/06/04/wuxi_travel/</url>
+    <content><![CDATA[<p>于2024年6月4日三人前往无锡太湖附近进行徒步游玩，感觉甚是开心</p>
+<span id="more"></span>
+
+<blockquote>
+<ul>
+<li>Created by Typora</li>
+<li>Author: LRay-iu</li>
+<li>createTime: 2024-06-04 08:55</li>
+<li>updateTime: 2024-06-04 16:10</li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>生活记录</category>
+      </categories>
+  </entry>
+  <entry>
     <title>水门车险的开发记录（区块链）</title>
     <url>/2024/05/06/minatosys_Blockchain_note/</url>
     <content><![CDATA[<p>该文档为水门车险的区块链部分，记录了水门车险在区块链这个模块的开发以及部署过程，语言方面使用了Solidity。语法接近js，上手较为容易。合约的部署则介绍了两种方式，Remix以及Hardhat。</p>
