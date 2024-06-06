@@ -38,9 +38,13 @@
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
-    
-    <header class="article-header">
-      
+ 
+    <div class="article-entry" itemprop="articleBody">
+      <div class="article-content-container">
+        <div class="article-content">
+          
+            <header class="article-header">
+              
   
   <h1 class="article-title" itemprop="name">
     水门车险的开发记录（区块链）
@@ -48,71 +52,30 @@
   
   
 
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2024/05/06/minatosys_Blockchain_note/" class="article-date">
+            </header>
+            
+        
+            
+            <div class="article-meta">
+              <a href="/2024/05/06/minatosys_Blockchain_note/" class="article-date">
   <time datetime="2024-05-06T08:10:00.000Z" itemprop="datePublished">2024-05-06</time>
 </a>
-      
+              
 <div class="article-category">
   <a class="article-category-link" href="/categories/Web3/">Web3</a>
 </div>
 
-    </div>
-    
-
-    
-    
+            </div>
+            
+        
+            
+            
 <div class="tocbot" style="font-size: medium;"></div>
 
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      <!-- 
-
-
-  <script>
-    // 检查屏幕宽度
-    function checkScreenWidth() {
-      var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-  
-      // 如果屏幕宽度大于等于 500px，则启用这段代码
-      if (screenWidth >= 520) {
-        var elements = document.querySelectorAll('.article-albums-caption');
-        elements.forEach(function(element) {
-          element.style.display = 'inline'; // 或者 'block', 'flex'，具体取决于你的布局需求
-        });
-      }
-      if (screenWidth < 520) {
-        var elements = document.querySelectorAll('.article-albums-caption');
-        elements.forEach(function(element) {
-          element.style.display = 'none'; // 或者 'block', 'flex'，具体取决于你的布局需求
-        });
-      }
-    }
-  
-    // 页面加载完毕时执行一次检查
-    window.onload = function() {
-      checkScreenWidth();
-    };
-  
-    // 当窗口大小改变时再次执行检查
-    window.onresize = function() {
-      checkScreenWidth();
-    };
-  </script>
-   -->
-      
-      
-        <p>该文档为水门车险的区块链部分，记录了水门车险在区块链这个模块的开发以及部署过程，语言方面使用了Solidity。语法接近js，上手较为容易。合约的部署则介绍了两种方式，Remix以及Hardhat。</p>
+            
+          <div class="article-excerpt">
+            
+              <p>该文档为水门车险的区块链部分，记录了水门车险在区块链这个模块的开发以及部署过程，语言方面使用了Solidity。语法接近js，上手较为容易。合约的部署则介绍了两种方式，Remix以及Hardhat。</p>
 <span id="more"></span>
 
 <blockquote>
@@ -188,10 +151,23 @@
 
 <h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>至此，水门车险的合约部分就被部署完成了，个人还是很推荐使用Remix的部署方式，当然，如果你有意向深入学习使用智能合约，那Hardhat这样的框架也是非常有学习的价值</p>
 
-      
+            
+          </div>
+        </div>
+        
+      </div>
     </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+    </div>
+    
     <footer class="article-footer">
-      <!-- <a data-url="https://lray-iu.gitee.io/2024/05/06/minatosys_Blockchain_note/" data-id="clx1kh2vv000fqsur7fwac8d3" class="article-share-link">
+      <!-- <a data-url="https://lray-iu.gitee.io/2024/05/06/minatosys_Blockchain_note/" data-id="clx2tlo8f000ix8ur3tqm7wq0" class="article-share-link">
         分享
       </a> -->
       
@@ -231,6 +207,57 @@
 
 </article>
 
+
+<style>
+  .article-content-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.article-gallery {
+  order: 2; /* This will move the gallery to the right */
+  margin-left: 20px; /* Adjust this value as needed */
+}
+
+.article-content {
+  order: 1; /* This will keep the content on the left */
+  flex: 1;
+}
+
+  .article-content-container {
+    display: flex;
+    align-items: flex-start; /* 顶部对齐 */
+  }
+  
+  .article-content-container.has-gallery .article-gallery {
+    flex: 0 0 150px; /* 固定宽度，可以根据需要调整 */
+    margin: 5px 0 0 0px ; /* 调整左右间距 */
+  }
+  
+  .article-content-container.has-gallery .article-excerpt {
+    flex: 1;
+  }
+  
+  .article-content-container:not(.has-gallery) .article-excerpt {
+    flex: 1 0 100%; /* 占据全部宽度 */
+  }
+  
+  .article-more-link {
+    display: block;
+    margin-top: 10px;
+  }
+  
+  @media (max-width: 600px) {
+    .article-content-container {
+      flex-direction: column;
+    }
+    
+    .article-gallery {
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
+  }
+  </style>
 </section>
     
 <footer class="footer">

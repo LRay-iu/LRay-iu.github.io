@@ -38,9 +38,13 @@
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
-    
-    <header class="article-header">
-      
+ 
+    <div class="article-entry" itemprop="articleBody">
+      <div class="article-content-container">
+        <div class="article-content">
+          
+            <header class="article-header">
+              
   
   <h1 class="article-title" itemprop="name">
     Patrick Collins-区块链 笔记
@@ -48,71 +52,30 @@
   
   
 
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2024/04/25/Patrick%20Collins_blockchain_note/" class="article-date">
+            </header>
+            
+        
+            
+            <div class="article-meta">
+              <a href="/2024/04/25/Patrick%20Collins_blockchain_note/" class="article-date">
   <time datetime="2024-04-25T06:11:40.000Z" itemprop="datePublished">2024-04-25</time>
 </a>
-      
+              
 <div class="article-category">
   <a class="article-category-link" href="/categories/Web3/">Web3</a>
 </div>
 
-    </div>
-    
-
-    
-    
+            </div>
+            
+        
+            
+            
 <div class="tocbot" style="font-size: medium;"></div>
 
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      <!-- 
-
-
-  <script>
-    // 检查屏幕宽度
-    function checkScreenWidth() {
-      var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-  
-      // 如果屏幕宽度大于等于 500px，则启用这段代码
-      if (screenWidth >= 520) {
-        var elements = document.querySelectorAll('.article-albums-caption');
-        elements.forEach(function(element) {
-          element.style.display = 'inline'; // 或者 'block', 'flex'，具体取决于你的布局需求
-        });
-      }
-      if (screenWidth < 520) {
-        var elements = document.querySelectorAll('.article-albums-caption');
-        elements.forEach(function(element) {
-          element.style.display = 'none'; // 或者 'block', 'flex'，具体取决于你的布局需求
-        });
-      }
-    }
-  
-    // 页面加载完毕时执行一次检查
-    window.onload = function() {
-      checkScreenWidth();
-    };
-  
-    // 当窗口大小改变时再次执行检查
-    window.onresize = function() {
-      checkScreenWidth();
-    };
-  </script>
-   -->
-      
-      
-        <p>有关区块链和WEB3全栈开发的课程笔记，来源是Patrick Collins 讲解的区块链课程，使用了Solidity，Javascript进行了智能合约的编写，部署和交互。这是比较流行的写法，当然合约不止Solidity一种编写方法，在引入库的之后，Javascript、Python、Golang都可以做到。</p>
+            
+          <div class="article-excerpt">
+            
+              <p>有关区块链和WEB3全栈开发的课程笔记，来源是Patrick Collins 讲解的区块链课程，使用了Solidity，Javascript进行了智能合约的编写，部署和交互。这是比较流行的写法，当然合约不止Solidity一种编写方法，在引入库的之后，Javascript、Python、Golang都可以做到。</p>
 <span id="more"></span>
 
 <blockquote>
@@ -419,10 +382,23 @@
 
 <h2 id="HTML结合js实现web端交易"><a href="#HTML结合js实现web端交易" class="headerlink" title="HTML结合js实现web端交易"></a>HTML结合js实现web端交易</h2><p><a target="_blank" rel="noopener" href="https://docs.moonbeam.network/cn/builders/build/eth-api/libraries/ethersjs/">使用Ethers.js代码库发送交易和部署合约 | Moonbeam Docs</a></p>
 
-      
+            
+          </div>
+        </div>
+        
+      </div>
     </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+    </div>
+    
     <footer class="article-footer">
-      <!-- <a data-url="https://lray-iu.gitee.io/2024/04/25/Patrick%20Collins_blockchain_note/" data-id="clx1kh2vx000jqsurdum82s4r" class="article-share-link">
+      <!-- <a data-url="https://lray-iu.gitee.io/2024/04/25/Patrick%20Collins_blockchain_note/" data-id="clx2tlo8d000ex8ur7nvo4vc8" class="article-share-link">
         分享
       </a> -->
       
@@ -462,6 +438,57 @@
 
 </article>
 
+
+<style>
+  .article-content-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.article-gallery {
+  order: 2; /* This will move the gallery to the right */
+  margin-left: 20px; /* Adjust this value as needed */
+}
+
+.article-content {
+  order: 1; /* This will keep the content on the left */
+  flex: 1;
+}
+
+  .article-content-container {
+    display: flex;
+    align-items: flex-start; /* 顶部对齐 */
+  }
+  
+  .article-content-container.has-gallery .article-gallery {
+    flex: 0 0 150px; /* 固定宽度，可以根据需要调整 */
+    margin: 5px 0 0 0px ; /* 调整左右间距 */
+  }
+  
+  .article-content-container.has-gallery .article-excerpt {
+    flex: 1;
+  }
+  
+  .article-content-container:not(.has-gallery) .article-excerpt {
+    flex: 1 0 100%; /* 占据全部宽度 */
+  }
+  
+  .article-more-link {
+    display: block;
+    margin-top: 10px;
+  }
+  
+  @media (max-width: 600px) {
+    .article-content-container {
+      flex-direction: column;
+    }
+    
+    .article-gallery {
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
+  }
+  </style>
 </section>
     
 <footer class="footer">

@@ -1771,6 +1771,7 @@ a.toc-link {
 }
 .article-gallery {
   position: relative;
+  justify-content: center;
 }
 .article-gallery-photos {
   position: relative;
