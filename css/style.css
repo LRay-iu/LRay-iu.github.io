@@ -2343,10 +2343,18 @@ a.toc-link {
   -webkit-border-radius: 0.4rem;
   -moz-border-radius: 0.4rem;
   border-radius: 0.4rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.article-entry a {
+  word-wrap: break-word;
+  hite-space: pre-wrap;
 }
 .article-entry pre code {
   background: none;
   padding: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 .article-entry .highlight pre {
   border: none;
