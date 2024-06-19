@@ -2233,7 +2233,7 @@ a.toc-link {
   }
 }
 .articles .article {
-  padding: 2rem 0;
+  padding: 1rem 0;
 }
 .articles .article:not(:last-child) {
   border-bottom: 0.1rem #e6e6e6 solid;
