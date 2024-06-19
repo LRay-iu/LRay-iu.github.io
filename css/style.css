@@ -1314,7 +1314,7 @@ img {
 .video-learn-more {
   position: absolute;
   z-index: 1;
-  bottom: -3rem;
+  bottom: -6rem;
   right: 0;
   left: 0;
 }
