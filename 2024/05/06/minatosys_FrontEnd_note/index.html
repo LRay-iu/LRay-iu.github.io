@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="水门车险开发过程记录">
+  
+  <title>
+    水门车险的开发记录（前端） |
+    
+    LRay的博客
+  </title>
+  <!-- Icon -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <main class="content" >
+    <section class="outer" style="min-height: 90vh;">
+  <article  id="post-minatosys_FrontEnd_note" class="article article-type-post" itemscope
+            itemprop="blogPost" data-scroll-reveal>
+
+            <div class="article-inner" 
+              <header class="article-header">
+                
+  
+  <h1 class="article-title" itemprop="name">
+    水门车险的开发记录（前端）
+  </h1>
+  
+  
+
+              </header>
+              
+
+                
+                  <div class="article-meta">
+                    <a href="/2024/05/06/minatosys_FrontEnd_note/" class="article-date">
+  <time datetime="2024-05-06T08:08:00.000Z" itemprop="datePublished">2024-05-06</time>
+</a>
+                      
+<div class="article-category">
+  <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+</div>
+
+                  </div>
+                  
+
+                    
+                      
+<div class="tocbot" style="font-size: medium;"></div>
+
+                        
+
+                          <div class="article-entry" itemprop="articleBody">
+                            
+
+
+                              
+
+                                <!--  -->
+                                
+                                          <p>​	该文档为水门车险的前端部分，记录了水门车险在前端这个模块的开发过程，组件库方面选择了 ElementPLUS，这个组件库在官网有着非常详细的文档，非常适合前端不熟悉的人用其制作精美的页面；</p>
+<span id="more"></span>
+
+<blockquote>
+<ul>
+<li>Created by Typora</li>
+<li>Author: LRay-iu</li>
+<li>createTime: 2024-04-25 14:00</li>
+<li>updateTime: 2024-05-06 16:08</li>
+</ul>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这个文档记录了<strong>水门车险前端模块</strong>开发过程中的部分功能实现方法。</p>
+<p>内容是基于区块链技术开发的一个车险系统，关于区块链的的概念详见其他 Markdown；</p>
+<p>这个系统并没有往实际使用的方向开发，纯粹是应付毕业设计所准备的，因此可能存在很多不合理的设计或者是奇奇怪怪的 bug，总之，一切努力只为能够通过毕设考核。</p>
+<p>整个项目暂定分成三个模块，前端、后端、区块链。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">D:.</span><br><span class="line">├─gin-minato</span><br><span class="line">├─hardhat-minato</span><br><span class="line">└─vue-minato</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>架构设计</li>
+</ul>
+<img src="/2024/05/06/minatosys_FrontEnd_note/image-20240423222551537.png" alt="image-20240423222551537" style="zoom:67%;">
+
+<p>go ~ go ~ go！</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>需要安装<code>node.js</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PS D:\study_test\Minato_Sys\vue-Minato&gt; node --version</span><br><span class="line">v18.18.0</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装和部署"><a href="#安装和部署" class="headerlink" title="安装和部署"></a>安装和部署</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 选择一个你喜欢的包管理器</span><br><span class="line"># 安装element-plus</span><br><span class="line"># NPM</span><br><span class="line">$ npm install element-plus --save</span><br><span class="line"># Yarn</span><br><span class="line">$ yarn add element-plus</span><br><span class="line"># pnpm</span><br><span class="line">$ pnpm install element-plus</span><br><span class="line"></span><br><span class="line"># “自动导入”插件</span><br><span class="line">$ npm install -D unplugin-vue-components unplugin-auto-import</span><br><span class="line"></span><br><span class="line"># 安装setup语法糖插件</span><br><span class="line">$ npm i vite-plugin-vue-setup-extend -D</span><br><span class="line"></span><br><span class="line"># 安装icon图标库</span><br><span class="line">$ npm install @element-plus/icons-vue</span><br><span class="line"></span><br><span class="line"># 安装Metamask插件</span><br><span class="line">$ npm i @metamask/detect-provider</span><br><span class="line"></span><br><span class="line"># 安装axios</span><br><span class="line">$ npm i axios</span><br><span class="line"></span><br><span class="line"># 安装pinia</span><br><span class="line">$ npm i pinia</span><br></pre></td></tr></table></figure>
+
+<p>使用 Element-plus 的方法请参考官方文档，写得非常详细，我觉得完全没必要多此一举再写一遍：<a target="_blank" rel="noopener" href="https://element-plus.org/zh-CN">https://element-plus.org/zh-CN</a></p>
+<p>同时，您还需要准备一个<code>Metamask</code>钱包，用以对接接受支付和接受赔偿金的环节</p>
+<img src="/2024/05/06/minatosys_FrontEnd_note/image-20240429092312447.png" alt="image-20240429092312447" style="zoom: 67%;">
+
+<h2 id="页面设计"><a href="#页面设计" class="headerlink" title="页面设计"></a>页面设计</h2><p><code>src</code>下的目录大概像这样，其中经常复用的如侧边栏、顶栏、页脚被写进了<code>components</code>文件夹</p>
+<p><em>&#x2F;&#x2F;很多页面的 UI 都是”<strong>借鉴</strong>“了各大网页的，包括了<code>Mozilla</code>、中国平安等等等等</em></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">|-- App.vue</span><br><span class="line">|-- components</span><br><span class="line">|   |-- ClaimSide.vue</span><br><span class="line">|   |-- InsuranceSide.vue</span><br><span class="line">|   |-- PageBotton.vue</span><br><span class="line">|   `-- PageTop.vue</span><br><span class="line">|-- interface</span><br><span class="line">|   |-- claimForm.ts</span><br><span class="line">|   `-- loginResult.ts</span><br><span class="line">|-- main.ts</span><br><span class="line">|-- pages</span><br><span class="line">|   |-- HomePage.vue</span><br><span class="line">|   |-- Login.vue</span><br><span class="line">|   |-- Register.vue</span><br><span class="line">|   |-- admin_Claim.vue</span><br><span class="line">|   |-- admin_Claim_Detail.vue</span><br><span class="line">|   |-- user_Claim.vue</span><br><span class="line">|   |-- user_ClaimQuery.vue</span><br><span class="line">|   |-- user_InsuranceBought.vue</span><br><span class="line">|   `-- user_InsuranceQuery.vue</span><br><span class="line">|-- router</span><br><span class="line">|   `-- index.ts</span><br><span class="line">|-- scripts</span><br><span class="line">|   |-- Codecheck.ts</span><br><span class="line">|   |-- Minatosys.ts</span><br><span class="line">|   |-- chineseCities.ts</span><br><span class="line">|   |-- claim_helper.ts</span><br><span class="line">|   |-- constants.ts</span><br><span class="line">|   `-- ethers-5.7.esm.min.js</span><br><span class="line">|-- store</span><br><span class="line">|   `-- loginStore.ts</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<img src="/2024/05/06/minatosys_FrontEnd_note/image-20240429095339280.png" alt="image-20240429095339280" style="zoom:80%;">
+
+<img src="/2024/05/06/minatosys_FrontEnd_note/image-20240429100428388.png" alt="image-20240429100428388" style="zoom:80%;">
+
+<img src="/2024/05/06/minatosys_FrontEnd_note/image-20240429100543929.png" alt="image-20240429100543929" style="zoom:80%;">
+
+<p><img src="/2024/05/06/minatosys_FrontEnd_note/image-20240429100702637.png" alt="image-20240429100702637"></p>
+<img src="/2024/05/06/minatosys_FrontEnd_note/image-20240429100754037.png" alt="image-20240429100754037" style="zoom:80%;">
+
+<h2 id="理赔申报"><a href="#理赔申报" class="headerlink" title="理赔申报"></a>理赔申报</h2><p>用户需要填写表单并且上传文件</p>
+<p>上传文件使用的是<code>ElementPlus</code>中的<code>el-upload</code>，这里上传的文件会直接以 POST 的方法传到 <a target="_blank" rel="noopener" href="http://localhost:8080/update%EF%BC%8C%E5%90%8E%E7%AB%AF%E9%9C%80%E8%A6%81%E5%AF%B9%E8%BF%99%E4%B8%AA%E6%96%87%E4%BB%B6%E8%BF%9B%E8%A1%8C%E6%8E%A5%E6%94%B6">http://localhost:8080/update，后端需要对这个文件进行接收</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;el-form-item</span><br><span class="line">  label=&quot;上传事故责任确认书、保险单复印件、驾驶证复印件以及维修费清单&quot;</span><br><span class="line">  required</span><br><span class="line">  prop=&quot;claimfile&quot;&gt;</span><br><span class="line">	&lt;el-upload</span><br><span class="line">		ref=&quot;uploadRef&quot;</span><br><span class="line">        class=&quot;upload-demo&quot;</span><br><span class="line">        drag action=&quot;http://localhost:8080/update&quot;</span><br><span class="line">      	multiple style=&quot;width: 50vw&quot;</span><br><span class="line">       	:auto-upload=&quot;false&quot;</span><br><span class="line">       	list-type=&quot;picture&quot;</span><br><span class="line">       :before-upload=&quot;beforeClaimfileUpload&quot;</span><br><span class="line">        @change=&quot;handleChange&quot;&gt;</span><br><span class="line">        	&lt;el-icon class=&quot;el-icon--upload&quot;&gt;&lt;upload-filled /&gt;&lt;/el-icon&gt;</span><br><span class="line">            	&lt;div class=&quot;el-upload__text&quot;&gt;</span><br><span class="line">                	将文件拖至此处或 &lt;em&gt;点击上传&lt;/em&gt;</span><br><span class="line">                &lt;/div&gt;</span><br><span class="line">    &lt;/el-upload&gt;</span><br><span class="line">&lt;/el-form-item&gt;</span><br></pre></td></tr></table></figure>
+
+<p>后端接收文件，这里以<code>Gin</code>为例</p>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(f FileController)</span></span> Updatefile(ctx *gin.Context) &#123;</span><br><span class="line">	file, err := ctx.FormFile(<span class="string">&quot;file&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Sprintf(<span class="string">&quot;get form err: %s&quot;</span>, err.Error())</span><br><span class="line">		config.ReturnFalse(ctx, <span class="number">3001</span>, <span class="string">&quot;接收文件失败&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 保存文件到本地</span></span><br><span class="line">	err = ctx.SaveUploadedFile(file, <span class="string">&quot;uploads/&quot;</span>+file.Filename)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Sprintf(<span class="string">&quot;upload file err: %s&quot;</span>, err.Error())</span><br><span class="line">		config.ReturnFalse(ctx, <span class="number">3002</span>, <span class="string">&quot;保存文件失败&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	config.ReturnSuccess(ctx, <span class="number">200</span>, <span class="string">&quot;成功接受并保存文件！&quot;</span>, file, <span class="number">1</span>) <span class="comment">// 返回文件名</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>申报需要对用户提交的内容进行验证</p>
+<p>这里我们尽量在前端将这些都完成，避免无用表单对后端造成压力</p>
+<p>首先在 el-form 中添加规则</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;el-form ref=&quot;claimFormRef&quot; :rules=&quot;rules&quot;&gt;&lt;/el-form&gt;</span><br></pre></td></tr></table></figure>
+
+<p>接着引入数据类型，也可以在当前页面直接定义，不过因为这个和表单提交部分复用了，所以我单独写了一个接口，方便之后使用</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//引入ClaimForm的钩子</span></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="keyword">type</span> <span class="title class_">ClaimForm</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@/interface/claimForm&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>定义响应式，初始化和接收数据</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 初始化各项数据，其中insuranceid不论怎么写最终读取都是字符串格式</span></span><br><span class="line"><span class="comment">// 因此不必过多纠结，打包的时候将其转换成number类型即可</span></span><br><span class="line"><span class="keyword">const</span> claimForm = reactive&lt;<span class="title class_">ClaimForm</span>&gt;(&#123;</span><br><span class="line">  <span class="attr">claimid</span>: <span class="title function_">nanoid</span>(),</span><br><span class="line">  <span class="attr">username</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">  <span class="attr">userid</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">  <span class="attr">callnumber</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">  <span class="attr">insuranceid</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">  <span class="attr">carid</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">  <span class="attr">region</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">  <span class="attr">date</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">  <span class="attr">claimfile</span>: [<span class="string">&quot;&quot;</span>],</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>定义验证规则</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> rules = reactive&lt;<span class="title class_">FormRules</span>&lt;<span class="title class_">ClaimForm</span>&gt;&gt;(&#123;</span><br><span class="line">  <span class="attr">username</span>: [</span><br><span class="line">    &#123; <span class="attr">required</span>: <span class="literal">true</span>, <span class="attr">message</span>: <span class="string">&quot;请输入用户名！&quot;</span>, <span class="attr">trigger</span>: <span class="string">&quot;blur&quot;</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">min</span>: <span class="number">2</span>, <span class="attr">max</span>: <span class="number">10</span>, <span class="attr">message</span>: <span class="string">&quot;请输入真实用户名！&quot;</span>, <span class="attr">trigger</span>: <span class="string">&quot;blur&quot;</span> &#125;,</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">userid</span>: [</span><br><span class="line">    &#123; <span class="attr">required</span>: <span class="literal">true</span>, <span class="attr">message</span>: <span class="string">&quot;请输入身份证号！&quot;</span>, <span class="attr">trigger</span>: <span class="string">&quot;blur&quot;</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">validator</span>: checkID, <span class="attr">trigger</span>: <span class="string">&quot;blur&quot;</span> &#125;,</span><br><span class="line">  ],</span><br><span class="line">  <span class="comment">//以下验证规则省略，基本同上</span></span><br><span class="line">  <span class="attr">callnumber</span>: [],</span><br><span class="line">  <span class="attr">carid</span>: [],</span><br><span class="line">  <span class="attr">insuranceid</span>: [],</span><br><span class="line">  <span class="attr">region</span>: [],</span><br><span class="line">  <span class="attr">date</span>: [],</span><br><span class="line">  <span class="attr">claimfile</span>: [],</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>其中，身份证校验需要单独写一份正则表达式加以验证：</p>
+<p><em>&#x2F;&#x2F;这部分来自网上，下方有链接</em></p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 有关身份证校验码</span></span><br><span class="line"><span class="comment">// 原文链接：https://blog.csdn.net/Cavendixe/article/details/129581874</span></span><br><span class="line"><span class="keyword">let</span> checkProv = <span class="keyword">function</span> (<span class="params">val: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> pattern = <span class="regexp">/^[1-9][0-9]/</span>;</span><br><span class="line">  <span class="keyword">var</span> <span class="attr">provs</span>: &#123; [<span class="attr">key</span>: <span class="built_in">string</span>]: <span class="built_in">string</span> &#125; = &#123;</span><br><span class="line">    <span class="number">11</span>: <span class="string">&quot;北京&quot;</span>,</span><br><span class="line">    <span class="number">12</span>: <span class="string">&quot;天津&quot;</span>,</span><br><span class="line">    <span class="number">13</span>: <span class="string">&quot;河北&quot;</span>,</span><br><span class="line">    <span class="number">14</span>: <span class="string">&quot;山西&quot;</span>,</span><br><span class="line">    <span class="number">15</span>: <span class="string">&quot;内蒙古&quot;</span>,</span><br><span class="line">    <span class="number">21</span>: <span class="string">&quot;辽宁&quot;</span>,</span><br><span class="line">    <span class="number">22</span>: <span class="string">&quot;吉林&quot;</span>,</span><br><span class="line">    <span class="number">23</span>: <span class="string">&quot;黑龙江&quot;</span>,</span><br><span class="line">    <span class="number">31</span>: <span class="string">&quot;上海&quot;</span>,</span><br><span class="line">    <span class="number">32</span>: <span class="string">&quot;江苏&quot;</span>,</span><br><span class="line">    <span class="number">33</span>: <span class="string">&quot;浙江&quot;</span>,</span><br><span class="line">    <span class="number">34</span>: <span class="string">&quot;安徽&quot;</span>,</span><br><span class="line">    <span class="number">35</span>: <span class="string">&quot;福建&quot;</span>,</span><br><span class="line">    <span class="number">36</span>: <span class="string">&quot;江西&quot;</span>,</span><br><span class="line">    <span class="number">37</span>: <span class="string">&quot;山东&quot;</span>,</span><br><span class="line">    <span class="number">41</span>: <span class="string">&quot;河南&quot;</span>,</span><br><span class="line">    <span class="number">42</span>: <span class="string">&quot;湖北&quot;</span>,</span><br><span class="line">    <span class="number">43</span>: <span class="string">&quot;湖南&quot;</span>,</span><br><span class="line">    <span class="number">44</span>: <span class="string">&quot;广东&quot;</span>,</span><br><span class="line">    <span class="number">45</span>: <span class="string">&quot;广西&quot;</span>,</span><br><span class="line">    <span class="number">46</span>: <span class="string">&quot;海南&quot;</span>,</span><br><span class="line">    <span class="number">50</span>: <span class="string">&quot;重庆&quot;</span>,</span><br><span class="line">    <span class="number">51</span>: <span class="string">&quot;四川&quot;</span>,</span><br><span class="line">    <span class="number">52</span>: <span class="string">&quot;贵州&quot;</span>,</span><br><span class="line">    <span class="number">53</span>: <span class="string">&quot;云南&quot;</span>,</span><br><span class="line">    <span class="number">54</span>: <span class="string">&quot;西藏&quot;</span>,</span><br><span class="line">    <span class="number">61</span>: <span class="string">&quot;陕西&quot;</span>,</span><br><span class="line">    <span class="number">62</span>: <span class="string">&quot;甘肃&quot;</span>,</span><br><span class="line">    <span class="number">63</span>: <span class="string">&quot;青海&quot;</span>,</span><br><span class="line">    <span class="number">64</span>: <span class="string">&quot;宁夏&quot;</span>,</span><br><span class="line">    <span class="number">65</span>: <span class="string">&quot;新疆&quot;</span>,</span><br><span class="line">    <span class="number">71</span>: <span class="string">&quot;台湾&quot;</span>,</span><br><span class="line">    <span class="number">81</span>: <span class="string">&quot;香港&quot;</span>,</span><br><span class="line">    <span class="number">82</span>: <span class="string">&quot;澳门&quot;</span>,</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">if</span> (pattern.<span class="title function_">test</span>(val)) &#123;</span><br><span class="line">    <span class="keyword">if</span> (provs[val]) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> checkDate = <span class="keyword">function</span> (<span class="params">val: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> pattern =</span><br><span class="line">    <span class="regexp">/^(18|19|20)\d&#123;2&#125;((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)$/</span>;</span><br><span class="line">  <span class="keyword">if</span> (pattern.<span class="title function_">test</span>(val)) &#123;</span><br><span class="line">    <span class="keyword">var</span> year = val.<span class="title function_">substring</span>(<span class="number">0</span>, <span class="number">4</span>);</span><br><span class="line">    <span class="keyword">var</span> month = val.<span class="title function_">substring</span>(<span class="number">4</span>, <span class="number">6</span>);</span><br><span class="line">    <span class="keyword">var</span> date = val.<span class="title function_">substring</span>(<span class="number">6</span>, <span class="number">8</span>);</span><br><span class="line">    <span class="keyword">var</span> date2 = <span class="keyword">new</span> <span class="title class_">Date</span>(year + <span class="string">&quot;-&quot;</span> + month + <span class="string">&quot;-&quot;</span> + date);</span><br><span class="line">    <span class="keyword">if</span> (date2 &amp;&amp; date2.<span class="title function_">getMonth</span>() == <span class="built_in">parseInt</span>(month) - <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> checkCode = <span class="keyword">function</span> (<span class="params">val: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> p =</span><br><span class="line">    <span class="regexp">/^[1-9]\d&#123;5&#125;(18|19|20)\d&#123;2&#125;((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d&#123;3&#125;[0-9Xx]$/</span>;</span><br><span class="line">  <span class="keyword">var</span> factor = [<span class="number">7</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">3</span>, <span class="number">7</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">4</span>, <span class="number">2</span>];</span><br><span class="line">  <span class="keyword">var</span> parity = [<span class="number">1</span>, <span class="number">0</span>, <span class="string">&quot;X&quot;</span>, <span class="number">9</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">6</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>];</span><br><span class="line">  <span class="keyword">var</span> code = val.<span class="title function_">substring</span>(<span class="number">17</span>);</span><br><span class="line">  <span class="keyword">if</span> (p.<span class="title function_">test</span>(val)) &#123;</span><br><span class="line">    <span class="keyword">var</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">17</span>; i++) &#123;</span><br><span class="line">      sum += val[i] * factor[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (parity[sum % <span class="number">11</span>] == code.<span class="title function_">toUpperCase</span>()) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(parity[sum % <span class="number">11</span>]);</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> checkID = <span class="keyword">function</span> (<span class="params">rule: <span class="built_in">any</span>, value: <span class="built_in">any</span>, callback: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="title function_">checkCode</span>(value)) &#123;</span><br><span class="line">    <span class="keyword">var</span> date = value.<span class="title function_">substring</span>(<span class="number">6</span>, <span class="number">14</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_">checkDate</span>(date)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="title function_">checkProv</span>(value.<span class="title function_">substring</span>(<span class="number">0</span>, <span class="number">2</span>))) &#123;</span><br><span class="line">        <span class="title function_">callback</span>();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="title function_">callback</span>(<span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&quot;请输入合法身份证号&quot;</span>));</span><br><span class="line">    <span class="comment">// console.log(value)</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>同时，我们还需要在提交表单前，手动确认表单，也就是在点击提交按钮后执行一次表单验证</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> formcheck = <span class="keyword">async</span> (</span><br><span class="line">  <span class="attr">formEl</span>: <span class="title class_">FormInstance</span> | <span class="literal">undefined</span></span><br><span class="line">): <span class="title class_">Promise</span>&lt;<span class="built_in">boolean</span>&gt; =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!formEl) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">await</span> formEl.<span class="title function_">validate</span>();</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;submit!&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(<span class="literal">true</span>);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;error submit!&quot;</span>, error);</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">reject</span>(<span class="literal">false</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">combinedClick</span> = <span class="keyword">async</span> (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="comment">//这里先经过表单验证，通过后会像后端开始发送json报文</span></span><br><span class="line">  <span class="keyword">const</span> isValid = <span class="keyword">await</span> <span class="title function_">formcheck</span>(claimFormRef.<span class="property">value</span>);</span><br><span class="line">  <span class="keyword">if</span> (isValid) &#123;</span><br><span class="line">    <span class="comment">//通过表单验证之后执行下方的方法</span></span><br><span class="line">    <span class="title function_">submitClaimForm</span>();</span><br><span class="line">    <span class="title function_">submitUpload</span>();</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>提交表单</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">submitClaimForm</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">//打包表单内容</span></span><br><span class="line">  <span class="keyword">let</span> claimMessage = &#123;</span><br><span class="line">    <span class="attr">claim_id</span>: claimForm.<span class="property">claimid</span>,</span><br><span class="line">    <span class="attr">claim_user</span>: claimForm.<span class="property">userid</span>,</span><br><span class="line">    <span class="attr">claim_insurance</span>: <span class="built_in">parseInt</span>(claimForm.<span class="property">insuranceid</span>),</span><br><span class="line">    <span class="attr">callnumber</span>: claimForm.<span class="property">callnumber</span>,</span><br><span class="line">    <span class="attr">car_id</span>: claimForm.<span class="property">carid</span>,</span><br><span class="line">    <span class="attr">region</span>: claimForm.<span class="property">region</span>,</span><br><span class="line">    <span class="attr">createtime</span>: claimForm.<span class="property">date</span>,</span><br><span class="line">    <span class="comment">// claim_file: claimForm.claimfile,</span></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// console.log(&quot;提交表单内容为&quot;, claimMessage)</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> axios.<span class="title function_">post</span>(</span><br><span class="line">      <span class="string">&quot;http://localhost:8080/addclaim&quot;</span>,</span><br><span class="line">      claimMessage</span><br><span class="line">    );</span><br><span class="line">    <span class="comment">// console.log(&quot;send successful:&quot;, response.data.data)</span></span><br><span class="line">    <span class="keyword">switch</span> (response.<span class="property">data</span>.<span class="property">code</span>) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">200</span>:</span><br><span class="line">        <span class="title class_">ElMessage</span>(&#123;</span><br><span class="line">          <span class="attr">message</span>: <span class="string">&quot;申报成功！&quot;</span>,</span><br><span class="line">          <span class="attr">type</span>: <span class="string">&quot;success&quot;</span>,</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">//3秒后跳转至理赔查询</span></span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">          router.<span class="title function_">push</span>(<span class="string">&quot;/3-2&quot;</span>);</span><br><span class="line">        &#125;, <span class="number">300</span>);</span><br><span class="line">        <span class="comment">// 可以添加其他情况的处理</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="comment">//其他提交失败的结果</span></span><br><span class="line">      <span class="keyword">case</span> <span class="number">2001</span>:</span><br><span class="line">      <span class="attr">default</span>:</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;Claim failed:&quot;</span>, error);</span><br><span class="line">    <span class="comment">// 申报失败的处理</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是，el-update 提交的表单不能修改文件名，始终会显示变量只读，我也不知道怎么修改</p>
+<p>所以我换了一个思路，在前端拿到文件的时候，将文件名存储在一个数组中，同时记录对应的申报 id，也就是<code>claimid</code>，将这些内容打包发送至后端，由后端接受并对保存的文件进行改名。</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//上传前会对文件进行检查，只允许jpg格式的文件上传至后端</span></span><br><span class="line"><span class="keyword">const</span> <span class="attr">beforeClaimfileUpload</span>: <span class="title class_">UploadProps</span>[<span class="string">&quot;beforeUpload&quot;</span>] = <span class="function">(<span class="params">rawFile</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (rawFile.<span class="property">type</span> !== <span class="string">&quot;image/jpeg&quot;</span>) &#123;</span><br><span class="line">    <span class="title class_">ElMessage</span>.<span class="title function_">error</span>(<span class="string">&quot;图片仅支持jpeg格式&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (rawFile.<span class="property">size</span> / <span class="number">1024</span> / <span class="number">1024</span> &gt; <span class="number">5</span>) &#123;</span><br><span class="line">    <span class="title class_">ElMessage</span>.<span class="title function_">error</span>(<span class="string">&quot;图片不能超过5MB!&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 监听上传组件的 change 事件，只要一有文件被加进来就会触发</span></span><br><span class="line"><span class="comment">//目的是为了获取上传的文件名并就将其保存在claimForm.claimfile[]这个数组中</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">handleChange</span> = (<span class="params">file: <span class="built_in">any</span>, fileList: <span class="built_in">any</span></span>) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 获取第一个文件的文件名</span></span><br><span class="line">  <span class="keyword">if</span> (fileList.<span class="property">length</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; fileList.<span class="property">length</span>; i++) &#123;</span><br><span class="line">      <span class="comment">//fileList.name这个属性是只读的，没办法修改，很叫人头疼</span></span><br><span class="line">      claimForm.<span class="property">claimfile</span>[i] = fileList[i].<span class="property">name</span>;</span><br><span class="line">      <span class="comment">// console.log(&quot;上传文件为&quot;, claimForm.claimfile[i])</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    claimForm.<span class="property">claimfile</span>[<span class="number">0</span>] = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//功能是对提交表单的补充，目的是上传文件并将上传的文件名，绑定的申报单号发送至后端</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">submitUpload</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  uploadRef.<span class="property">value</span>!.<span class="title function_">submit</span>();</span><br><span class="line">  <span class="keyword">let</span> fileMessage = &#123;</span><br><span class="line">    <span class="attr">filename</span>: claimForm.<span class="property">claimfile</span>,</span><br><span class="line">    <span class="attr">file_according</span>: claimForm.<span class="property">claimid</span>,</span><br><span class="line">    <span class="attr">createtime</span>: claimForm.<span class="property">date</span>,</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// console.log(&quot;修改表单内容为&quot;, fileMessage)</span></span><br><span class="line">  <span class="comment">//延迟提交，这个补充的改名接口必须等到图片以及被保存之后再执行，否则可能会出现图片还没保存，改名指令已经提交过来了，后端会因为找不到文件名而改名失败。</span></span><br><span class="line">  <span class="comment">//这实在不是一个很好地办法，最好的办法还是能够在前端就对文件进行改名</span></span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">await</span> axios.<span class="title function_">post</span>(<span class="string">&quot;http://localhost:8080/updatesupport&quot;</span>, fileMessage);</span><br><span class="line">  &#125;, <span class="number">200</span>);</span><br><span class="line">  <span class="comment">// console.log(&quot;send successful:&quot;, response.data.data)</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>至此，用户申报部分就完成了，整个背后的流程分别是：</p>
+<p>用户填写表单&#x2F;存储表单文件名&#x3D;&gt;表单验证&#x3D;&gt;表单提交&#x3D;&gt;表单文件验证&#x3D;&gt;表单文件提交&#x3D;&gt;表单文件名数组+表单号提交</p>
+<h2 id="区块链交互"><a href="#区块链交互" class="headerlink" title="区块链交互"></a>区块链交互</h2><p>区块链的交易需要使用用户私钥，如果完全由我们执行的话，但是对于区块链而言，账户私钥基本上算是把钱包权限完全交出去了，不仅我们需要花费资源和精力妥善保管，一不小心可能还有被篡改的风险。</p>
+<p>因此，在水门车险中我们使用<code>Metamask</code>来完成这一点，<code>Metamask</code>算是一个比较成熟的钱包，由它来负责保管用户的私钥。就好比我们使用支付宝进行支付一样，我们无需在商店门口一个一个输入自己的银行卡号和密码，只需要支付宝轻轻一扫。</p>
+<p>但是在使用前我们需要在前端验证浏览器有没有安装<code>Metamask</code>插件，这里我们使用<code>ethers-5.7.esm.min.js</code>，可以自己下载也可以npm安装。但是具体使用方法要看版本号以及对应的文档。</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ethers &#125; <span class="keyword">from</span> <span class="string">&quot;@/scripts/ethers-5.7.esm.min.js&quot;</span></span><br><span class="line"><span class="comment">// 用以检查浏览器有没有安装Metamask扩展</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">connect</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> (<span class="variable language_">window</span> <span class="keyword">as</span> <span class="built_in">any</span>).<span class="property">ethereum</span> !== <span class="string">&quot;undefined&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">await</span> (<span class="variable language_">window</span> <span class="keyword">as</span> <span class="built_in">any</span>).<span class="property">ethereum</span>.<span class="title function_">request</span>(&#123;</span><br><span class="line">            <span class="attr">method</span>: <span class="string">&quot;eth_requestAccounts&quot;</span>,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;No metamask!&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接着我们需要实例化一个合约钱包，用以调用钱包中的方法，在那之前我们需要将合约的信息封装起来</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//constant.ts</span></span><br><span class="line"><span class="comment">//合约地址</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> contractAddress = <span class="string">&quot;0x03cDbE6020084eb013b02B8d8e0A90BE018fb39E&quot;</span></span><br><span class="line"><span class="comment">//合约编译生成的abi</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> abi = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">inputs</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">internalType</span>: <span class="string">&quot;address&quot;</span>,</span><br><span class="line">                <span class="attr">name</span>: <span class="string">&quot;priceFeedAddress&quot;</span>,</span><br><span class="line">                <span class="attr">type</span>: <span class="string">&quot;address&quot;</span>,</span><br><span class="line">            &#125;,</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">stateMutability</span>: <span class="string">&quot;nonpayable&quot;</span>,</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&quot;constructor&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>接着实例化</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ethers &#125; <span class="keyword">from</span> <span class="string">&quot;@/scripts/ethers-5.7.esm.min.js&quot;</span></span><br><span class="line"><span class="keyword">import</span> &#123; abi, contractAddress &#125; <span class="keyword">from</span> <span class="string">&quot;./constants&quot;</span></span><br><span class="line"><span class="comment">// 假设 1 人民币 = 39,583,333,333,333 wei</span></span><br><span class="line"><span class="comment">// 其实这里偷懒了，和合约那边的喂价合约没对应上，最好是传数字到合约中的方法，之后再通过喂价合约转换成wei</span></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">RMB_TO_WEI_RATE</span> = <span class="title class_">BigInt</span>(<span class="string">&quot;39583333333333&quot;</span>)</span><br><span class="line"><span class="keyword">const</span> provider = <span class="keyword">new</span> ethers.<span class="property">providers</span>.<span class="title class_">Web3Provider</span>((<span class="variable language_">window</span> <span class="keyword">as</span> <span class="built_in">any</span>).<span class="property">ethereum</span>)</span><br><span class="line"><span class="keyword">const</span> signer = provider.<span class="title function_">getSigner</span>()</span><br><span class="line"><span class="comment">//创建智能合约实例</span></span><br><span class="line"><span class="keyword">const</span> contract = <span class="keyword">new</span> ethers.<span class="title class_">Contract</span>(contractAddress, abi, signer)</span><br></pre></td></tr></table></figure>
+
+<p>接着我们使用这个实例化后的钱包调用合约中的方法</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Minatosys.ts</span></span><br><span class="line"><span class="comment">//管理员转账</span></span><br><span class="line"><span class="keyword">import</span> &#123; updateAddress &#125; <span class="keyword">from</span> <span class="string">&quot;./claim_helper&quot;</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">compensation</span>(<span class="params"></span></span><br><span class="line"><span class="params">    toAddress: <span class="built_in">any</span>,</span></span><br><span class="line"><span class="params">    amountInCNY: <span class="built_in">number</span>,</span></span><br><span class="line"><span class="params">    claimid: <span class="built_in">string</span>,</span></span><br><span class="line"><span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="attr">amountInWei</span>: <span class="title class_">BigInt</span> = <span class="title class_">BigInt</span>(amountInCNY) * <span class="variable constant_">RMB_TO_WEI_RATE</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Funding with&quot;</span>, toAddress)</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> (<span class="variable language_">window</span> <span class="keyword">as</span> <span class="built_in">any</span>).<span class="property">ethereum</span> !== <span class="string">&quot;undefined&quot;</span>) &#123;</span><br><span class="line">        <span class="comment">// 这里需要严格对应上合约中的方法，注意方法需要的参数类型</span></span><br><span class="line">        <span class="keyword">const</span> tx = <span class="keyword">await</span> contract.<span class="title function_">withdrawToAddress</span>(</span><br><span class="line">            toAddress,</span><br><span class="line">            ethers.<span class="property">BigNumber</span>.<span class="title function_">from</span>(amountInWei),</span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">await</span> tx.<span class="title function_">wait</span>()</span><br><span class="line">        <span class="title function_">updateAddress</span>(tx.<span class="property">hash</span>, claimid)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Transaction successful&quot;</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;No metamask!&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中，关于引入的<code>updateAddress</code></p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//updateAddress.ts</span></span><br><span class="line"><span class="comment">//用以更新数据库中交易的地址</span></span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;axios&quot;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">updateAddress</span>(<span class="params">address: <span class="built_in">string</span>, claimid: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> updateaddress = &#123;</span><br><span class="line">        <span class="attr">claim_id</span>: claimid,</span><br><span class="line">        <span class="attr">address</span>: address,</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">await</span> axios</span><br><span class="line">        .<span class="title function_">post</span>(<span class="string">&quot;http://localhost:8080/updateaddress&quot;</span>, updateaddress)</span><br><span class="line">        .<span class="title function_">then</span>(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">data</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">updateCompensation</span>(<span class="params"></span></span><br><span class="line"><span class="params">    compensation: <span class="built_in">number</span>,</span></span><br><span class="line"><span class="params">    claimid: <span class="built_in">string</span>,</span></span><br><span class="line"><span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> updatestatus = &#123;</span><br><span class="line">        <span class="attr">claim_id</span>: claimid,</span><br><span class="line">        <span class="attr">compensation</span>: compensation,</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">await</span> axios</span><br><span class="line">        .<span class="title function_">post</span>(<span class="string">&quot;http://localhost:8080/updatestatus&quot;</span>, updatestatus)</span><br><span class="line">        .<span class="title function_">then</span>(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">data</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在封装好方法之后，我们需要调用它</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">open</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="title class_">ElMessageBox</span>.<span class="title function_">prompt</span>(<span class="string">&#x27;请输入赔偿金额（元）&#x27;</span>, <span class="string">&#x27;确认&#x27;</span>, &#123;</span><br><span class="line">        <span class="attr">confirmButtonText</span>: <span class="string">&#x27;交易执行&#x27;</span>,</span><br><span class="line">        <span class="attr">cancelButtonText</span>: <span class="string">&#x27;取消&#x27;</span>,</span><br><span class="line">        <span class="attr">inputErrorMessage</span>: <span class="string">&#x27;Invalid Email&#x27;</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">        .<span class="title function_">then</span>(<span class="function">(<span class="params">&#123; value &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> updatePromise = <span class="title function_">updateCompensation</span>(<span class="built_in">parseFloat</span>(value), tableData.<span class="property">value</span>.<span class="property">claimid</span>);</span><br><span class="line">            <span class="keyword">const</span> compenstationPromise = <span class="title function_">compensation</span>(tableData.<span class="property">value</span>.<span class="property">publicKey</span>, <span class="title class_">BigInt</span>(value), tableData.<span class="property">value</span>.<span class="property">claimid</span>);</span><br><span class="line">            <span class="title class_">ElMessage</span>(&#123;</span><br><span class="line">                <span class="attr">type</span>: <span class="string">&#x27;success&#x27;</span>,</span><br><span class="line">                <span class="attr">message</span>: <span class="string">`正在建立交易，请稍后`</span>,</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">all</span>([updatePromise, compenstationPromise]);</span><br><span class="line">        &#125;)</span><br><span class="line">        .<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                router.<span class="title function_">push</span>(<span class="string">&quot;/3-4&quot;</span>);</span><br><span class="line">            &#125;, <span class="number">3000</span>);</span><br><span class="line">        &#125;)</span><br><span class="line">        .<span class="title function_">catch</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="title class_">ElMessage</span>(&#123;</span><br><span class="line">                <span class="attr">type</span>: <span class="string">&#x27;error&#x27;</span>,</span><br><span class="line">                <span class="attr">message</span>: <span class="string">&#x27;交易取消&#x27;</span>,</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就大功告成了，效果如下：</p>
+<img src="/2024/05/06/minatosys_FrontEnd_note/image-20240506160655596.png" alt="image-20240506160655596" style="zoom:80%;">
+
+<img src="/2024/05/06/minatosys_FrontEnd_note/image-20240506160609536.png" alt="image-20240506160609536" style="zoom:80%;">
+
+<p>静等片刻得到如下回复(当然你也可以再掏一笔燃气费用于加速交易)</p>
+<img src="/2024/05/06/minatosys_FrontEnd_note/image-20240506160424465.png" alt="image-20240506160424465" style="zoom:80%;">
+
+                                            
+                          </div>
+                          <footer class="article-footer">
+                            
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Typescript/" rel="tag">Typescript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue3-0/" rel="tag">Vue3.0</a></li></ul>
+
+                          </footer>
+
+            </div>
+
+            
+              
+<nav class="article-nav">
+  
+  <a href="/2024/05/06/minatosys_Blockchain_note/" class="article-nav-link">
+    <strong class="article-nav-caption">前一篇</strong>
+    <div class="article-nav-title">
+      
+      水门车险的开发记录（区块链）
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2024/04/25/Patrick%20Collins_blockchain_note/" class="article-nav-link">
+    <strong class="article-nav-caption">后一篇</strong>
+    <div class="article-nav-title">Patrick Collins-区块链 笔记</div>
+  </a>
+  
+</nav>
+
+                
+
+                  
+                    
+                      
+                        
+
+</article>
+
+<style>
+  /* @font-face {
+    font-family: 'SongHuiZongShouJinJiaCuBan-2';
+    src: url("/css/songhuizong/SongHuiZongShouJinJiaCuBan-2.woff") format('woff'),
+      url("/css/songhuizong/SongHuiZongShouJinJiaCuBan-2.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  } */
+
+  .article-inner {
+    position: relative;
+    overflow: hidden;
+    /* 确保内容不会覆盖背景图 */
+  }
+
+</style>
+</section>
+    
+<footer class="footer">
+  <div class="outer" style="display: inline-block;">
+    <ul class="list-inline">
+      <li>LRay的博客&nbsp;  |&nbsp; 2024</li><br>
+      
+        <li>
+          
+            <img src="/images/foot-logo.png"  style="width: 16px;">
+            <a href="https://beian.miit.gov.cn/" target="_blank" style="text-decoration: none; color: rgba(0, 0, 0, 0.5);">
+              皖ICP备2024053806号-1
+            </a>
+          
+        </li><br>
+      
+      <li id="uptime">本站已安全运行：</li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  // 更新并实时显示站点运行时长
+  function updateUptime() {
+    // 获取网站创建时间，这里假设你有一个变量或者常量存储了网站创建时间
+    var startDate = new Date('2024-04-28');
+    
+    // 计算运行时长
+    var now = new Date();
+    var uptime = now.getTime() - startDate.getTime();
+    var seconds = Math.floor(uptime / 1000);
+    var minutes = Math.floor(seconds / 60);
+    var hours = Math.floor(minutes / 60);
+    var days = Math.floor(hours / 24);
+    
+    // 计算剩余的小时、分钟和秒数
+    hours %= 24;
+    minutes %= 60;
+    seconds %= 60;
+    
+    // 更新页面中的元素内容
+    var uptimeString = days + ' 天, ' + hours + ' 小时, ' + minutes + ' 分钟, ' + seconds + ' 秒';
+    document.getElementById('uptime').textContent = '本站已安全运行：' + uptimeString;
+  }
+  
+  // 每秒更新一次运行时长
+  setInterval(updateUptime, 1000);
+  
+  // 页面加载完成后立即更新一次
+  updateUptime();
+</script>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://lray-iu.oss-cn-hangzhou.aliyuncs.com/tenten.png" alt="LRay的博客" style="border-radius: 45px;"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">相册</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/favorite">收藏</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/postcard">收集</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="手机端似乎不支持该功能，我深感抱歉">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

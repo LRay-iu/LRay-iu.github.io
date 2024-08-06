@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="肖臻-区块链学习笔记">
+  
+  <title>
+    肖臻-区块链 笔记 |
+    
+    LRay的博客
+  </title>
+  <!-- Icon -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <main class="content" >
+    <section class="outer" style="min-height: 90vh;">
+  <article  id="post-xiaozhen_blockchain_note" class="article article-type-post" itemscope
+            itemprop="blogPost" data-scroll-reveal>
+
+            <div class="article-inner" 
+              <header class="article-header">
+                
+  
+  <h1 class="article-title" itemprop="name">
+    肖臻-区块链 笔记
+  </h1>
+  
+  
+
+              </header>
+              
+
+                
+                  <div class="article-meta">
+                    <a href="/2024/01/23/xiaozhen_blockchain_note/" class="article-date">
+  <time datetime="2024-01-23T04:10:40.000Z" itemprop="datePublished">2024-01-23</time>
+</a>
+                      
+<div class="article-category">
+  <a class="article-category-link" href="/categories/Web3/">Web3</a>
+</div>
+
+                  </div>
+                  
+
+                    
+                      
+<div class="tocbot" style="font-size: medium;"></div>
+
+                        
+
+                          <div class="article-entry" itemprop="articleBody">
+                            
+
+
+                              
+
+                                <!--  -->
+                                
+                                          <p>​	这是一份肖臻老师的课程笔记，主要讲解了区块链的概念，基本没有什么代码片段，因此也可以当作科普类笔记，但是内容较为干枯</p>
+<span id="more"></span>
+
+<blockquote>
+<ul>
+<li>Created by Typora</li>
+<li>Author: LRay-iu</li>
+<li>createTime: 2023-12-19 22:54</li>
+<li>updateTime: 2024-01-23 12:10</li>
+</ul>
+</blockquote>
+<h2 id="工具包"><a href="#工具包" class="headerlink" title="工具包"></a>工具包</h2><p>课程链接：【北京大学肖臻老师《区块链技术与应用》公开课】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Vt411X7JF">https://www.bilibili.com/video/BV1Vt411X7JF</a></p>
+<p>区块链demo：<a target="_blank" rel="noopener" href="https://andersbrownworth.com/blockchain">https://andersbrownworth.com/blockchain</a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这份网课是为了毕设做准备的，因此特此花费了一些时间用以学习区块链的本质</p>
+<p>在这份笔记中，你会了解比特币挖矿的真相，以及矿潮没落的原因</p>
+<p>但是比较无语的是，这份课程录制的时候我还在上初中，因此有部分内容可能以及随着时间发生了一些变化，需要辩证看待部分内容的正确性</p>
+<p>如果您发现笔记之中不正确的地方，欢迎您为我指正错误，联系方式见<strong>关于</strong>里的邮箱，感激不尽！</p>
+<h2 id="密码学原理"><a href="#密码学原理" class="headerlink" title="密码学原理"></a>密码学原理</h2><h3 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h3><p>加密货币实际是不加密的，线上公开透明；以最著名的加密货币比特币为例，它使用的是哈希和数字签名，密码学中的<strong>哈希</strong>被称为<strong>cryptographic hash function</strong>，它有一个特性叫<strong>collision resistance</strong>，也有地方说成<strong>collision free</strong>，但实际上哈希碰撞是不可避免的,这个特性当个玩笑话即可，马马虎虎可以这么认为，但不能当作真理。</p>
+<p><strong>collision resistance</strong>，指的是对于H(x),我们没有办法做到人为高效地找到一个H(x’)，使得H(x)&#x3D;&#x3D;H(x’)，通俗易懂一点来说，就是做不到篡改但是不被发现，只要x有一丁点变化，那么最终的哈希值就会与先前有所不同。在Golang的项目依赖管理go.mod和go.sum中有着类似的机制，go.mod存放了项目所需要的依赖，而go.sum则存放了依赖所对应的哈希值，一旦我们在拉取代码并使用go get下载对应依赖时，下载的依赖被人篡改，那么新依赖计算出来的哈希值就会与go.sum中的原依赖哈希值不符，进而引发警告。</p>
+<p><strong>哈希碰撞</strong>，指的是对于x≠y,但是存在H(x)&#x3D;&#x3D;H(y),使得不同输入会在哈希表被映射到同一个位置。由于哈希的输出空间只有2^256，且输出空间理论上是可以无限大的，因此哈希碰撞不可避免。但是目前来说，对于x，我们并没有高效的方式能够求得y满足哈希碰撞，暴力求解理论上可以完成，但是对于2^256种哈希值，这种方法非常困难。</p>
+<p><em>&#x2F;&#x2F;此处H(x)，相当于x的digest,部分论文会将其翻译做摘要，姑且可以当作x的指纹，“独一无二”的标识</em></p>
+<p>因此，对于哈希函数，必须要严格补充一句，<strong>collision resistance</strong>本身是<strong>无法被证明</strong>且实际是<strong>不可能存在</strong>这种性质的，但是如果一个哈希函数在过去很长一段时间，没有人找到人为高效制造哈希碰撞的方法，我们就默许它是collision resistance的，这属于是一种比较经验化的性质，找不到等于“没有”。当然也有一些哈希函数，在过去是被认为是collision resistance的，但后来被发现可以人为制造哈希碰撞的方法，最为著名的就是MD5加密，以下是在Flask中一段经典的MD5加密代码。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">password = hashlib.md5(password.encode()).hexdigest()</span><br></pre></td></tr></table></figure>
+
+<p>哈希函数还有一个性质，叫<strong>hiding</strong>，简单来说，哈希函数是单向的，x–&gt;H(x)这个过程是不可逆的，除了蛮力，无法高效地破解,但这有一个前提，哈希的输入范围要足够大且分布要足够均匀，否则也会因为输出范围太过狭隘导致被暴力破解，这一点可以参考《模仿游戏》中阿兰·图灵最后破解德军恩格玛电报的原因。</p>
+<p>当collision resistance和hiding结合使用时就可以实现<strong>digital commitment</strong>，有时候也叫<strong>digital equivalent of sealed envelope</strong>。</p>
+<blockquote>
+<p>什么是digital commitment？假设现实世界出现了一名法师奇异博士，他在使用了时间宝石之后，能够准确预言未来发生的事情。请问作为旁观者，我们该如何证明他的能力呢？最简单粗暴的办法就是，让他先预言，再等预言的时间到了，看看预言的事情是否发生。这听上去非常合理，但是事实上，一旦预言被公布出来，那么未来就可能会<strong>因为预言被公布这件事</strong>而发生改变。例如，奇异博士预言了古一会死亡，本来按照时间线，古一可能的的确确是会死亡，但是由于奇异博士的预言，导致众人因为保护古一，而使其没有阵亡，或者说因为众人保护古一的过程中出现了意外导致古一阵亡。这无论是哪种情况，都没办法佐证奇异博士的预言能力。因此，我们得出结论，<strong>预言是不可公开的</strong>。我们正确的做法是让奇异博士将预言的内容封死在绝对安全的保险箱中，确保没有人知道预言，待预言的时间到了，再打开确认有没有发送预言中出现的事情。</p>
+</blockquote>
+<p>对于电子世界，我们想要做到类似的事情，我们就需要将内容进行哈希加密，将得出的哈希值公布出去，并将原文内容封锁在digital sealed envelope中，一旦到了需要解密的时候，我们再解开digital sealed envelope，由于哈希函数具有hiding的性质，因此即便公布哈希值也推不出原文，更不会影响未来，而又由于具备collision resistance的性质，如果公布出来的内容和原文不一样或者说被篡改了，那么通过哈希值就可以轻易判断。</p>
+<p>实际操作中，为满足hiding性质的前提，我们会对原文尾部添加一串随机数，将两个部分同时进行哈希加密，这样可以确保输入范围大，输出分布均匀，如：”今天看起来是个不错的日子||1018“，其中1018就是拼接的随机数。</p>
+<p>另外，在比特币中，还有一个性质，叫<strong>puzzle friendly</strong>，这个说的是，在工作量证明机制中，<strong>挖矿没有捷径</strong>，只能够通过一遍遍地试随机数，使得 Hash ( block,header ) &lt;&#x3D; target(指定阈值)。值得一提的是，在其中一名矿工成功计算出随机数之后，其他矿工需要去验证这个随机数是否正确，而这个验证方法十分简单，只需要将其重新带回Hash ( block,header ) ，查看结果是否小于等于目标阈值，因为计算复杂，求证简单，因此，这个性质又被称作”difficult to solve, but easy to verify”[难以解决，但容易求证]</p>
+<p>比特币中使用的哈希函数叫SHA-256(Secure Hash Algorithm)，它同时具备了上述性质。</p>
+<p><img src="/2024/01/23/xiaozhen_blockchain_note/image-20240112095737762.png" alt="image-20240112095737762"></p>
+<p><img src="/2024/01/23/xiaozhen_blockchain_note/image-20240112095746127.png" alt="image-20240112095746127"></p>
+<p>上图为哈希加密的一个示例，来源：<a target="_blank" rel="noopener" href="https://andersbrownworth.com/blockchain/hash">https://andersbrownworth.com/blockchain/hash</a></p>
+<p><em>&#x2F;&#x2F;这个博主的个人网页也有写有关区块链的内容</em></p>
+<h3 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h3><p>对于不安全的通信渠道，即便是有了普通的加密措施，也就是对称加密，也可能会因为密钥被截取而导致信息泄露，于是非对称加密应运而生。</p>
+<p><strong>非对称加密</strong>，即使用公钥加密，私钥解密，由于私钥是存放在本地的，并不需要参与通信，因此我们不需要担心在通信过程导致私钥被截取。而公钥是公开的，所有人都可以拿到，它只具备加密的能力，并不能解密，所以不存在公钥被截取导致信息泄露。在通信过程中，我们使用对方的公钥进行加密，对方收到信息之后，会使用本地的私钥进行解密，传输过程中，信息是处于加密状态的。</p>
+<p>值得一提的是，公钥是私钥通过某种方法去推算出来的，且这个运算是不可逆的，也就是说，知道私钥的人可以推导出对应的公钥，但知道公钥的人无法逆向推导出私钥。</p>
+<blockquote>
+<p>通俗易懂地来说就是，我用我手里的钥匙制作了足够多的锁，我把我的锁发给全世界每个人，他们如果想给我邮寄东西，就必须用我给的锁上锁，上完之后，除了我手里的钥匙，没人能够打开它。这就是非对称加密。</p>
+</blockquote>
+<p>非对称加密技术我们可以用来制作签名，以比特币交易为例，假设LRay向B转了10个比特币，交易产生并且记录被发布到区块链中，其他节点如何认可此次交易的真实性呢？</p>
+<p>那么LRay就会在发布交易时，同时发布一个签名（使用私钥加密这个签名），其他节点再使用公钥去验证这个签名的真实性。</p>
+<blockquote>
+<p>肖臻：是否存在两个人公钥和私钥一模一样的情况呢？即小黑发起大量攻击，产生大量的公私钥，再检查自身产生的公钥是否和区块链上已有的公钥是否相同，直到产生的某个公钥，恰好能够和用户C的公钥一模一样，这样小黑就得到了用户C的公私钥，那么小黑是否可以使用他的公私钥发布交易，或者篡改用户C的交易呢？</p>
+<p>理论上确实可行，但是实际上，对于256位(二进制，10进制大约78位)的公私钥，出现相同的概率微乎其微，哪怕是超级计算机，日夜兼程计算，找到的概率甚至小于地球爆炸的可能性。但这一且都是建立在有一个良好的随机源的基础上，如果随机源不够优秀，可能会在一遍遍的签名中将私钥破解出来。</p>
+</blockquote>
+<h2 id="比特币的数据结构-已废弃，可不学"><a href="#比特币的数据结构-已废弃，可不学" class="headerlink" title="比特币的数据结构[已废弃，可不学]"></a>比特币的数据结构[已废弃，可不学]</h2><p><img src="/2024/01/23/xiaozhen_blockchain_note/image-20240105091958351.png" alt="image-20240105091958351"></p>
+<h3 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h3><p><em>&#x2F;&#x2F;特奶奶个锤，学了一大半才发现这玩意已经被合并掉了，没话说，日常白学，习惯就好</em></p>
+<p>区块链本身是有区块组成的链表，和传统的链表有所不同</p>
+<p>首先是哈希指针和传统指针有所不同，相比起传统指针p（存放了结构体在内存中的起始地址），增加了一个H(x)，也就是说，哈希指针不仅需要保存地址，还需要保存一个哈希值，这个哈希值可以用来检测结构体中的内容是否被篡改。</p>
+<p><img src="/2024/01/23/xiaozhen_blockchain_note/cec260ce36410d64a2e680b87dafbbe.png"></p>
+<center>hash pointer，哈希指针</center>
+
+<p>下面是一种简单的区块链结构</p>
+<p><img src="/2024/01/23/xiaozhen_blockchain_note/b82daa61a0de14965f383ca4cfbf309.png"></p>
+<p>最左边的叫创世区块，是区块链中的第一个区块，之后的每一个区块的都会保存着上一个区块的地址以及哈希值。而最后一个区块的地址和哈希值保存在系统中，一旦中间的某一个区块被篡改，H( )变成了H’( )，那么牵一发而动全身，后面区块的哈希值都会发生变化，最终系统会发现最后一个区块的哈希值与保存的哈希值有所不同。以下是一个范例：</p>
+<p><img src="/2024/01/23/xiaozhen_blockchain_note/image-20240115231345044.png" alt="image-20240115231345044"></p>
+<p><img src="/2024/01/23/xiaozhen_blockchain_note/image-20240115231352791.png" alt="image-20240115231352791"></p>
+<p>一旦发生篡改</p>
+<p><img src="/2024/01/23/xiaozhen_blockchain_note/image-20240115231411208.png" alt="image-20240115231411208"></p>
+<p>另外这种结构还具备temper-evident log，即可追踪日志，还是以刚才被篡改的区块为例，假如系统中只保存了后两个区块的，我们想要前面的区块中的内容，我们向前面节点发起了请求，我们对发来的区块链中的most recent block进行哈希计算，得到的哈希值如果和我们最老的区块中保存的哈希值不符合，那么就说明发来的数据是有被篡改的。</p>
+<p>在比特币中，除了区块链，还有一种结构，叫<strong>Merkle tree</strong></p>
+<h3 id="Merkle-tree"><a href="#Merkle-tree" class="headerlink" title="Merkle tree"></a>Merkle tree</h3><p><img src="/2024/01/23/xiaozhen_blockchain_note/3f0cfb0ee800495f367fb49c58eea45.png"></p>
+<center>Merkle tree</center>
+
+<p>长相上和二叉树有类似的地方，但和二叉树有所不同的是，使用了哈希指针代替了普通指针，子节点中的哈希值存在它们的父节点中，优点是只需要记住最上方根节点的哈希值，就可以检测出merkle tree中任何一个节点是否发生篡改，原理和之前的区块链表有所类似。</p>
+<p><strong>根哈希值存放在block header中，而block body中包含了交易列表</strong></p>
+<p>用途：</p>
+<p>比特币中的节点分为轻节点(light node)和全节点(full node)两类，全节点是保存整个区块的内容（block header+block body），而轻节点只保存了block header</p>
+<h3 id="Merkle-Proof"><a href="#Merkle-Proof" class="headerlink" title="Merkle Proof"></a>Merkle Proof</h3><p>Merkle Proof ，用于寻找交易所在的节点路径，查询交易是否被写进区块链中。轻节点中只包括了块头部分，因此，MerkleProof的第一步就是向全节点发送请求，之后全节点会返回一条交易路径和沿途的H(),而轻节点要做的就是对哈希值进行计算，判断最终结果与块头中的根哈希值是否相同。</p>
+<p><em>&#x2F;&#x2F;具体见下方肖臻老师的演示课件</em></p>
+<blockquote>
+<p>以下是肖臻老师PPT所做的演示，是将两种区块链结构合二为一，做的显然更加细致</p>
+<p><img src="/2024/01/23/xiaozhen_blockchain_note/9c36b711da645ebc72e4fb5b73b7572.png"></p>
+<p>这张图片展示了区块链节点中的以部分，每一个区块下存放着一个merkle tree，而树的地步是交易明细，在我们查询交易的时候，为了验证某个交易是否存在，轻节点会先向全节点发送请求，全节点会返回红色部分的哈希值以及交易的路径，轻节点只需要使用底部需要查验的交易哈希值，一步一步推出父节点中的绿色哈希值，知道推出根节点中的哈希值，与块头中的根哈希值进行比对。</p>
+<p><em>红色的哈希值我们是无法验证的，因为轻节点的这一次查询，只能查询路径中的部分，黑色部分都是无法查询的,我们无法判断红色哈希值的正确性</em></p>
+</blockquote>
+<p>这种查询方式也被成为 proof of membership&#x2F;proof of inclusion,复杂度是θ(log(n))；如果是 proof of non-membership呢？那就是将整个merkle tree都发送给轻节点了，复杂度是θ(n)</p>
+<h2 id="ETH以太坊"><a href="#ETH以太坊" class="headerlink" title="ETH以太坊"></a>ETH以太坊</h2><h4 id="机制区别"><a href="#机制区别" class="headerlink" title="机制区别"></a>机制区别</h4><blockquote>
+<p>比特币是proof of work（<strong>工作证明机制</strong>）,以太坊是proof of stake（<strong>权益证明机制</strong>）；</p>
+<p><em>&#x2F;&#x2F;值得一提的是，比特币和以太坊在2022年已经完成合并，因此先前部分笔记需要进行修改。</em></p>
+<p><em>&#x2F;&#x2F; 其实有一部分相当于白学了#无能狂怒 #龙怒</em></p>
+</blockquote>
+<p><strong>传统比特币</strong>（现已与以太坊合并），在前面交易中收到的货币，必须要在之后一次性花出去</p>
+<p>例如：LRay-iu转给B10个比特币，B要在将来一次性全部交易出去，多余的则成为了tranactions fee</p>
+<p>原因：比特币没有基于账户的模型，是对交易进行单独处理的，这个在其数据结构中也能看出一点</p>
+<p>而<strong>以太坊</strong>是基于account-based ledger，有着基于账户的模型，因此，完全不需要全部交易，多出来的以太币纠结着存放在账户中，同时也不再需要哈希指针指向上一条交易</p>
+<p>而在比特币中需要关心的一个问题–货币的双重支付（double spending attack），在以太坊对这个有着天然的防御作用，但是与之相对的有着另一个问题，重放攻击（reply attack）</p>
+<blockquote>
+<p>简单来说，与双重支付相对，重放指的是收钱方存在恶意，比如LRay-iu向B转了10个以太币，而B在收到这10个以太币之后，将这一条交易又广播了一遍，那么LRay-iu的账户可能会被转2次钱。</p>
+</blockquote>
+<p>解决方案，在账户下对应保存账户的交易次数nonce。在发布交易的时候节点也会更新交易次数，以避免重放交易。</p>
+<h4 id="智能合约"><a href="#智能合约" class="headerlink" title="智能合约"></a>智能合约</h4><p>智能合约是一种在区块链上执行的自动化合约，它是一段以编程方式编写的代码，旨在自动执行、管理或强制执行合同条款或协议。这些合约以代码的形式存在于区块链上，其中包含了特定的规则和逻辑，通过在区块链网络上运行，可以在没有第三方参与的情况下执行交易或协议。</p>
+<p>智能合约运行于区块链网络中的节点上，并且由网络中的所有节点来验证和执行，确保了其去中心化和不可篡改性质。</p>
+<p>P.S 换句话说，智能合约一经发布，即便是开发者本身也不能修改合约。</p>
+<h4 id="合约账户"><a href="#合约账户" class="headerlink" title="合约账户"></a>合约账户</h4><p>创建合约会返回一个地址，知道这个地址就可以调用这个合约,调用过程中状态会发生变化。</p>
+<blockquote>
+<p><strong>外部账户</strong>：balance（账户余额），nonce（交易次数）</p>
+<p><strong>合约账户</strong>：balance（账户余额），nonce（用来记录，调用其他合约的次数），并不是依赖公私钥进行控制，并且以太坊中有规定，合约账户不可以主动发起交易。code（代码），storage（存储相关状态）</p>
+</blockquote>
+<h2 id="以太坊数据结构"><a href="#以太坊数据结构" class="headerlink" title="以太坊数据结构"></a>以太坊数据结构</h2><p>对比比特币中的merkle tree并没有提供高效查找和更新的方法</p>
+<h3 id="Trie"><a href="#Trie" class="headerlink" title="Trie"></a>Trie</h3><p>Trie 是一种树形结构，由节点和边构成，每个节点代表一个字符（或一个字节）的信息，而边则代表字符之间的关系。Trie 的特点在于利用共享前缀来节省存储空间，提高数据存取的效率。</p>
+<blockquote>
+<p>以下是一张经典的Trie图</p>
+<p><img src="/2024/01/23/xiaozhen_blockchain_note/ed5b963beaf85e5b9e489a10efcc51f-170441778579113.png"></p>
+<p>优点：</p>
+<p><strong>高效的数据检索</strong>： Trie 的查找效率取决于key(上述单词的长度)的长度</p>
+<p><strong>不会发生数据碰撞</strong>：不同的地址(key)，映射到树中的位置也注定不同</p>
+<p><strong>不同节点按照不同的顺序插入树中，得到的树的结构是一样的</strong></p>
+<p><strong>局部更新</strong>： 当区块发生变化，只需要对发生变化的部分进行更新</p>
+<p>缺点：</p>
+<p><strong>存储敏感性：</strong> Trie 数据结构对存储敏感，对于大型区块链，存储 Trie 可能需要大量的存储空间。</p>
+</blockquote>
+<h3 id="Patricia-tree"><a href="#Patricia-tree" class="headerlink" title="Patricia tree"></a>Patricia tree</h3><p>为了解决占据存储的问题，有了优化过的<strong>Patricia tree</strong> ，也有写作 **Patricia trie **，</p>
+<blockquote>
+<p>经过压缩过的树，层数减少，访问内存的次数也减少，从而提高了性能；</p>
+<p>而新加入的词会扩展已经被压缩过的节点</p>
+<p><img src="/2024/01/23/xiaozhen_blockchain_note/04b959cbb244f9b3d13a0cefae513ab.png"></p>
+</blockquote>
+<h3 id="Merkle-Patricia-tree"><a href="#Merkle-Patricia-tree" class="headerlink" title="Merkle Patricia tree"></a>Merkle Patricia tree</h3><p>Merkle Patricia tree (MPT),所有账户组织成一张Patricia tree，用路径压缩，再将指针替换成哈希指针，最后计算出状态树根节点的哈希值，写在block header中。</p>
+<h3 id="状态树"><a href="#状态树" class="headerlink" title="状态树"></a>状态树</h3><p>P.S 以太坊中的账户地址一般是160位的，也就是20个字节，通常表示成40个16进制数字</p>
+<p><img src="/2024/01/23/xiaozhen_blockchain_note/5d552b84a412de924d855c63a4498a7.png"></p>
+<center>以太坊状态树，来源：肖臻老师PPT</center>
+
+<p>值得一提的是，状态树的更新并不会在原处修改，而是会另开一个区块；</p>
+<p><strong>原因</strong>：以太坊由于有智能合约存在，不能像比特币那样随意回滚</p>
+<h2 id="交易树"><a href="#交易树" class="headerlink" title="交易树-"></a>交易树-</h2><p><strong>作用：</strong></p>
+<ul>
+<li>提供merkle proof</li>
+<li>查找过去一段时间与某个智能合约有关的交易</li>
+</ul>
+<p>交易树中包含了这个区块中的所有交易，并且可以通过<strong>bloom filter</strong>快速查找交易是否存在。</p>
+<h4 id="bloom-filter"><a href="#bloom-filter" class="headerlink" title="bloom filter"></a>bloom filter</h4><p>用于查找交易，存放在块头中，在以太坊中将交易映射至一张表之中，在查找交易的时候，只需要将交易哈希处理后，在表中查找对应位置是否为1；之后在根据结果判断是否需要向全节点查询更详细的内容</p>
+<h3 id="收据树"><a href="#收据树" class="headerlink" title="收据树"></a>收据树</h3><p>收据树存储了每个区块中交易的收据（receipts）。交易执行完成后，会生成一个收据，记录了交易的执行结果、日志、事件等信息。这些收据包含了交易的详细信息，例如合约的调用结果、Gas消耗、事件日志等。</p>
+<p>收据树的根哈希值也被包含在区块头中，因此可以通过区块头的根哈希验证交易的有效性，并且可以快速检索特定交易的执行结果。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>状态树中保存的是(key,value)</p>
+<p>用RLP（Recursive Length Prefix）作序列化之后再存储，涉及库（Protobuf 只支持一种类型：nested array of bytes字符数组)</p>
+<p>它和交易树、收据树的区别是它包含了系统中所有账户的状态，无论这个账户是否参与了当前区块的交易。</p>
+<blockquote>
+<p><strong>有没有可能A向B转了10ETH，但是B这个账户以前从来没听说过？</strong></p>
+<p>答：存在，以太坊中，创建账户是不需要通知其他人的，只有这个账户第一次产生交易，其他节点才会知道这个账户存在，这个时候会在状态树中新加入一个账户。</p>
+<p><strong>可以将状态树设计修改成每个区块的状态树只包含这个区块中相关交易的账户？</strong></p>
+<p>答：这会导致没有任何一个区块保存了完整的状态树，当我们查找状态信息时需要一节一节地去上一个区块中查找对应账户的状态信息，假如这个账户许久没有发生交易，那么，这个查询过程会需要花费很久，甚至会追溯至创世区块。</p>
+<p>更大地问题是，假如回到上一个问题中，A向B转了10个ETH，但假如B这个账户是刚刚建立的，那么其他节点在查找这个账户的时候，会一直查找上一个区块，直到创世区块之后才能够得知B账户是新建的</p>
+</blockquote>
+<p>&#x2F;&#x2F;<em>以太坊数据结构的代码此处暂时省略（看不懂），等之后看懂了再补充在这里</em></p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//以太坊交易树和收据树树数据结构</span></span><br><span class="line"><span class="comment">//block.go</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="ETH以太坊–智能合约"><a href="#ETH以太坊–智能合约" class="headerlink" title="ETH以太坊–智能合约"></a>ETH以太坊–智能合约</h2><p>智能合约本质是运行在区块链上的一段代码，代码的逻辑定义了合约的内容，语言是solidity，语法上和js接近。</p>
+<p><em>&#x2F;&#x2F;这块没听懂，我暂且先跳过了</em></p>
+<p><em>&#x2F;&#x2F;当然是因为我太笨了，不过如果你和我一样笨的话，建议别看他讲的</em></p>
+
+                                            
+                          </div>
+                          <footer class="article-footer">
+                            
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" rel="tag">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%AF%94%E7%89%B9%E5%B8%81/" rel="tag">比特币</a></li></ul>
+
+                          </footer>
+
+            </div>
+
+            
+              
+<nav class="article-nav">
+  
+  <a href="/2024/03/17/Vue3_note/" class="article-nav-link">
+    <strong class="article-nav-caption">前一篇</strong>
+    <div class="article-nav-title">
+      
+      Vue 3.0 笔记
+      
+    </div>
+  </a>
+  
+  
+</nav>
+
+                
+
+                  
+                    
+                      
+                        
+
+</article>
+
+<style>
+  /* @font-face {
+    font-family: 'SongHuiZongShouJinJiaCuBan-2';
+    src: url("/css/songhuizong/SongHuiZongShouJinJiaCuBan-2.woff") format('woff'),
+      url("/css/songhuizong/SongHuiZongShouJinJiaCuBan-2.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  } */
+
+  .article-inner {
+    position: relative;
+    overflow: hidden;
+    /* 确保内容不会覆盖背景图 */
+  }
+
+</style>
+</section>
+    
+<footer class="footer">
+  <div class="outer" style="display: inline-block;">
+    <ul class="list-inline">
+      <li>LRay的博客&nbsp;  |&nbsp; 2024</li><br>
+      
+        <li>
+          
+            <img src="/images/foot-logo.png"  style="width: 16px;">
+            <a href="https://beian.miit.gov.cn/" target="_blank" style="text-decoration: none; color: rgba(0, 0, 0, 0.5);">
+              皖ICP备2024053806号-1
+            </a>
+          
+        </li><br>
+      
+      <li id="uptime">本站已安全运行：</li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  // 更新并实时显示站点运行时长
+  function updateUptime() {
+    // 获取网站创建时间，这里假设你有一个变量或者常量存储了网站创建时间
+    var startDate = new Date('2024-04-28');
+    
+    // 计算运行时长
+    var now = new Date();
+    var uptime = now.getTime() - startDate.getTime();
+    var seconds = Math.floor(uptime / 1000);
+    var minutes = Math.floor(seconds / 60);
+    var hours = Math.floor(minutes / 60);
+    var days = Math.floor(hours / 24);
+    
+    // 计算剩余的小时、分钟和秒数
+    hours %= 24;
+    minutes %= 60;
+    seconds %= 60;
+    
+    // 更新页面中的元素内容
+    var uptimeString = days + ' 天, ' + hours + ' 小时, ' + minutes + ' 分钟, ' + seconds + ' 秒';
+    document.getElementById('uptime').textContent = '本站已安全运行：' + uptimeString;
+  }
+  
+  // 每秒更新一次运行时长
+  setInterval(updateUptime, 1000);
+  
+  // 页面加载完成后立即更新一次
+  updateUptime();
+</script>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://lray-iu.oss-cn-hangzhou.aliyuncs.com/tenten.png" alt="LRay的博客" style="border-radius: 45px;"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">相册</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/favorite">收藏</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/postcard">收集</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="手机端似乎不支持该功能，我深感抱歉">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

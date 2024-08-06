@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="Patrick Collins-区块链学习笔记">
+  
+  <title>
+    Gin 笔记 |
+    
+    LRay的博客
+  </title>
+  <!-- Icon -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <main class="content" >
+    <section class="outer" style="min-height: 90vh;">
+  <article  id="post-Gin_note" class="article article-type-post" itemscope
+            itemprop="blogPost" data-scroll-reveal>
+
+            <div class="article-inner" 
+              <header class="article-header">
+                
+  
+  <h1 class="article-title" itemprop="name">
+    Gin 笔记
+  </h1>
+  
+  
+
+              </header>
+              
+
+                
+                  <div class="article-meta">
+                    <a href="/2024/04/01/Gin_note/" class="article-date">
+  <time datetime="2024-04-01T06:11:40.000Z" itemprop="datePublished">2024-04-01</time>
+</a>
+                      
+<div class="article-category">
+  <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+</div>
+
+                  </div>
+                  
+
+                    
+                      
+<div class="tocbot" style="font-size: medium;"></div>
+
+                        
+
+                          <div class="article-entry" itemprop="articleBody">
+                            
+
+
+                              
+
+                                <!--  -->
+                                
+                                          <p>​	Gin 是 Golang 常用的一种轻量型框架，可以快速部署且可以自定义项目结构，可塑性和操作性很强，搭配各种库可以实现非常不错的效果，精简的同时性能也丝毫不落下风，可以说是兼顾了性能和轻便程度，学习和开发难度较低于 Springboot 那种航空母舰型框架，但是想要使用的得心应手还需要对后端和 Golang 原生有一定的熟悉程度。</p>
+<span id="more"></span>
+
+<blockquote>
+<ul>
+<li>Created by Typora</li>
+<li>Author: LRay-iu</li>
+<li>createTime: 2024-03-28 13:36</li>
+<li>updateTime: 2024-04-01 10:43</li>
+</ul>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这也不知道是我开的第几份笔记了，主打的是记录 Gin 后端的<strong>搭建</strong>，内容应该不会很多，毕竟 Gin 和 Flask 一样，是一个轻量型的框架，主打的是快速开发，但是 Gin 的响应速度上比 Flask 快的不是一点点，语言原生支持上 Golang 不需要额外的库也能完成协程，管道，映射等等功能。但是和 Goframe、SpringBoot 那些航空母舰级的框架不太一样，Gin 本身像个光杆司令，有不少功能是需要引入其他模块来实现的，比如 Gorm，godotenv 等等；</p>
+<p>至于 Goframe，原先确实萌生过好好学习它的想法，不过现在情况特殊，一来是原先投的岗位貌似莫得了，二来是毕设老师催挺急的，没时间开新坑了，抓紧写完抓紧 Gap。</p>
+<h2 id="工具包"><a href="#工具包" class="headerlink" title="工具包"></a>工具包</h2><p>Gin 快速搭建教程[来自 B 站’慕课网’]：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jy4y1F7RG/">https://www.bilibili.com/video/BV1Jy4y1F7RG/</a></p>
+<p>Gin 中文开发文档：<a target="_blank" rel="noopener" href="https://gin-gonic.com/zh-cn/docs/quickstart/">快速入门 | Gin Web Framework (gin-gonic.com)</a></p>
+<p>Gorm 中文开发文档：<a target="_blank" rel="noopener" href="https://gorm.io/zh_CN/docs/">GORM 指南 | GORM - The fantastic ORM library for Golang, aims to be developer friendly.</a></p>
+<h2 id="开发报错"><a href="#开发报错" class="headerlink" title="开发报错"></a>开发报错</h2><blockquote>
+<ul>
+<li><p>如果开发过程中出现<code>404-not-found</code>，请先检查请求模式是<code>GET</code>还是<code>POST</code></p>
+</li>
+<li><p>如果 gorm 查询结果为空且数据库查询正常，请检查 gorm 标签是否正确<code>gorm:&quot;column:publicKey&quot;</code></p>
+</li>
+<li><p>如果开发过程中，在数据库<code>Mysql</code>中设置了默认值，但是不会启用，可能是 gorm 给覆盖了，需要在<code>gorm</code>这重新定义</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">Isvisual       <span class="type">int</span>     <span class="string">`gorm:&quot;column:isvisual;default:1&quot;`</span></span><br><span class="line">Status         <span class="type">int</span>     <span class="string">`gorm:&quot;column:status;default:1&quot;`</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果 json 绑定失败，请检查结构体定义的变量头是否小写（被定义成私有变量了）</p>
+</li>
+<li><p><code>sqlx</code> 在把<code>timestamp</code>转为<code>go</code>的<code>time.Time</code>报错<code>Scan error on column index 6: unsupported Scan, storing driver.Value type []uint8 into type *time.Time</code>,需要在数据库配置时加上<code>parseTime=true</code>，即:</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">Mysqldb = fmt.Sprintf(<span class="string">&quot;%s:%s@tcp(127.0.0.1:3306)/minato_sys?charset=utf8mb4&amp;parseTime=true&quot;</span>, name, password)</span><br></pre></td></tr></table></figure>
+
+<p>不过，这一点我已经在数据库配置那一环修改过了，按着笔记走应该碰不到这个错误。</p>
+</li>
+<li></li>
+</ul>
+</blockquote>
+<h2 id="Gin-创建工程"><a href="#Gin-创建工程" class="headerlink" title="Gin 创建工程"></a>Gin 创建工程</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 初始化项目</span><br><span class="line">$ go mod init gin-Minato</span><br><span class="line"></span><br><span class="line"># 安装Gin框架</span><br><span class="line">$ go get github.com/gin-gonic/gin@latest</span><br><span class="line"></span><br><span class="line"># 安装热加载插件fresh</span><br><span class="line">$ go install github.com/pilu/fresh@latest</span><br><span class="line">$ go get github.com/pilu/fresh</span><br><span class="line">$ fresh</span><br><span class="line"></span><br><span class="line"># 安装godotenv插件</span><br><span class="line">$ go get github.com/joho/godotenv</span><br><span class="line"></span><br><span class="line"># 安装Gorm</span><br><span class="line">$ go get -u gorm.io/gorm</span><br><span class="line">$ go get -u gorm.io/driver/mysql  #你用什么就下什么，这边以mysql为例</span><br><span class="line"></span><br><span class="line"># 安装session和redis</span><br><span class="line">$ go get github.com/gin-contrib/sessions</span><br><span class="line">$ go get github.com/gin-contrib/sessions/redis</span><br><span class="line"></span><br><span class="line"># 安装JWT-go</span><br><span class="line">$ go get github.com/dgrijalva/jwt-go</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">	<span class="string">&quot;net/http&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	r := gin.Default()</span><br><span class="line">	r.GET(<span class="string">&quot;/&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(ctx *gin.Context)</span></span> &#123;</span><br><span class="line">		ctx.String(http.StatusOK, <span class="string">&quot;hello world!&quot;</span>)</span><br><span class="line">	&#125;)</span><br><span class="line">	<span class="comment">//r.Run(&quot;:8080&quot;)</span></span><br><span class="line">	r.Run()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 启动</span><br><span class="line">$ go run main.go</span><br><span class="line"># 如果安装过fresh，则可以</span><br><span class="line">$ fresh</span><br></pre></td></tr></table></figure>
+
+<h2 id="路由分配"><a href="#路由分配" class="headerlink" title="路由分配"></a>路由分配</h2><p>步骤：在<code>router.go</code>中创建<code>gin引擎</code>，在<code>main.go</code>里调用</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//routers.go</span></span><br><span class="line"><span class="keyword">package</span> router</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">	<span class="string">&quot;net/http&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Router</span><span class="params">()</span></span> *gin.Engine &#123;</span><br><span class="line">	r := gin.Default()</span><br><span class="line"></span><br><span class="line">	user := r.Group(<span class="string">&quot;/user&quot;</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		user.GET(<span class="string">&quot;/&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(ctx *gin.Context)</span></span> &#123;</span><br><span class="line">			ctx.String(http.StatusOK, <span class="string">&quot;hello world1!&quot;</span>)</span><br><span class="line">		&#125;)</span><br><span class="line">		user.PUT(<span class="string">&quot;/add&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(ctx *gin.Context)</span></span> &#123;</span><br><span class="line">			ctx.String(http.StatusOK, <span class="string">&quot;hello world2!&quot;</span>)</span><br><span class="line">		&#125;)</span><br><span class="line">		user.POST(<span class="string">&quot;/post&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(ctx *gin.Context)</span></span> &#123;</span><br><span class="line">			ctx.String(http.StatusOK, <span class="string">&quot;hello world3!&quot;</span>)</span><br><span class="line">		&#125;)</span><br><span class="line">		user.DELETE(<span class="string">&quot;/delete&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(ctx *gin.Context)</span></span> &#123;</span><br><span class="line">			ctx.String(http.StatusOK, <span class="string">&quot;hello world4!&quot;</span>)</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> r</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在<code>main.go</code>中调用</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;gin-Minato/router&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	r := router.Router()</span><br><span class="line">	<span class="comment">//r.Run(&quot;:8080&quot;)</span></span><br><span class="line">	r.Run()</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>OK 完成，终于不用全写在 main 文件里了，不过这个写法还是不够简洁，并不符合官方文档</p>
+<h2 id="将处理方法外置到其他包裹"><a href="#将处理方法外置到其他包裹" class="headerlink" title="将处理方法外置到其他包裹"></a>将处理方法外置到其他包裹</h2><p>这是我个人对它的叫法，就是提一嘴，没什么技术含量，但是能够让项目更加简洁清晰，易于维护。</p>
+<p>定义控制器中常用的方法和数据结构</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//controller/commen.go</span></span><br><span class="line"><span class="keyword">package</span> controller</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> JsonStruct <span class="keyword">struct</span> &#123;</span><br><span class="line">	Code  <span class="type">int</span>         <span class="string">`json:&quot;code&quot;`</span>  <span class="comment">//返回状态码</span></span><br><span class="line">	Msg   <span class="keyword">interface</span>&#123;&#125; <span class="string">`json:&quot;msg&quot;`</span>   <span class="comment">//返回的提示语</span></span><br><span class="line">	Data  <span class="keyword">interface</span>&#123;&#125; <span class="string">`json:&quot;data&quot;`</span>  <span class="comment">//返回数据</span></span><br><span class="line">	Count <span class="keyword">interface</span>&#123;&#125; <span class="string">`json:&quot;count&quot;`</span> <span class="comment">//返回条数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> JsonErrStruct <span class="keyword">struct</span> &#123;</span><br><span class="line">	Code <span class="type">int</span>         <span class="string">`json:&quot;code&quot;`</span> <span class="comment">//返回状态码</span></span><br><span class="line">	Msg  <span class="keyword">interface</span>&#123;&#125; <span class="string">`json:&quot;msg&quot;`</span>  <span class="comment">//返回的提示语</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ReturnSuccess</span><span class="params">(c *gin.Context, code <span class="type">int</span>, msg <span class="keyword">interface</span>&#123;&#125;, data <span class="keyword">interface</span>&#123;&#125;, count <span class="type">int64</span>)</span></span> &#123;</span><br><span class="line">	json := &amp;JsonStruct&#123;Code: code, Msg: msg, Data: data, Count: count&#125;</span><br><span class="line">	c.JSON(<span class="number">200</span>, json)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ReturnFalse</span><span class="params">(c *gin.Context, code <span class="type">int</span>, msg <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">	json := &amp;JsonErrStruct&#123;Code: code, Msg: msg&#125;</span><br><span class="line">	c.JSON(<span class="number">200</span>, json)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在角色控制器中使用</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//controller/user.go</span></span><br><span class="line"><span class="keyword">package</span> controller</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> UserController <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将其归进结构体中，避免与同一个包下的其他方法名字冲突。就是引用的时候稍微麻烦些</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u UserController)</span></span> GetUserInfo(c *gin.Context) &#123;</span><br><span class="line">	ReturnSuccess(c, <span class="number">0</span>, <span class="string">&quot;success&quot;</span>, <span class="string">&quot;user info&quot;</span>, <span class="number">1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>main.go</code>中引用</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//main.go</span></span><br><span class="line">user.GET(<span class="string">&quot;/info&quot;</span>, controller.UserController&#123;&#125;.GetUserInfo)</span><br><span class="line">user.GET(<span class="string">&quot;/err&quot;</span>, controller.UserController&#123;&#125;.GetUserList)</span><br></pre></td></tr></table></figure>
+
+<p>ok 完成，已经有一个项目的雏形了</p>
+<h2 id="从上下文获取数据"><a href="#从上下文获取数据" class="headerlink" title="从上下文获取数据"></a>从上下文获取数据</h2><p><code>*c gin.context</code>显然不是吃干饭的，每回写方法都把它带上是有原因的</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(U UserController)</span></span> GetUserList(c *gin.Context) &#123;</span><br><span class="line">	cid := c.PostForm(<span class="string">&quot;cid&quot;</span>)</span><br><span class="line">	name := c.DefaultPostForm(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;李大壮&quot;</span>)<span class="comment">//提供默认值</span></span><br><span class="line">	ReturnSuccess(c, <span class="number">0</span>, cid, name, <span class="number">1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是一个简单的接受数据的方法</p>
+<p>这里使用 Apifox（免费的，好使 👍）向它发送请求</p>
+<img src="/2024/04/01/Gin_note/image-20240329131341634.png" alt="image-20240329131341634" style="zoom: 67%;">
+
+<p>ok 完成，效果显著</p>
+<h2 id="将请求获取的数据绑定到结构体"><a href="#将请求获取的数据绑定到结构体" class="headerlink" title="将请求获取的数据绑定到结构体"></a>将请求获取的数据绑定到结构体</h2><p>上述方法不适合读取 json 数据报文</p>
+<p>第一种,以赋值的形式读过来</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(U UserController)</span></span> GetUserList(c *gin.Context) &#123;</span><br><span class="line">	<span class="comment">//cid := c.PostForm(&quot;cid&quot;)</span></span><br><span class="line">	<span class="comment">//name := c.DefaultPostForm(&quot;name&quot;, &quot;李大壮&quot;) //提供默认值</span></span><br><span class="line">	param := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;)</span><br><span class="line">	err := c.BindJSON(&amp;param)</span><br><span class="line">	<span class="keyword">if</span> err == <span class="literal">nil</span> &#123;</span><br><span class="line">		ReturnSuccess(c, <span class="number">0</span>, <span class="string">&quot;success&quot;</span>,param, <span class="number">1</span>)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		ReturnFalse(c, <span class="number">4001</span>, gin.H&#123;<span class="string">&quot;err&quot;</span>: err&#125;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第二种，绑定到结构体</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Search <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name <span class="type">string</span> <span class="string">`json:name`</span>   <span class="comment">//必须要json匹配上，否则可能读不到</span></span><br><span class="line">	Cid  <span class="type">int</span>    <span class="string">`json:cid`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(U UserController)</span></span> GetUserList(c *gin.Context) &#123;</span><br><span class="line">	search := &amp;Search&#123;&#125;</span><br><span class="line">	err := c.BindJSON(&amp;search)</span><br><span class="line">	<span class="keyword">if</span> err == <span class="literal">nil</span> &#123;</span><br><span class="line">		ReturnSuccess(c, <span class="number">0</span>, search.Name, search.Cid, <span class="number">1</span>)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		ReturnFalse(c, <span class="number">4001</span>, gin.H&#123;<span class="string">&quot;err&quot;</span>: err&#125;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="defer-延迟捕获异常"><a href="#defer-延迟捕获异常" class="headerlink" title="defer 延迟捕获异常"></a>defer 延迟捕获异常</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> err := <span class="built_in">recover</span>(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;捕获异常&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+
+<p>自动运行，塞在方法里面就行，但是前端得不到报错情况。</p>
+<h2 id="Gorm"><a href="#Gorm" class="headerlink" title="Gorm"></a>Gorm</h2><p>这是一个 SQL 映射库</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>创建文件<code>config/dbconnect.go</code></p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">初始化数据库链接</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">package</span> config</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	_ <span class="string">&quot;github.com/joho/godotenv/autoload&quot;</span></span><br><span class="line">	<span class="string">&quot;gorm.io/driver/mysql&quot;</span></span><br><span class="line">	<span class="string">&quot;gorm.io/gorm&quot;</span></span><br><span class="line">	<span class="string">&quot;os&quot;</span></span><br><span class="line">	<span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	Db      *gorm.DB</span><br><span class="line">	err     <span class="type">error</span></span><br><span class="line">	Mysqldb <span class="type">string</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">//初始化数据库的钥匙</span></span><br><span class="line">	name := os.Getenv(<span class="string">&quot;name&quot;</span>)</span><br><span class="line">	password := os.Getenv(<span class="string">&quot;password&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> name == <span class="string">&quot;&quot;</span> || password == <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(<span class="string">&quot;缺少必要的环境变量 name 或 password&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	Mysqldb = fmt.Sprintf(<span class="string">&quot;%s:%s@tcp(127.0.0.1:3306)/minato_sys?charset=utf8mb4&amp;parseTime=true&quot;</span>, name, password)</span><br><span class="line">	<span class="comment">//链接数据库</span></span><br><span class="line">	Db, err = gorm.Open(mysql.Open(Mysqldb), &amp;gorm.Config&#123;&#125;)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;mysql connect error:&quot;</span>, err.Error())</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> Db.Error != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;mysql connect error:&quot;</span>, Db.Error)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//设置连接池</span></span><br><span class="line">	sqlDB, _ := Db.DB()</span><br><span class="line">	<span class="comment">// SetMaxIdleConns sets the maximum number of connections in the idle connection pool.</span></span><br><span class="line">	sqlDB.SetMaxIdleConns(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// SetMaxOpenConns sets the maximum number of open connections to the database.</span></span><br><span class="line">	sqlDB.SetMaxOpenConns(<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// SetConnMaxLifetime sets the maximum amount of time a connection may be reused.</span></span><br><span class="line">	sqlDB.SetConnMaxLifetime(time.Hour)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>后续可以根据自己需要，分别写在自己想要的文件里</p>
+<p>注：此处用到了 godotenv 插件，可以从环境变量中读取数据，使用时可以参考这位老哥写的：<a target="_blank" rel="noopener" href="https://darjun.github.io/2020/02/12/godailylib/godotenv/">Go 每日一库之 godotenv - 大俊的博客 (darjun.github.io)</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#这是一个示例的env文件</span><br><span class="line">name = root</span><br><span class="line">password = 88888888</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试数据库是否链接"><a href="#测试数据库是否链接" class="headerlink" title="测试数据库是否链接"></a>测试数据库是否链接</h3><p>注：以下代码仅是测试使用，不可直接粘贴【直接粘贴和伪代码没啥区别】，根据需求进行改动</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//定义路由</span></span><br><span class="line">user.GET(<span class="string">&quot;/info/:cid&quot;</span>, controller.UserController&#123;&#125;.GetUserInfo)</span><br><span class="line"><span class="comment">//执行方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u UserController)</span></span> GetUserInfo(c *gin.Context) &#123;</span><br><span class="line">	<span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		<span class="keyword">if</span> err := <span class="built_in">recover</span>(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">			fmt.Println(<span class="string">&quot;捕获异常&quot;</span>, err)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;()</span><br><span class="line">	cid := c.Param(<span class="string">&quot;cid&quot;</span>)</span><br><span class="line">	id, err := strconv.Atoi(cid)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(err)</span><br><span class="line">	&#125;</span><br><span class="line">	user, _ := model.GetUserTest(id)</span><br><span class="line">	ReturnSuccess(c, <span class="number">0</span>, <span class="string">&quot;success&quot;</span>, user, <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//定义数据库模型</span></span><br><span class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</span><br><span class="line">	Id   <span class="type">int</span></span><br><span class="line">	Name <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> DB = config.Db</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(User)</span></span> TableName() <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">&quot;user&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GetUserTest</span><span class="params">(id <span class="type">int</span>)</span></span> (User, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">var</span> user User</span><br><span class="line">	err := DB.Where(<span class="string">&quot;id=?&quot;</span>, id).First(&amp;user).Error</span><br><span class="line">	<span class="keyword">return</span> user, err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>且测试前，数据库需要建立好测试表</p>
+<img src="/2024/04/01/Gin_note/image-20240330175545744.png" alt="image-20240330175545744" style="zoom: 80%;">
+
+<p>最终结果：</p>
+<img src="/2024/04/01/Gin_note/image-20240330175639344.png" alt="image-20240330175639344" style="zoom: 80%;">
+
+<p>ok 完成，这下项目基本结构就搭建好了</p>
+<h3 id="基础-crud"><a href="#基础-crud" class="headerlink" title="基础 crud"></a>基础 crud</h3><p>这个讲道理没啥好说的，官方文档写的蛮清晰的</p>
+<p>贴点样例</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GetUserTest</span><span class="params">(id <span class="type">int</span>)</span></span> (User, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">var</span> user User</span><br><span class="line">	err := DB.Where(<span class="string">&quot;id=?&quot;</span>, id).First(&amp;user).Error</span><br><span class="line">	<span class="keyword">return</span> user, err</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">AddUser</span><span class="params">(id <span class="type">int</span>, name <span class="type">string</span>)</span></span> (<span class="type">int</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	user := User&#123;Id: id, Name: name&#125;</span><br><span class="line">	err := DB.Create(&amp;user).Error</span><br><span class="line">	<span class="keyword">return</span> user.Id, err</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">EditUser</span><span class="params">(id <span class="type">int</span>, name <span class="type">string</span>)</span></span> &#123;</span><br><span class="line">	user := User&#123;</span><br><span class="line">		Id:   id,</span><br><span class="line">		Name: name,</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//传对象修改</span></span><br><span class="line">    DB.Model(&amp;User&#123;&#125;).Updates(&amp;user)</span><br><span class="line">	<span class="comment">//修改单独的列</span></span><br><span class="line">	<span class="comment">//DB.Model(&amp;User&#123;&#125;).Where(&quot;id=?&quot;, id).Update(&quot;name&quot;, name)</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Delete</span><span class="params">(id <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">	DB.Delete(&amp;User&#123;&#125;, <span class="number">10</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="登录功能（附带使用-redis-存取-session）"><a href="#登录功能（附带使用-redis-存取-session）" class="headerlink" title="登录功能（附带使用 redis 存取 session）"></a>登录功能（附带使用 redis 存取 session）</h3><p><code>Redis</code>部署进项目</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> router</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;gin-Minato/config&quot;</span></span><br><span class="line">	<span class="string">&quot;gin-Minato/controller&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/gin-contrib/sessions&quot;</span></span><br><span class="line">	session_redis <span class="string">&quot;github.com/gin-contrib/sessions/redis&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Router</span><span class="params">()</span></span> *gin.Engine &#123;</span><br><span class="line">	r := gin.Default()</span><br><span class="line">	<span class="comment">//配置redis</span></span><br><span class="line">	store, _ := session_redis.NewStore(<span class="number">10</span>, <span class="string">&quot;tcp&quot;</span>, config.RedisAddress, <span class="string">&quot;&quot;</span>, []<span class="type">byte</span>(<span class="string">&quot;secret&quot;</span>))</span><br><span class="line">	r.Use(sessions.Sessions(<span class="string">&quot;mysession&quot;</span>, store))</span><br><span class="line">	user := r.Group(<span class="string">&quot;/user&quot;</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		user.POST(<span class="string">&quot;/login&quot;</span>, controller.UserController&#123;&#125;.Login)</span><br><span class="line">		user.POST(<span class="string">&quot;/register&quot;</span>, controller.UserController&#123;&#125;.Register)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> r</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>redis.go</code></p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> config</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	RedisAddress = <span class="string">&quot;localhost:6379&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>controller/user.go</code></p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u UserController)</span></span> Login(c *gin.Context) &#123;</span><br><span class="line">	username := c.DefaultPostForm(<span class="string">&quot;username&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">	password := c.DefaultPostForm(<span class="string">&quot;password&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> username == <span class="string">&quot;&quot;</span> || password == <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">		ReturnFalse(c, <span class="number">4001</span>, <span class="string">&quot;请输入账号和密码&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	user, err := model.GetUserInfoByUsername(username)</span><br><span class="line">	<span class="keyword">if</span> user.Id == <span class="number">0</span> &#123;</span><br><span class="line">		ReturnFalse(c, <span class="number">4002</span>, <span class="string">&quot;用户名或密码不正确&quot;</span>)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> user.Password != EncryMd5(password) &#123;</span><br><span class="line">		ReturnFalse(c, <span class="number">4002</span>, <span class="string">&quot;用户名或密码不正确&quot;</span>)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	session := sessions.Default(c)</span><br><span class="line">	session.set(<span class="string">&quot;login&quot;</span>+strconv.Itoa(user.Id), user.Id)</span><br><span class="line">	session.Save()</span><br><span class="line">	data := UserApi&#123;Id: user.id, Username: user.Username&#125;</span><br><span class="line">	ReturnSuccess(c, <span class="number">0</span>, <span class="string">&quot;登陆成功&quot;</span>, data, <span class="number">1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="JWT-go"><a href="#JWT-go" class="headerlink" title="JWT-go"></a>JWT-go</h2><p>可以限制令牌持有者能访问的资源</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/dgrijalva/jwt-go&quot;</span></span><br><span class="line">	_ <span class="string">&quot;github.com/joho/godotenv/autoload&quot;</span></span><br><span class="line">	<span class="string">&quot;os&quot;</span></span><br><span class="line">	<span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 弄个简单一点的token</span></span><br><span class="line"><span class="keyword">type</span> Konoha <span class="keyword">struct</span> &#123;</span><br><span class="line">	Username <span class="type">string</span> <span class="string">`json:&quot;username&quot;`</span></span><br><span class="line">	jwt.StandardClaims</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从env文件中读取密钥</span></span><br><span class="line"><span class="keyword">var</span> salt = os.Getenv(<span class="string">&quot;salt&quot;</span>)</span><br><span class="line"><span class="keyword">var</span> mySignkey = []<span class="type">byte</span>(salt)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Tokencreate</span><span class="params">(username <span class="type">string</span>)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">	c := Konoha&#123;</span><br><span class="line">		Username: username,</span><br><span class="line">		StandardClaims: jwt.StandardClaims&#123;</span><br><span class="line">			NotBefore: time.Now().Unix() - <span class="number">60</span>,</span><br><span class="line">			<span class="comment">//设置过期时间在5秒后</span></span><br><span class="line">			ExpiresAt: time.Now().Unix() + <span class="number">5</span>,</span><br><span class="line">			Issuer:    <span class="string">&quot;Minato&quot;</span>,</span><br><span class="line">		&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">	token := jwt.NewWithClaims(jwt.SigningMethodHS256, c)</span><br><span class="line">	tokenString, err := token.SignedString(mySignkey)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;token加密出错&quot;</span>, err.Error)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(tokenString)</span><br><span class="line">	<span class="keyword">return</span> tokenString</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ParseToken</span><span class="params">(tokenString <span class="type">string</span>)</span></span> &#123;</span><br><span class="line">	token, err := jwt.ParseWithClaims(tokenString, &amp;Konoha&#123;&#125;, <span class="function"><span class="keyword">func</span><span class="params">(token *jwt.Token)</span></span> (<span class="keyword">interface</span>&#123;&#125;, <span class="type">error</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> mySignkey, <span class="literal">nil</span></span><br><span class="line">	&#125;)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(err.Error())</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(token.Claims.(*Konoha))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">//制作token</span></span><br><span class="line">	s := Tokencreate(<span class="string">&quot;minato&quot;</span>)</span><br><span class="line">    <span class="comment">//等token过期</span></span><br><span class="line">	fmt.Println(<span class="string">&quot;等六秒&quot;</span>)</span><br><span class="line">	time.Sleep(<span class="number">6</span> * time.Second)</span><br><span class="line">	ParseToken(s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1pbmF0byIsImV4cCI6MTcxMjAzNDY5NywiaXNzIjoiTWluYXRvIiwibmJmIjoxNzEyMDM0NjMyfQ.rUsDMCOgP4-Tvq09UO0YWXVcfaetFtqhWejSszb2DCc</span><br><span class="line">等六秒</span><br><span class="line">token is expired by 1s</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>将它写成中间件的形式：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> middleware</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;gin-Minato/controller&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/dgrijalva/jwt-go&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">	_ <span class="string">&quot;github.com/joho/godotenv/autoload&quot;</span></span><br><span class="line">	<span class="string">&quot;os&quot;</span></span><br><span class="line">	<span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 弄个简单一点的token</span></span><br><span class="line"><span class="keyword">type</span> Konoha <span class="keyword">struct</span> &#123;</span><br><span class="line">	Username <span class="type">string</span> <span class="string">`json:&quot;username&quot;`</span></span><br><span class="line">	jwt.StandardClaims</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从env文件中读取密钥</span></span><br><span class="line"><span class="keyword">var</span> salt = os.Getenv(<span class="string">&quot;salt&quot;</span>)</span><br><span class="line"><span class="keyword">var</span> mySignkey = []<span class="type">byte</span>(salt)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Tokencreate</span><span class="params">(username <span class="type">string</span>)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">	c := Konoha&#123;</span><br><span class="line">		Username: username,</span><br><span class="line">		StandardClaims: jwt.StandardClaims&#123;</span><br><span class="line">			NotBefore: time.Now().Unix() - <span class="number">60</span>,</span><br><span class="line">			<span class="comment">//设置过期时间在60秒后</span></span><br><span class="line">			ExpiresAt: time.Now().Unix() + <span class="number">60</span>,</span><br><span class="line">			Issuer:    <span class="string">&quot;Minato&quot;</span>,</span><br><span class="line">		&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">	token := jwt.NewWithClaims(jwt.SigningMethodHS256, c)</span><br><span class="line">	konohaToken, err := token.SignedString(mySignkey)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;token加密出错&quot;</span>, err.Error())</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(konohaToken)</span><br><span class="line">	<span class="keyword">return</span> konohaToken</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//-----------------------------------------在这呢，中间件解析token------------------------------------</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ParseToken</span><span class="params">(konohaToken <span class="type">string</span>)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">	token, err := jwt.ParseWithClaims(konohaToken, &amp;Konoha&#123;&#125;, <span class="function"><span class="keyword">func</span><span class="params">(token *jwt.Token)</span></span> (<span class="keyword">interface</span>&#123;&#125;, <span class="type">error</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> mySignkey, <span class="literal">nil</span></span><br><span class="line">	&#125;)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(err.Error())</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;1001&quot;</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> !token.Valid &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;token无效&quot;</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;1002&quot;</span> <span class="comment">// 返回无效token的错误码</span></span><br><span class="line">	&#125;</span><br><span class="line">	claims, ok := token.Claims.(*Konoha)</span><br><span class="line">	<span class="keyword">if</span> !ok &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;token claims类型错误&quot;</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;1003&quot;</span> <span class="comment">// 返回token claims类型错误的错误码</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> claims.Username != <span class="string">&quot;Minato&quot;</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;1004&quot;</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">&quot;200&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">JWTAuth</span><span class="params">()</span></span> gin.HandlerFunc &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		tokenStr := c.Request.Header.Get(<span class="string">&quot;konohaToken&quot;</span>)</span><br><span class="line">		<span class="keyword">if</span> tokenStr == <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">			controller.ReturnFalse(c, <span class="number">1000</span>, <span class="string">&quot;token缺失&quot;</span>)</span><br><span class="line">		&#125;</span><br><span class="line">		status := ParseToken(tokenStr)</span><br><span class="line">		<span class="keyword">switch</span> status &#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">&quot;1000&quot;</span>:</span><br><span class="line">			controller.ReturnFalse(c, <span class="number">1001</span>, <span class="string">&quot;token过期&quot;</span>)</span><br><span class="line">		<span class="keyword">case</span> <span class="string">&quot;1001&quot;</span>:</span><br><span class="line">			controller.ReturnFalse(c, <span class="number">1002</span>, <span class="string">&quot;token签发人不正确&quot;</span>)</span><br><span class="line">		<span class="keyword">case</span> <span class="string">&quot;1002&quot;</span>:</span><br><span class="line">			controller.ReturnFalse(c, <span class="number">1003</span>, <span class="string">&quot;token claims类型错误&quot;</span>)</span><br><span class="line">		<span class="keyword">case</span> <span class="string">&quot;1003&quot;</span>:</span><br><span class="line">			controller.ReturnFalse(c, <span class="number">1004</span>, <span class="string">&quot;token无效&quot;</span>)</span><br><span class="line">		<span class="keyword">case</span> <span class="string">&quot;200&quot;</span>:</span><br><span class="line">			<span class="comment">// token验证通过</span></span><br><span class="line">			fmt.Println(<span class="number">200</span>)</span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		<span class="keyword">default</span>:</span><br><span class="line">			<span class="comment">// 处理其他未知错误</span></span><br><span class="line">			controller.ReturnFalse(c, <span class="number">1999</span>, <span class="string">&quot;未知错误&quot;</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="跨域请求-CORS"><a href="#跨域请求-CORS" class="headerlink" title="跨域请求 CORS"></a>跨域请求 CORS</h2><p>安装 CORS</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ go get github.com/gin-contrib/cors</span><br></pre></td></tr></table></figure>
+
+<p><code>main.go</code>中进行配置</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;github.com/gin-contrib/cors&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	r := gin.Default()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 使用 CORS 中间件，默认配置，谁都能访问</span></span><br><span class="line">	r.Use(cors.Default())</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用CORS中间件，并只允许来自5173端口的请求（和上面不能同时出现）</span></span><br><span class="line">    router.Use(cors.New(cors.Config&#123;</span><br><span class="line">        AllowOrigins:     []<span class="type">string</span>&#123;<span class="string">&quot;http://localhost:5173&quot;</span>&#125;,</span><br><span class="line">        AllowMethods:     []<span class="type">string</span>&#123;<span class="string">&quot;GET&quot;</span>, <span class="string">&quot;POST&quot;</span>, <span class="string">&quot;PUT&quot;</span>, <span class="string">&quot;DELETE&quot;</span>&#125;,</span><br><span class="line">        AllowHeaders:     []<span class="type">string</span>&#123;<span class="string">&quot;Origin&quot;</span>, <span class="string">&quot;Content-Type&quot;</span>&#125;,</span><br><span class="line">        ExposeHeaders:    []<span class="type">string</span>&#123;<span class="string">&quot;Content-Length&quot;</span>&#125;,</span><br><span class="line">        AllowCredentials: <span class="literal">true</span>,</span><br><span class="line">        MaxAge:           <span class="number">12</span>,</span><br><span class="line">    &#125;))</span><br><span class="line">	<span class="comment">// 其他路由处理逻辑</span></span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">	r.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+                                            
+                          </div>
+                          <footer class="article-footer">
+                            
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gin/" rel="tag">Gin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/" rel="tag">Golang</a></li></ul>
+
+                          </footer>
+
+            </div>
+
+            
+              
+<nav class="article-nav">
+  
+  <a href="/2024/04/25/Patrick%20Collins_blockchain_note/" class="article-nav-link">
+    <strong class="article-nav-caption">前一篇</strong>
+    <div class="article-nav-title">
+      
+      Patrick Collins-区块链 笔记
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2024/03/17/Vue3_note/" class="article-nav-link">
+    <strong class="article-nav-caption">后一篇</strong>
+    <div class="article-nav-title">Vue 3.0 笔记</div>
+  </a>
+  
+</nav>
+
+                
+
+                  
+                    
+                      
+                        
+
+</article>
+
+<style>
+  /* @font-face {
+    font-family: 'SongHuiZongShouJinJiaCuBan-2';
+    src: url("/css/songhuizong/SongHuiZongShouJinJiaCuBan-2.woff") format('woff'),
+      url("/css/songhuizong/SongHuiZongShouJinJiaCuBan-2.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  } */
+
+  .article-inner {
+    position: relative;
+    overflow: hidden;
+    /* 确保内容不会覆盖背景图 */
+  }
+
+</style>
+</section>
+    
+<footer class="footer">
+  <div class="outer" style="display: inline-block;">
+    <ul class="list-inline">
+      <li>LRay的博客&nbsp;  |&nbsp; 2024</li><br>
+      
+        <li>
+          
+            <img src="/images/foot-logo.png"  style="width: 16px;">
+            <a href="https://beian.miit.gov.cn/" target="_blank" style="text-decoration: none; color: rgba(0, 0, 0, 0.5);">
+              皖ICP备2024053806号-1
+            </a>
+          
+        </li><br>
+      
+      <li id="uptime">本站已安全运行：</li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  // 更新并实时显示站点运行时长
+  function updateUptime() {
+    // 获取网站创建时间，这里假设你有一个变量或者常量存储了网站创建时间
+    var startDate = new Date('2024-04-28');
+    
+    // 计算运行时长
+    var now = new Date();
+    var uptime = now.getTime() - startDate.getTime();
+    var seconds = Math.floor(uptime / 1000);
+    var minutes = Math.floor(seconds / 60);
+    var hours = Math.floor(minutes / 60);
+    var days = Math.floor(hours / 24);
+    
+    // 计算剩余的小时、分钟和秒数
+    hours %= 24;
+    minutes %= 60;
+    seconds %= 60;
+    
+    // 更新页面中的元素内容
+    var uptimeString = days + ' 天, ' + hours + ' 小时, ' + minutes + ' 分钟, ' + seconds + ' 秒';
+    document.getElementById('uptime').textContent = '本站已安全运行：' + uptimeString;
+  }
+  
+  // 每秒更新一次运行时长
+  setInterval(updateUptime, 1000);
+  
+  // 页面加载完成后立即更新一次
+  updateUptime();
+</script>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://lray-iu.oss-cn-hangzhou.aliyuncs.com/tenten.png" alt="LRay的博客" style="border-radius: 45px;"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">相册</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/favorite">收藏</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/postcard">收集</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="手机端似乎不支持该功能，我深感抱歉">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

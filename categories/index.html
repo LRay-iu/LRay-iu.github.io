@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="风过无痕">
+  
+  <title>
+    categories |
+    
+    LRay的博客
+  </title>
+  <!-- Icon -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <main class="content" >
+    <section class="outer" style="min-height:90vh">
+  
+    <h1 class="page-type-title">类别</h1>
+    <p class="category-count">目前共有4个分类</p> <!-- 显示分类数量 -->
+    <div class="categories-container">
+      <table>
+        <tbody>
+          
+            <tr>
+              <td>
+                <a href="/categories/生活记录" class="category-link">
+                  *&nbsp;&nbsp;&nbsp;生活记录
+                </a>
+              </td>
+            </tr>
+          
+            <tr>
+              <td>
+                <a href="/categories/后端" class="category-link">
+                  *&nbsp;&nbsp;&nbsp;后端
+                </a>
+              </td>
+            </tr>
+          
+            <tr>
+              <td>
+                <a href="/categories/前端" class="category-link">
+                  *&nbsp;&nbsp;&nbsp;前端
+                </a>
+              </td>
+            </tr>
+          
+            <tr>
+              <td>
+                <a href="/categories/Web3" class="category-link">
+                  *&nbsp;&nbsp;&nbsp;Web3
+                </a>
+              </td>
+            </tr>
+          
+        </tbody>
+      </table>
+    </div>
+  
+</section>
+
+<style>
+  .page-type-title{
+    margin-bottom: 20px;
+  }
+  .categories-container {
+    width: 100%; /* 设置容器宽度 */
+    justify-content: center;
+    margin: 20px 0 0 5vw;
+  }
+
+  .category-link {
+    text-decoration: none; /* 去除链接的下划线 */
+    color: inherit; /* 继承父元素的颜色 */
+    font-weight: bold; /* 设置文本粗体 */
+    font-size: 16px; /* 设置文本大小 */
+  }
+
+  .category-count{
+    text-align: center; 
+  }
+  table {
+    width: 100%; /* 表格宽度为容器宽度 */
+    border-collapse: collapse; /* 合并单元格边框 */
+  }
+  td {
+    padding:5px 0 20px 3vw; /* 设置单元格内边距 */
+    border-left: 3px dashed grey;
+    /* text-align: center; 文本居中 */
+  }
+
+</style>
+
+    
+<footer class="footer">
+  <div class="outer" style="display: inline-block;">
+    <ul class="list-inline">
+      <li>LRay的博客&nbsp;  |&nbsp; 2024</li><br>
+      
+        <li>
+          
+            <img src="/images/foot-logo.png"  style="width: 16px;">
+            <a href="https://beian.miit.gov.cn/" target="_blank" style="text-decoration: none; color: rgba(0, 0, 0, 0.5);">
+              皖ICP备2024053806号-1
+            </a>
+          
+        </li><br>
+      
+      <li id="uptime">本站已安全运行：</li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  // 更新并实时显示站点运行时长
+  function updateUptime() {
+    // 获取网站创建时间，这里假设你有一个变量或者常量存储了网站创建时间
+    var startDate = new Date('2024-04-28');
+    
+    // 计算运行时长
+    var now = new Date();
+    var uptime = now.getTime() - startDate.getTime();
+    var seconds = Math.floor(uptime / 1000);
+    var minutes = Math.floor(seconds / 60);
+    var hours = Math.floor(minutes / 60);
+    var days = Math.floor(hours / 24);
+    
+    // 计算剩余的小时、分钟和秒数
+    hours %= 24;
+    minutes %= 60;
+    seconds %= 60;
+    
+    // 更新页面中的元素内容
+    var uptimeString = days + ' 天, ' + hours + ' 小时, ' + minutes + ' 分钟, ' + seconds + ' 秒';
+    document.getElementById('uptime').textContent = '本站已安全运行：' + uptimeString;
+  }
+  
+  // 每秒更新一次运行时长
+  setInterval(updateUptime, 1000);
+  
+  // 页面加载完成后立即更新一次
+  updateUptime();
+</script>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://lray-iu.oss-cn-hangzhou.aliyuncs.com/tenten.png" alt="LRay的博客" style="border-radius: 45px;"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">相册</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/favorite">收藏</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/postcard">收集</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="手机端似乎不支持该功能，我深感抱歉">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

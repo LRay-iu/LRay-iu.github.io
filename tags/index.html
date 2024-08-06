@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="风过无痕">
+  
+  <title>
+    tags |
+    
+    LRay的博客
+  </title>
+  <!-- Icon -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <main class="content" >
+     
+<section class="outer" style="min-height:90vh">
+    
+        <h1 class="page-type-title">类别</h1>
+        <p class="category-count">目前共有4个分类，10个标签</p> <!-- 显示分类数量 -->
+        <div class="categories-container">
+          
+            <a href="/categories/生活记录" class="category-tag">
+              生活记录
+            </a>
+          
+            <a href="/categories/后端" class="category-tag">
+              后端
+            </a>
+          
+            <a href="/categories/前端" class="category-tag">
+              前端
+            </a>
+          
+            <a href="/categories/Web3" class="category-tag">
+              Web3
+            </a>
+          
+        </div>
+        
+      
+    <div class="tag-cloud-container">
+        <div class="layout-wrap-inner tag-cloud tag-link">
+            
+                <a href="/tags/Gin/" style="font-size: 15px;">Gin</a> <a href="/tags/Golang/" style="font-size: 15px;">Golang</a> <a href="/tags/Solidity/" style="font-size: 15px;">Solidity</a> <a href="/tags/Typescript/" style="font-size: 18px;">Typescript</a> <a href="/tags/Vue3-0/" style="font-size: 18px;">Vue3.0</a> <a href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" style="font-size: 21px;">以太坊</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 21px;">区块链</a> <a href="/tags/%E6%97%85%E9%80%94/" style="font-size: 24px;">旅途</a> <a href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/" style="font-size: 18px;">智能合约</a> <a href="/tags/%E6%AF%94%E7%89%B9%E5%B8%81/" style="font-size: 15px;">比特币</a>
+            
+        </div>
+    </div>
+</section>
+
+
+
+<style>
+        .page-type-title{
+      margin-bottom: 20px;
+    }
+    .categories-container {
+      width: 100%; /* 设置容器宽度 */
+      justify-content: center;
+    }
+    .categories-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* 标签之间的间距 */
+}
+
+.category-tag {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #ffffff; /* 背景颜色 */
+  border: 0.1px solid rgb(202, 202, 202);
+  color: #6e6e6e; /* 文本颜色 */
+  text-decoration: none; /* 移除下划线 */
+  border-radius: 15px; /* 圆角边框 */
+  transition: background-color 0.3s; /* 背景颜色渐变 */
+}
+
+.category-tag:hover {
+  background-color: #eeeeee; /* 悬停时背景颜色 */
+}
+    .category-link {
+      text-decoration: none; /* 去除链接的下划线 */
+      color: inherit; /* 继承父元素的颜色 */
+      font-weight: bold; /* 设置文本粗体 */
+      font-size: 16px; /* 设置文本大小 */
+    }
+  
+    .category-count{
+      text-align: center; 
+    }
+    table {
+      width: 100%; /* 表格宽度为容器宽度 */
+      border-collapse: collapse; /* 合并单元格边框 */
+    }
+    td {
+      padding:5px 0 20px 3vw; /* 设置单元格内边距 */
+      border-left: 3px dashed grey;
+      /* text-align: center; 文本居中 */
+    }
+  .tags-container {
+  width: 100%; /* 设置容器宽度 */
+  padding: 10px;
+}
+.tag-link {
+  text-decoration: none; /* 去除链接的下划线 */
+}
+
+.tag-cloud-container {
+    max-width: 800px; /* 设置标签云容器的最大宽度 */
+    margin: 5vh auto; /* 将标签云容器居中显示 */
+}
+
+.tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* 将标签云内的标签水平居中显示 */
+    align-items: center; /* 垂直居中 */
+}
+
+.tag-cloud a {
+    margin: 20px; /* 设置标签之间的间距 */
+    text-decoration: none;
+    color: #333; /* 设置标签的文字颜色 */
+    font-size: 16px; /* 设置标签的默认字体大小 */
+}
+
+
+</style>
+
+    
+<footer class="footer">
+  <div class="outer" style="display: inline-block;">
+    <ul class="list-inline">
+      <li>LRay的博客&nbsp;  |&nbsp; 2024</li><br>
+      
+        <li>
+          
+            <img src="/images/foot-logo.png"  style="width: 16px;">
+            <a href="https://beian.miit.gov.cn/" target="_blank" style="text-decoration: none; color: rgba(0, 0, 0, 0.5);">
+              皖ICP备2024053806号-1
+            </a>
+          
+        </li><br>
+      
+      <li id="uptime">本站已安全运行：</li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  // 更新并实时显示站点运行时长
+  function updateUptime() {
+    // 获取网站创建时间，这里假设你有一个变量或者常量存储了网站创建时间
+    var startDate = new Date('2024-04-28');
+    
+    // 计算运行时长
+    var now = new Date();
+    var uptime = now.getTime() - startDate.getTime();
+    var seconds = Math.floor(uptime / 1000);
+    var minutes = Math.floor(seconds / 60);
+    var hours = Math.floor(minutes / 60);
+    var days = Math.floor(hours / 24);
+    
+    // 计算剩余的小时、分钟和秒数
+    hours %= 24;
+    minutes %= 60;
+    seconds %= 60;
+    
+    // 更新页面中的元素内容
+    var uptimeString = days + ' 天, ' + hours + ' 小时, ' + minutes + ' 分钟, ' + seconds + ' 秒';
+    document.getElementById('uptime').textContent = '本站已安全运行：' + uptimeString;
+  }
+  
+  // 每秒更新一次运行时长
+  setInterval(updateUptime, 1000);
+  
+  // 页面加载完成后立即更新一次
+  updateUptime();
+</script>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://lray-iu.oss-cn-hangzhou.aliyuncs.com/tenten.png" alt="LRay的博客" style="border-radius: 45px;"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">相册</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/favorite">收藏</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/postcard">收集</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="手机端似乎不支持该功能，我深感抱歉">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>
